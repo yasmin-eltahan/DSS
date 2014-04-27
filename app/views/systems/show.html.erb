@@ -1,0 +1,65 @@
+<br>
+<div  class="container">
+	<div class="header"><%= @system.name %></div> <br>
+	<div  class="show-box-list">
+		<div class="tabbable"> <!-- Only required for left/right tabs -->
+		  <ul class="nav nav-tabs">
+		    <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+		    <li ><a href="#tab2" data-toggle="tab">versions</a></li>
+		    <li ><a href="#tab3" data-toggle="tab">Reviews</a></li>
+		  </ul>
+		  <div class="tab-content">
+
+		    <div class="tab-pane active" id="tab1">
+		      <br>
+		      <li> <b>Launched On:</b> 6 July 1992 </li><br>
+		      <li> <b>Number of users:</b> <%= @system.no_of_employees %></li> <br>
+		      <li> <b>Programming Language:</b> <%= @system.programming_language %></li><br>
+		      <li><b>Description: </b><br><br>
+		     <ul class="line-break-padding"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</ul></li><br>
+		      <li><b>Technical Details: </b><br><br>
+		     	<% @technicals.each do |t| %> 
+		       <span class="padding">	<%= t.technical.name %>: <%= t.value %>  </span><br>
+		        <% end %>
+		      </li>
+		    </div>
+
+		    <div class="tab-pane" id="tab2">
+		    	<br>
+		      <ul>
+		      	<% @versions.each do |version| %> 
+		      	<li><%= version.name %></li><br>
+		      	<%end%>
+		      </ul>
+		    </div>
+
+		      <div class="tab-pane " id="tab3">
+		      	<div class="inner-content-div">
+		    	<br>
+		      <ul class="line-break">
+		      	<% if @reviews.blank? %>
+		      	 <p>There are no reviews </p>
+		      	<% else %>
+		      	<% @reviews.each do |r| %>
+		      	<%= image_tag("avatar.jpg", :alt => "rss feed")%> <b style="padding-left:15px;">  <%=  r.reviewer %></b> <i class="pull-right date"><%= r.source %></i><br><br>
+		      	<%= r.review %> <br>
+		      	<%= r.review2 %><br>
+		      	<%= r.review3 %> <br><hr style="border-width:0"><br>
+		      	<% end %>
+		      	<% end %>
+		      </ul>
+		     </div>
+		    </div>
+
+		  </div>
+	   </div>
+
+	 <br>
+	
+	</div>
+</div>

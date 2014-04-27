@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DSS1</title>
+  <%= stylesheet_link_tag    "application", "bootstrap.css" , :media => "all" %>
+
+  <%= javascript_include_tag "application" , "bootstrap.js" , "jquery.slimscroll.js" %>
+  <%= csrf_meta_tags %>
+</head>
+<body class = "container-fluid">
+  <% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :get %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+  <% end %>
+  <div class="row-fluid">
+    <div class="span3 pull-right">
+      <div class= "toplist">
+         
+         <div class = "top"> 
+          <br>
+          Top Vendors:
+          <br>
+          <br>
+       </div>
+       <br>
+        <%top_vendors%>
+        <% @rank.each do |r|%>
+        <p class = "t_list"><%= r.rank%>.
+        <%= link_to(r.vendor.name, {:controller => 'vendors',:action => 'show', :id => r.vendor_id}) %>
+        </p>
+        <br>
+        <%end%>
+      </div>
+     <div class= "toplist soft">  
+        <div class = "top"> 
+          <br>
+          Top Softwares:
+          <br>
+          <br>
+        </div>
+        <br>
+        <%top_software%>
+      <% @ran.each do |r|%>
+        <p class = "t_list"><%= r.rank%>.
+        <%= link_to(r.system.name, {:controller => 'systems',:action => 'show', :id => r.system_id}) %>
+        <br><br></p>
+        <%end%>
+      </div>
+
+    </div>
+    <div class="span9">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>

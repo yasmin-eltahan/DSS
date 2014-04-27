@@ -1,0 +1,30 @@
+ <div class="modal-body" "body">
+    <p>
+	<dl>
+
+		
+		
+<dt><%= f.label("Name") %></dt>
+<dd><%= f.text_field(:name)%></dd>
+
+<dt><%= f.label("Programming Language") %></dt>
+<dd><%= f.text_field(:programming_language)%></dd>
+
+<dt><%= f.label("Description") %></dt>
+<dd><%= f.text_area(:description)%></dd>
+
+<dt><%= f.label("No Of Users") %></dt>
+<dd><%= f.text_field(:no_of_users)%></dd>
+<%= f.hidden_field :vendor_id , :value=> @vendor.id %>
+
+
+</dl>
+</br>
+
+</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+ 		<button class = "btn btn-primary" type = "submit">Save</button>
+    
+  </div>

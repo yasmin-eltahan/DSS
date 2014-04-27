@@ -1,0 +1,91 @@
+<body>
+	<div class ="container">
+
+<div>
+<a href="#myModal" role="button" class="btn btn-primary edit" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Edit A Vendor</h3>
+  </div>
+  <%= form_for(@vendo , :as=>:vendor, :url=>{:action=>'update' , :id => @vendor.id}) do |f| %>
+  <%= render(:partial=> 'form' , :locals => {:f => f})%>
+ <% end %>
+</div>
+</div> 
+<p class =" btn btn-primary delete" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
+<br>
+<br>
+<div class = "header"><%= @vendor.name %></div><br>
+
+<div class="tabbable show-box-list"> 
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+    <li><a href="#tab2" data-toggle="tab">Systems</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <br>
+    	<ul>
+        <li><b>Description:</b><br></li>
+         <p class = "line-break"><%= @vendor.description %> </p>
+    		 <li><b>Revenue:</b><br></li>
+    		 <%= @vendor.revenue %>	
+    		<br>
+    		 <li><b>Public:</b><br></li>
+    		<%= @vendor.public %>
+    		<br>
+    		<li><b>No of employees:</b><br></li>
+    		<%= @vendor.no_of_employees%>
+    		<br>
+    		<li><b>Headquarters:</b><br></li>
+    		<p class ="add"><%= @vendor.headquarters%><p>
+          
+          <address class ="add">
+        <li><b>Address:</b><br></li>
+        <%=@vendor.address%><br>
+        <abbr title="Phone">P:</abbr> <%=@vendor.phone%> 
+      </address>
+    <address>
+        <li><b>Website:</b><br></li>
+       <a href="#"><%=@vendor.website%></a>
+      </address>
+    	</ul>
+      <br>
+    <br>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <ul><% @systems.each do |system| %>
+      <p class = "title"><%=system.name%></p>
+      <p class = "line-break"><%=system.description%></p>
+      <br>
+      <%end%>
+      <% if !@systems.blank? %>
+      <%= link_to("Read More >>", {:controller => 'systems',:action => 'list'},:class => 'read')  %>
+        <%end%>
+    </ul>
+    <div>
+      <a href="#mModal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a>
+
+      <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Add A System</h3>
+      </div>
+      <%= form_for(@system , :as=>:system, :url=>{:controller => 'systems' , :action=>'create' , :id => @vendor.id}) do |f| %>
+       <%= render(:partial=> 'systems/form2' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+    </div>
+      
+    </div>
+      
+    
+  </div>
+</div>
+
+</body>

@@ -1,0 +1,46 @@
+<body>
+	
+<br>
+<br>
+<div class="container">	
+<a href="#myModal" role="button" class="btn btn-primary new" data-toggle="modal"><i class="icon-plus icon-white"></i> <b>New</b></a>
+<div>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Add A Vendor</h3>
+  </div>
+  <%= form_for(@vendor , :as=>:vendor, :url=>{:action=>'create'}) do |f| %>
+  <%= render(:partial=> 'form' , :locals => {:f => f})%>
+ <% end %>
+</div> 
+</div>
+		
+		
+		<div class="header"> Vendors</div>
+		<br>
+		<% @vendors.each do |vendor| %>
+		<div class ="box-list">
+		<br>
+		
+		<%= link_to(vendor.name.gsub("-" , " "), {:action => 'show', :id => vendor.id} ,:class => "title") %>
+		<br>
+		<br>
+		<address class ="add">
+  			<strong class = "address">Address:</strong><br>
+  			<%=vendor.address%><br>
+  			<abbr title="Phone">P:</abbr> <%=vendor.phone%> 
+			</address>
+		<address>
+  			<strong class = "address">Website:</strong><br>
+ 			 <a href="#"><%=vendor.website%></a>
+			</address>
+		<br>
+		
+	</div>
+	<br>
+<%end%>
+
+	</div>
+</body>

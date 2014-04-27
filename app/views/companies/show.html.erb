@@ -1,0 +1,101 @@
+<body>
+	<div class ="container">
+
+<div>
+<a href="#myModal" role="button" class="btn btn-primary edit" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Edit A Company</h3>
+  </div>
+  <%= form_for(@company , :as=>:company, :url=>{:action=>'update' , :id => @company.id}) do |f| %>
+  <%= render(:partial=> 'form' , :locals => {:f => f})%>
+ <% end %>
+</div>
+</div> 
+<p class =" btn btn-primary delete" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
+<br>
+<br>
+<div class = "header"><%= @company.name %></div><br>
+
+<div class="tabbable show-box-list"> 
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+    <li><a href="#tab2" data-toggle="tab">Criteria</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <br>
+    	<ul>
+        <li><b>Owner:</b><br></li>
+        <%= @company.owner %>
+        <br>
+    		 <li><b>Revenue:</b><br></li>
+    		 <%= @company.revenue %>	
+    		<br>
+    		 <li><b>Public:</b><br></li>
+    		<%= @company.public %>
+    		<br>
+    		<li><b>No of employees:</b><br></li>
+    		<%= @company.no_of_employees%>
+    		<br>
+        <li><b>Goals:</b><br></li>
+         <%= @company.goals %>  
+        <br>
+         <li><b>Size:</b><br></li>
+        <%= @company.size %>
+        <br>
+        <li><b>No of Branches:</b><br></li>
+        <%= @company.no_of_branches%>
+        <br>
+    		<li><b>Headquarters:</b><br></li>
+    		<p class ="add"><%= @company.headquarters%><p>
+          
+          <address class ="add">
+        <li><b>Address:</b><br></li>
+        <%=@company.address%><br>
+        <abbr title="Phone">P:</abbr> <%=@company.phone%> 
+      </address>
+    <address>
+        <li><b>Website:</b><br></li>
+       <a href="#"><%=@company.website%></a>
+      </address>
+    	</ul>
+      <br>
+    <br>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <br>
+      <% if !@criteria.blank?%>
+      <ul><% @criteria.each do |criteria| %> 
+      <p class = "title"><%=criteria.criteria.name%></p><p>Weight: <%=criteria.weight%>%</p>
+      <p class = "line-break"><%=criteria.criteria.description%></p>
+      <br>
+      <%end%>
+      <%end%>
+    </ul>
+    <div>
+      <a href="#mModal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add Criteria"><i class="icon-plus icon-white" ></i> New</a>
+
+      <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Add Criteria To Company</h3>
+      </div>
+      <%= form_for(:company_criteria, :url=>{:controller => 'company_criteria' , :action=>'enter_criteria' , :id => @company.id}) do |f| %>
+       <%= render(:partial=> 'company_criteria/view' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+    </div>
+      
+    </div>
+      
+    
+  </div>
+</div>
+
+</body>

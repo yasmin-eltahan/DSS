@@ -1,0 +1,133 @@
+@import 'bootstrap';
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require bootstrap
+ *= require_tree .
+ */
+ 
+.header {
+font-size: 40px;
+margin: 8px 10px;
+color: #339999;
+font-family: Britannic Bold;
+}
+
+.box-list {
+ background: #f2f2f2;
+  -moz-border-radius: 3px;
+       -webkit-border-radius: 3px; 
+      min-height: 100px;
+      padding-left: 20px;
+    
+}
+
+.show-box-list {
+ background: #f2f2f2;
+  -moz-border-radius: 3px;
+       -webkit-border-radius: 3px; 
+      min-height: 550px;
+      padding-left: 20px;
+}
+
+.line-break {
+max-width: 100ch;
+text-align: justify;
+}
+
+.title {
+font-weight:bold;
+font-size: 18px;
+}
+
+.padding {
+padding-left: 23px;
+}
+
+.add{
+	max-width: 32ch;
+	text-align: justify;
+
+}
+
+.address{
+	font-size: 13px;
+}
+
+
+.new{
+position:absolute;
+top: 70px;
+margin-left: 860px;	
+}
+
+.edit{
+  position:absolute;
+  top: 70px;
+  margin-left: 845px; 
+}
+.delete{
+  position:absolute;
+  top: 70px;
+  margin-left: 890px; 
+}
+
+.addin{
+
+position:absolute;
+  top: 160px;
+  margin-left: 830px;
+  
+}
+
+.toplist{
+background: #f2f2f2;
+  -moz-border-radius: 3px;
+       -webkit-border-radius: 3px; 
+      
+      max-width: 260px;
+    margin-top: 95px;
+}
+
+.t_list {
+font-weight:bold;
+font-size: 14px;
+color: #0088cc;
+margin-bottom:15px;
+padding-left: 20px;
+}
+
+.top{
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+color: #ffffff;
+font-size: 25px;
+background: #339999;
+font-family: Britannic Bold;
+padding-left: 20px;
+border-bottom-style: solid;
+border-bottom-width: 4px;
+border-bottom-color: #ffffff; 
+}
+
+
+.soft{
+  margin-top: 20px;
+}
+
+.weight{
+  margin-left: 100px;
+}
+
+
+
+
+

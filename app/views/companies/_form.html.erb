@@ -1,0 +1,51 @@
+ <div class="modal-body" "body">
+    <p>
+	<dl>
+		
+<dt><%= f.label("Name") %></dt>
+<dd><%= f.text_field(:name)%></dd>
+
+<dt><%= f.label("Address") %></dt>
+<dd><%= f.text_field(:address)%></dd>
+
+<dt><%= f.label("Website") %></dt>
+<dd><%= f.text_field(:website)%></dd>
+
+<dt><%= f.label("Phone") %></dt>
+<dd><%= f.text_field(:phone)%></dd>
+
+<dt><%= f.label("Size") %></dt>
+<dd><%= f.text_field(:size)%></dd>
+
+<dt><%= f.label("Owner") %></dt>
+<dd><%= f.text_field(:owner)%></dd>
+
+<dt><%= f.label("Goals") %></dt>
+<dd><%= f.text_area(:goals , :size => "10x15")%></dd>
+
+<dt><%= f.label("Revenue") %></dt>
+<dd><%= f.text_field(:revenue)%></dd>
+
+<dt><%= f.label("Public") %></dt>
+<dd><%= f.text_field(:public)%></dd>
+
+<dt><%= f.label("No of employees") %></dt>
+<dd><%= f.text_field(:no_of_employees)%></dd>
+
+<dt><%= f.label("No of branches") %></dt>
+<dd><%= f.text_field(:no_of_branches)%></dd>
+
+<dt><%= f.label("Headquarters") %></dt>
+<dd><%= f.text_field(:headquarters)%></dd>
+
+
+</dl>
+</br>
+
+</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+ 		<button class = "btn btn-primary" type = "submit">Save</button>
+    
+  </div>

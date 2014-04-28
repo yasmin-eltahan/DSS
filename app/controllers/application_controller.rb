@@ -15,4 +15,5 @@ helper_method :current_user
 # def parse_facebook_cookies
 #  @facebook_cookies = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
 # end
+
 end

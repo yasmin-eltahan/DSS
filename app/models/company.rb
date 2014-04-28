@@ -4,4 +4,7 @@ class Company < ActiveRecord::Base
      has_many :requirements , :through => :company_requirements
      has_many :company_criteria
      has_many :company_systems
+     has_many :crtieria, :through => :company_criteria
+     has_many :company_subcriteria
+
 end

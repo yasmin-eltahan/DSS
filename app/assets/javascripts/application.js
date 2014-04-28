@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require_tree .
 
 $(function(){
@@ -25,4 +26,35 @@ $(function(){
         height: '560px'
     });
 });
+
+
+
+$ (function(){
+$(".cb").click(function(){
+	if($(this).is(':checked')){
+	var c = $(this).val()
+	$('#'+c).slideDown();	
+	
+	}
+	else{
+		var c = $(this).val()
+		$('#'+c).slideUp();
+		$('#'+c).find('input[type=checkbox]:checked').removeAttr('checked');
+	}
+});
+});
+
+$ (function(){
+var sum= 0; 
+$('.weight').change(function(){
+	sum= 0; 
+  $('.weight').each(function() {
+    sum += Number($(this).val());
+  });
+  $('#sum').val(sum);
+});
+});
+
+
+
 

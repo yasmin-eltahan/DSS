@@ -5,4 +5,5 @@ class Requirement < ActiveRecord::Base
   has_many :system_requirements
   has_many :company_requirements
   has_many :companies, :through => :company_requirements
+
 end

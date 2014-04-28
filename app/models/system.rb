@@ -7,5 +7,7 @@ class System < ActiveRecord::Base
    has_many :reviews
    has_many :company_criteria
    has_many :requirements, :through => :system_requirements
-    has_many :system_requirements
+   has_many :system_requirements
+   has_many :ranks
+
 end

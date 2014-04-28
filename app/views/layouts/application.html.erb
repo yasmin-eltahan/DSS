@@ -2,17 +2,17 @@
 <html>
 <head>
   <title>DSS</title>
-  <%= stylesheet_link_tag    "application", "bootstrap" , "jquery.slimscroll.min.js" , :media => "all" %>
-  <%= javascript_include_tag "application" , "bootstrap" , "bootstrap-responsive.css" %>
+ <%= stylesheet_link_tag    "application", "bootstrap" , :media => "all" %>
+  <%= javascript_include_tag "application" , "bootstrap.js" , "jquery.slimscroll.js" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  
+<body class = "container-fluid">
+
 <div class="navbar navbar">
   <div class="navbar-inner kay"> 
      
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
+       <li class="nav-link"><a href="#">Link</a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -29,8 +29,8 @@
       </ul>
     </div>
   </div>
-  
-<div id="user_nav">
+
+  <div id="user_nav">
   <% if current_user %>
     Signed in as <strong><%= current_user.name %></strong>!
     <%= link_to "Sign out", signout_path, id: "sign_out" %>
@@ -39,7 +39,28 @@
   <% end %>
 </div>
 
-<%= yield %>
 
+  <% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :get %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+  <% end %>
+
+  <div class="row-fluid">
+    <div class="span1 ">
+      <div class= "toplist">   
+         <div class = "top"> 
+       
+
+ 
+
+    </div>
+  </div>
+</div>
+    <div class="span11 pull-right">
+      <%= yield %>
+    </div>
+  </div>
 </body>
 </html>

@@ -10,6 +10,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap
  *= require_tree .
  */
 
@@ -17,15 +18,24 @@ modalmaxsize {
 	max-height:100px;
 }
 
+.nav-link {
+ background-color:red;
+ padding-top:-4px;
+padding-bottom:0px;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-length: 0px;
+border-right-color: black; 
+  font-weight:bold;
+}
 
  .text {
- display:inline-block;
-
+  font-size: 15px;
  }
 
  .button {
  margin-left:720px;
- margin-top:-25px;
+ margin-top:0px;
  margin-bottom:4px;
  }
 
@@ -71,7 +81,6 @@ modalmaxsize {
 }
 
 .criteria-background {
-
 	color: #339999;
 	padding-left: 17px;
 	padding-top: 5px;
@@ -83,9 +92,10 @@ modalmaxsize {
 	padding-right: 2px;
 }
 
+
 .box-list {
-	  background: #f2f2f2;
-	   -moz-border-radius: 3px;
+ background: #f2f2f2;
+  -moz-border-radius: 3px;
        -webkit-border-radius: 3px; 
       min-height: 100px;
       padding-left: 20px;
@@ -142,3 +152,98 @@ height: 1px;
 .textbox {
 	size:10;
 }
+
+
+
+.line-break {
+max-width: 100ch;
+text-align: justify;
+}
+
+.title {
+font-weight:bold;
+font-size: 18px;
+}
+
+.padding {
+padding-left: 23px;
+}
+
+.add{
+	max-width: 32ch;
+	text-align: justify;
+
+}
+
+.address{
+	font-size: 13px;
+}
+
+
+.new{
+position:absolute;
+top: 70px;
+margin-left: 860px;	
+}
+
+.edit{
+  position:absolute;
+  top: 70px;
+  margin-left: 845px; 
+}
+.delete{
+  position:absolute;
+  top: 70px;
+  margin-left: 890px; 
+}
+
+.addin{
+
+position:absolute;
+  top: 160px;
+  margin-left: 830px;
+  
+}
+
+.toplist{
+background: #f2f2f2;
+  -moz-border-radius: 3px;
+       -webkit-border-radius: 3px; 
+      
+      max-width: 260px;
+    margin-top: 95px;
+}
+
+.t_list {
+font-weight:bold;
+font-size: 14px;
+color: #0088cc;
+margin-bottom:15px;
+padding-left: 20px;
+}
+
+.top{
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+color: #ffffff;
+font-size: 25px;
+background: #339999;
+font-family: Britannic Bold;
+padding-left: 20px;
+border-bottom-style: solid;
+border-bottom-width: 4px;
+border-bottom-color: #ffffff; 
+}
+
+
+.soft{
+  margin-top: 20px;
+}
+
+.weight{
+  margin-left: 100px;
+}
+
+
+
+

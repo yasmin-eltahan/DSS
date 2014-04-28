@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140425181330) do
+ActiveRecord::Schema.define(:version => 20140427203620) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -23,26 +23,34 @@ ActiveRecord::Schema.define(:version => 20140425181330) do
     t.string   "goals"
     t.boolean  "public"
     t.integer  "no_of_employees"
-    t.integer  "no_of_braches"
     t.integer  "revenue"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "phone"
+    t.integer  "no_of_branches"
   end
 
   create_table "company_criteria", :force => true do |t|
     t.integer  "company_id"
     t.integer  "criteria_id"
     t.integer  "system_id"
-    t.integer  "weight"
     t.integer  "value"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "weight",      :default => 0
   end
 
   create_table "company_requirements", :force => true do |t|
     t.integer  "company_id"
     t.integer  "requirement_id"
     t.string   "value"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "company_subcriteria", :force => true do |t|
+    t.integer  "subcriteria_id"
+    t.integer  "company_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
@@ -64,9 +72,11 @@ ActiveRecord::Schema.define(:version => 20140425181330) do
 
   create_table "ranks", :force => true do |t|
     t.integer  "rank"
-    t.integer  "version_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "source"
+    t.integer  "system_id"
+    t.integer  "vendor_id"
   end
 
   create_table "requirements", :force => true do |t|
@@ -134,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20140425181330) do
     t.string   "name"
     t.string   "programming_language"
     t.integer  "no_of_employees"
+    t.text     "description"
   end
 
   create_table "systems_technicals", :id => false, :force => true do |t|
@@ -156,9 +167,22 @@ ActiveRecord::Schema.define(:version => 20140425181330) do
     t.string   "name"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "vendors", :force => true do |t|
     t.string   "name"
@@ -170,6 +194,8 @@ ActiveRecord::Schema.define(:version => 20140425181330) do
     t.string   "headquarters"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+    t.string   "phone"
+    t.text     "description"
   end
 
   create_table "versions", :force => true do |t|

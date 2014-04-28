@@ -12,7 +12,6 @@ class CompanyCriteriaController < ApplicationController
 		@weight = params[:company_criteria]
 		@sub = params[:subcriteria_ids]
 		@sum = params[:company_criteria][:sum]
-		if @sum.to_s == "100"
 		@criteria.each do |c|
 
 			@c = @weight[c.to_s]
@@ -37,9 +36,6 @@ class CompanyCriteriaController < ApplicationController
 	if @co.save && @subc.save 
 		redirect_to(:controller => 'companies' , :action =>'show' , :id=> @company)
 	end
-	else
-	render('new')
-	end
 	end
 
 	def edit
@@ -59,7 +55,6 @@ class CompanyCriteriaController < ApplicationController
 		@sub = params[:subcriteria_ids]
 		@weight = params[:company_criteria]
 		@sum = params[:company_criteria][:sum]
-		if @sum.to_s == "100"
 		@ids.each do|id|
 			if @criteria.include?(id.to_s)
 				@criteria.each do |c|
@@ -92,10 +87,6 @@ class CompanyCriteriaController < ApplicationController
 		end
 	end
 		redirect_to(:controller => 'companies' , :action =>'show' , :id=> @company)
-
-	else
-		render('edit')
-	end
 	end
 	
 end

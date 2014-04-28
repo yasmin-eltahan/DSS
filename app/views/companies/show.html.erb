@@ -74,8 +74,23 @@
       <p class = "line-break"><%=criteria.criteria.description%></p>
       <br>
       <%end%>
-      <%end%>
+      
     </ul>
+    <div>
+      <a href="#Modal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add Criteria"><i class="icon-pencil icon-white"></i>Edit</a>
+
+      <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Edit Criteria Of The Company</h3>
+      </div>
+      <%= form_for(:company_criteria, :url=>{:controller => 'company_criteria' , :action=>'edit_criteria' , :id => @company.id}) do |f| %>
+       <%= render(:partial=> 'company_criteria/edit' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+    <%else%>
     <div>
       <a href="#mModal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add Criteria"><i class="icon-plus icon-white" ></i> New</a>
 
@@ -90,6 +105,7 @@
        <% end %>
         </div>
           </div>
+          <%end%>
     </div>
       
     </div>

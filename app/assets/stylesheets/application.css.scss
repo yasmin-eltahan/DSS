@@ -124,7 +124,57 @@ border-bottom-color: #ffffff;
 }
 
 .weight{
-  margin-left: 100px;
+  margin-right: 0px; 
+}
+
+.p{
+position: absolute;
+  margin-left: 190px;
+  margin-top: -35px;
+}
+
+.label1{
+  width: 130px; 
+  margin-right: 0px;
+   background: #f2f2f2;}
+
+.list{
+  -webkit-column-count:3;
+  -moz-column-count:3;
+column-count:3;
+-webkit-column-gap:30px; 
+-moz-column-gap:30px;
+column-gap:30px;
+}
+
+.criteria-background {
+
+  color: #339999;
+  padding-left: 17px;
+  padding-top: 5px;
+  margin-right: 10px;
+  margin-top: -4px;
+}
+
+hr {
+border-color: #D8D8D8  ;
+background-color: #D8D8D8  ;
+height: 1px;
+}
+
+.color {
+       background: #f2f2f2;
+       padding: 5px;
+  margin-left: -22px;
+  margin-right: 2px;
+  margin-top: 0px;
+}
+
+.color2 {
+       background: #f2f2f2;
+       padding: 5px;
+  margin-right: 2px;
+  margin-top: 0px;
 }
 
 

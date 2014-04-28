@@ -19,8 +19,7 @@ $ (function(){
 $(".cb").click(function(){
 	if($(this).is(':checked')){
 	var c = $(this).val()
-	$('#'+c).slideDown();	
-	
+	$('#'+c).slideDown();
 	}
 	else{
 		var c = $(this).val()
@@ -32,12 +31,17 @@ $(".cb").click(function(){
 
 $ (function(){
 var sum= 0; 
-$('.weight').change(function(){
+$('.weight').keyup(function(){
 	sum= 0; 
   $('.weight').each(function() {
     sum += Number($(this).val());
   });
-  $('#sum').val(sum);
+  if (sum == 100){
+  	$('.save').removeAttr("disabled");
+  }
+  else{
+  	$('.save').attr("disabled", true);
+  }
 });
 });
 

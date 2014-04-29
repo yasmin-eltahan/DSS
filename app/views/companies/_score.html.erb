@@ -1,0 +1,20 @@
+<div class="color">
+<% @criteria.each do |c| %> 
+<div >
+<h4 class="criteria-background"><%= c.criteria.name %>
+<span class="pull-right"><%= c.weight %>%<span></h4>
+</div>
+<% cid = c.criteria.id %>
+<% w = c.weight%>
+	<% @systems.each do |s| %>
+	    <div style="padding-left:20px;">
+		    <% sid = s.system.id %>
+		    <%  @id = sid.to_s  + "," + w.to_s + "," + cid.to_s %>
+			<% name = s.system.name %>
+			<div class="text"><%= f.label(name) %></div>
+		   <span style="margin-left:100px;"> <%= f.text_field(@id , :class=>"span1")%> </span><br>
+		</div>
+	<%end%>
+	<hr>
+<%end%>
+<div>

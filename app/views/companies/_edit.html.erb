@@ -1,0 +1,27 @@
+<div class="color ">
+<% @criteria.each do |c| %> 
+<div >
+<h4 class="criteria-background"><%= c.criteria.name %>
+<span class="pull-right"><%= c.weight %>%<span></h4>
+</div>
+<% cid = c.criteria.id %>
+<% w = c.weight%>
+	<% @edits.each do |e| %>
+	    <div style="padding-left:20px;">
+	    	<% if (c.criteria.id == e.criteria_id) %>
+		    <% sid = e.system.id %>
+		    <%  @id = sid.to_s  + "," + w.to_s + "," + cid.to_s %>
+			<% name = e.system.name %>
+			<div class="text"><%= f.label(name) %></div>
+			<% value = e.value %>
+		   <span style="margin-left:100px;"> <%= f.text_field(@id , :value=> value , :class=>"span1")%> </span>
+		   <br>
+           <% end %>
+		</div>
+	<%end%>
+	<hr>
+<%end%>
+
+<div>
+
+	

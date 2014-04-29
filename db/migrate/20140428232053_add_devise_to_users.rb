@@ -1,5 +1,5 @@
-class DeviseCreateUsers < ActiveRecord::Migration
-  def change
+class AddDeviseToUsers < ActiveRecord::Migration
+    def change
     create_table(:users) do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
@@ -32,14 +32,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       ## Token authenticatable
       # t.string :authentication_token
-      t.string :provider
-      t.string :uid
-      t.string :name
-      t.string :oauth_token
-      t.datetime :oauth_expires_at
 
 
-      t.timestamps
+      # Uncomment below if timestamps were not included in your original model.
+      # t.timestamps
     end
 
     add_index :users, :email,                :unique => true

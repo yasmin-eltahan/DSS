@@ -1,12 +1,13 @@
 class SessionsController < ApplicationController
-  def create
-    user = User.from_omniauth(env["omniauth.auth"])
-    session[:user_id] = user.id
-    redirect_to(:controller => 'systems' , :action=>'list')
-  end
 
-  def destroy
-    session[:user_id] = nil
-  redirect_to(:controller => 'systems' , :action=>'list')
-  end
-end
+#   def create
+#     user = User.from_omniauth(env["omniauth.auth"])
+#     session[:user_id] = user.id
+#     redirect_to(:controller => 'systems' , :action=>'list')
+#   end
+
+#   def destroy
+#     session[:user_id] = nil
+#   redirect_to(:controller => 'systems' , :action=>'list')
+#   end
+ end

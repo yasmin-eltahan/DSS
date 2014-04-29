@@ -30,22 +30,17 @@
     </div>
   </div>
 
-  <div id="user_nav">
-  <% if current_user %>
-    Signed in as <strong><%= current_user.name %></strong>!
-    <%= link_to "Sign out", signout_path, id: "sign_out" %>
-  <% else %>
-    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-  <% end %>
-</div>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p> 
 
+ <% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>.
+  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path %> |
+  <%= link_to "Login", new_user_session_path %> 
+<% end %>
 
-  <% if user_signed_in? %>
-    Signed in as <%= current_user.email %>. Not you?
-    <%= link_to "Sign out", destroy_user_session_path, :method => :get %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
-  <% end %>
 
   <div class="row-fluid">
     <div class="span1 ">
@@ -59,6 +54,7 @@
   </div>
 </div>
     <div class="span11 pull-right">
+
       <%= yield %>
     </div>
   </div>

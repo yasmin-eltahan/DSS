@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429022543) do
+ActiveRecord::Schema.define(:version => 20140430194206) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20140429022543) do
     t.string   "value"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.boolean  "max"
   end
 
   create_table "company_subcriteria", :force => true do |t|
@@ -81,10 +82,9 @@ ActiveRecord::Schema.define(:version => 20140429022543) do
 
   create_table "requirements", :force => true do |t|
     t.string   "name"
-    t.boolean  "technical"
-    t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "type_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "reviews", :force => true do |t|
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20140429022543) do
     t.string   "value"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.boolean  "max"
   end
 
   create_table "system_technicals", :force => true do |t|
@@ -157,6 +158,15 @@ ActiveRecord::Schema.define(:version => 20140429022543) do
   create_table "technicals", :force => true do |t|
     t.string   "name"
     t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "types", :force => true do |t|
+    t.string   "name"
+    t.boolean  "technical"
+    t.string   "description"
+    t.boolean  "string"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

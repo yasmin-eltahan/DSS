@@ -1,4 +1,9 @@
-DSS1::Application.routes.draw do
+DSS::Application.routes.draw do
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+match 'auth/:provider/callback', to: 'sessions#create'
+match 'auth/failure', to: redirect('/')
+match 'signout', to: 'sessions#destroy', as: 'signout'
   devise_for :users
 
    #root :to => "home#index"

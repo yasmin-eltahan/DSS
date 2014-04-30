@@ -4,4 +4,5 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-DSS1::Application.config.secret_token = '586c2ed88903a7e2e158126673c185d225c3af6fabcd7e0459fca49c7a6ed1b5434b4e52b1dbc92f2b332f4a4d307ad3d238f365d8de97cea86d635612dd4b98'
+DSS::Application.config.secret_token = 'e7ecd84619192efb94016ae302a9065b7ab672bfcc45079cf5adc0a3d85bc53d649025da60550b078965f5f4af89fbdadfa12263661358f118d4e449e2608855'
+

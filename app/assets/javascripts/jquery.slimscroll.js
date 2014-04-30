@@ -39,6 +39,7 @@
         // enables always-on mode for the scrollbar
         alwaysVisible : true,
 
+
         // check if we should hide the scrollbar when user is hovering over
         disableFadeOut : false,
 

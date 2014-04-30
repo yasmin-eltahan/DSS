@@ -15,6 +15,20 @@
 //= require bootstrap
 //= require_tree .
 
+$(function(){
+    $('.inner-content-div').slimScroll({
+        height: '450px'
+    });
+});
+
+$(function(){
+    $('.inner').slimScroll({
+        height: '560px'
+    });
+});
+
+
+
 $ (function(){
 $(".cb").click(function(){
 	if($(this).is(':checked')){
@@ -44,13 +58,4 @@ $('.weight').keyup(function(){
   }
 });
 });
-
-
-
-
-
-
-
-
-
 

@@ -69,7 +69,8 @@ def top_vendors
       end
       @count = @count+1
 end
-@rank =  Rank.where(:system_id => nil).order("ranks.rank")
+ @rank =  Rank.where(:system_id => nil).order("ranks.rank")
+ 
 end 
-  
+
 end

@@ -1,5 +1,7 @@
-<body>
-	<div class ="container">
+
+<br>
+<div class="container">
+
 
 <div>
 <a href="#myModal" role="button" class="btn btn-primary edit" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
@@ -18,29 +20,35 @@
 <p class =" btn btn-primary delete" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
 <br>
 <br>
-<div class = "header"><%= @company.name %></div><br>
 
-<div class="tabbable show-box-list"> 
+
+<div class="header">Company name</div> <br>
+<div class="show-box-list">
+<div class="inner">
+
+  <div class="tabbable show-box-list"> 
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
     <li><a href="#tab2" data-toggle="tab">Criteria</a></li>
+     <li ><a href="#tab3" data-toggle="tab">Score</a></li>
   </ul>
   <div class="tab-content">
+
     <div class="tab-pane active" id="tab1">
       <br>
-    	<ul>
+      <ul>
         <li><b>Owner:</b><br></li>
         <%= @company.owner %>
         <br>
-    		 <li><b>Revenue:</b><br></li>
-    		 <%= @company.revenue %>	
-    		<br>
-    		 <li><b>Public:</b><br></li>
-    		<%= @company.public %>
-    		<br>
-    		<li><b>No of employees:</b><br></li>
-    		<%= @company.no_of_employees%>
-    		<br>
+         <li><b>Revenue:</b><br></li>
+         <%= @company.revenue %>  
+        <br>
+         <li><b>Public:</b><br></li>
+        <%= @company.public %>
+        <br>
+        <li><b>No of employees:</b><br></li>
+        <%= @company.no_of_employees%>
+        <br>
         <li><b>Goals:</b><br></li>
          <%= @company.goals %>  
         <br>
@@ -50,8 +58,8 @@
         <li><b>No of Branches:</b><br></li>
         <%= @company.no_of_branches%>
         <br>
-    		<li><b>Headquarters:</b><br></li>
-    		<p class ="add"><%= @company.headquarters%><p>
+        <li><b>Headquarters:</b><br></li>
+        <p class ="add"><%= @company.headquarters%><p>
           
           <address class ="add">
         <li><b>Address:</b><br></li>
@@ -62,10 +70,11 @@
         <li><b>Website:</b><br></li>
        <a href="#"><%=@company.website%></a>
       </address>
-    	</ul>
+      </ul>
       <br>
     <br>
     </div>
+
     <div class="tab-pane" id="tab2">
       <br>
       <% if !@criteria.blank?%>
@@ -74,23 +83,22 @@
       <p class = "line-break"><%=criteria.criteria.description%></p>
       <br>
       <%end%>
-      
-    </ul>
-    <div>
-      <a href="#Modal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add Criteria"><i class="icon-pencil icon-white"></i>Edit</a>
+      </ul>
+      <div>
+      <a href="#Modal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Edit Criteria"><i class="icon-pencil icon-white" ></i> Edit</a>
 
       <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
        <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-       <h3 id="myModalLabel">Edit Criteria Of The Company</h3>
+       <h3 id="myModalLabel">Edit Criteria of Company</h3>
       </div>
       <%= form_for(:company_criteria, :url=>{:controller => 'company_criteria' , :action=>'edit_criteria' , :id => @company.id}) do |f| %>
        <%= render(:partial=> 'company_criteria/edit' , :locals => {:f => f})%>
        <% end %>
         </div>
           </div>
-    <%else%>
+      <%else%>
     <div>
       <a href="#mModal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add Criteria"><i class="icon-plus icon-white" ></i> New</a>
 
@@ -107,11 +115,83 @@
           </div>
           <%end%>
     </div>
+
+      <div class="tab-pane " id="tab3">
+
+   <% @systems.each do |s| %>
+    <h4 style="padding-left:23px"> <b class="teal"><%= s.system.name %></b> </h4>
+  <div>
+  <div class="row">
+    <div class="span3">   
+      <% if (@button == "Yes")  %>
+        <% @edits.each do |e| %>
+           <% if (e.system_id == s.system_id)%>
+           <b style="padding-left:42px"><%= e.criteria.name %></b><br>
+           <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
+           <br><br>
+           <%end%>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="span3 offset3 pull-right">
+      <div frame="box" class="border">
+      <div>
+      <b style="padding-left:18px">Score</b><br>
+      <span style="padding-left:22px"><% if !s.final_score.nil? %><%= s.final_score %><%end %></span>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+     <hr>
+   <%end %>
+  
+<% if (@button == "No") %>
+<a href="#myscoreModal" role="button" class="btn btn-primary button" data-toggle="modal"><b>Score</b></a>
+<div>
+<div id="myscoreModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">SCORE</h3>
+  </div>
+  <div  class="score-div padding">
+    <%= form_for(:company_criteria, :url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
+    <%= render(:partial=>'score', :locals=>{:f=>f}) %>
+    <%= f.submit("submit" , :class=>"button-padding") %>
+    <% end %>
+  </div>
+</div>
+</div> 
+<%else %>
+<a href="#editModal" role="button" class="btn btn-primary  button" data-toggle="modal"><b>Edit</b></a>
+<div>
+<div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">SCORE</h3>
+  </div>
+  <div  class="score-div padding">
+    <%= form_for(:company_criteria, :url=>{:action=>'updateScore' , :company_id => @company.id}) do |f| %>
+    <%= render(:partial=>'edit', :locals=>{:f=>f}) %>
+    <%= f.submit("submit" , :class=>"button-padding") %>
+    <% end %>
+  </div>
+</div>
+</div> 
+<%end%> 
+
+      </div>
       
     </div>
       
     
   </div>
+
+
+</div>  
+</div>
 </div>
 
-</body>
+
+
+    

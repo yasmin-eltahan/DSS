@@ -1,8 +1,6 @@
- <div class="modal-body" "body">
+ <div class="modal-body body">
     <p>
-	<dl>
-
-		
+	<dl>		
 		
 <dt><%= f.label("Name") %></dt>
 <dd><%= f.text_field(:name)%></dd>
@@ -10,12 +8,17 @@
 <dt><%= f.label("Programming Language") %></dt>
 <dd><%= f.text_field(:programming_language)%></dd>
 
+
+<dt><%= f.label("No Of Users") %></dt>
+<dd><%= f.text_field(:no_of_employees)%></dd>
+
+
 <dt><%= f.label("Description") %></dt>
 <dd><%= f.text_area(:description)%></dd>
 
-<dt><%= f.label("No Of Users") %></dt>
-<dd><%= f.text_field(:no_of_users)%></dd>
 <%= f.hidden_field :vendor_id , :value=> @vendor.id %>
+
+
 
 
 </dl>

@@ -30,7 +30,7 @@
       <br>
     	<ul>
         <li><b>Description:</b><br></li>
-         <p class = "line-break"><%= @vendor.description %> </p>
+         <p class = "line-break"><% if !@vendor.description.nil? %><%= @vendor.description %><%end%> </p>
     		 <li><b>Revenue:</b><br></li>
     		 <%= @vendor.revenue %>	
     		<br>

@@ -4,4 +4,5 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-DSS1::Application.load_tasks
+
+DSS::Application.load_tasks

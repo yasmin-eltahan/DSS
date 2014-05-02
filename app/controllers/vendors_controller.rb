@@ -18,7 +18,7 @@ class VendorsController < ApplicationController
 	def show
 		@vendor = Vendor.find(params[:id])
 		@system = System.new
-		@systems = System.where(:vendor_id => @vendor).limit(4)
+		@systems = System.where(:vendor_id => @vendor)
 		
 	end
 

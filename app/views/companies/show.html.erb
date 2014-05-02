@@ -1,11 +1,10 @@
-
 <br>
+<br>
+<br>
+
 <div class="container">
 
-
 <div>
-<a href="#myModal" role="button" class="btn btn-primary edit" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
-
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
   <div class="modal-header">
@@ -17,26 +16,51 @@
  <% end %>
 </div>
 </div> 
-<p class =" btn btn-primary delete" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
-<br>
-<br>
 
 
-<div class="header">Company name</div> <br>
+<div class="row">
+    <div class="span7">
+    <div class="header" style="padding-left:15px"><%= @company.name %></div>
+    </div>
+    <div class="span1" style="padding-left:300px">
+    <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
+    </div>
+    <div class="span1 pull-right" style="margin-right:-18px">
+    <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
+    </div>
+</div>
+<br>
+
 <div class="show-box-list">
-<div class="inner">
+<div class="tabbable show-box-list"> 
 
-  <div class="tabbable show-box-list"> 
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs colorr">
     <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
     <li><a href="#tab2" data-toggle="tab">Criteria</a></li>
      <li ><a href="#tab3" data-toggle="tab">Score</a></li>
   </ul>
+
   <div class="tab-content">
 
     <div class="tab-pane active" id="tab1">
+      <div class="inner-content-div">
       <br>
-      <ul>
+      <div class="row">
+      <div class="span4">
+      <div style="padding-left:55px;"><%= image_tag("logo.jpg", :alt => "rss feed")%></div><br><br>
+      </div>
+      <div class="span6 line-break">
+      <br>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br>
+      </div>
+      </div>
+
+      <ul style="padding-left:25px;">
         <li><b>Owner:</b><br></li>
         <%= @company.owner %>
         <br>
@@ -71,8 +95,10 @@
        <a href="#"><%=@company.website%></a>
       </address>
       </ul>
+
       <br>
-    <br>
+      <br>
+    </div>
     </div>
 
     <div class="tab-pane" id="tab2">
@@ -86,7 +112,7 @@
       <%end%>
     </ul>
     <div>
-      <a href="#mModal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Add Criteria"><i class="icon-plus icon-white" ></i> New</a>
+     <div style="padding-left:23px;"> <a href="#mModal" role="button" class="btn btn-primary" data-toggle="modal" title = "Add Criteria"><i class="icon-plus icon-white" ></i> New</a> </div>
 
       <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
@@ -102,79 +128,78 @@
     </div>
 
       <div class="tab-pane " id="tab3">
-
-   <% @systems.each do |s| %>
-    <h4 style="padding-left:23px"> <b class="teal"><%= s.system.name %></b> </h4>
-  <div>
-  <div class="row">
-    <div class="span3">   
-      <% if (@button == "Yes")  %>
-        <% @edits.each do |e| %>
-           <% if (e.system_id == s.system_id)%>
-           <b style="padding-left:42px"><%= e.criteria.name %></b><br>
-           <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
-           <br><br>
-           <%end%>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="span3 offset3 pull-right">
-      <div frame="box" class="border">
+      <div class="inner-content-div">
+       <% @systems.each do |s| %>
+        <h4 style="padding-left:23px"> <b class="link-color-purple"><%= s.system.name %></b> </h4>
       <div>
-      <b style="padding-left:18px">Score</b><br>
-      <span style="padding-left:22px"><% if !s.final_score.nil? %><%= s.final_score %><%end %></span>
+      <div class="row">
+        <div class="span3">   
+          <% if (@button == "Yes")  %>
+            <% @edits.each do |e| %>
+               <% if (e.system_id == s.system_id)%>
+               <b style="padding-left:42px"><%= e.criteria.name %></b><br>
+               <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
+               <br><br>
+               <%end%>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="span3 offset3 pull-right">
+          <div frame="box" class="border">
+          <div>
+          <b style="padding-left:18px">Score</b><br>
+          <span style="padding-left:22px"><% if !s.final_score.nil? %><%= s.final_score %><%else %><span style="padding-left:10px;">?</span><%end%></span>
+          </div>
+        </div>
+        </div>
       </div>
-    </div>
-    </div>
-  </div>
-  </div>
-     <hr>
-   <%end %>
-  
-<% if (@button == "No") %>
-<a href="#myscoreModal" role="button" class="btn btn-primary button" data-toggle="modal"><b>Score</b></a>
-<div>
-<div id="myscoreModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">SCORE</h3>
-  </div>
-  <div  class="score-div padding">
-    <%= form_for(:company_criteria, :url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
-    <%= render(:partial=>'score', :locals=>{:f=>f}) %>
-    <%= f.submit("submit" , :class=>"button-padding") %>
-    <% end %>
-  </div>
-</div>
-</div> 
-<%else %>
-<a href="#editModal" role="button" class="btn btn-primary  button" data-toggle="modal"><b>Edit</b></a>
-<div>
-<div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">SCORE</h3>
-  </div>
-  <div  class="score-div padding">
-    <%= form_for(:company_criteria, :url=>{:action=>'updateScore' , :company_id => @company.id}) do |f| %>
-    <%= render(:partial=>'edit', :locals=>{:f=>f}) %>
-    <%= f.submit("submit" , :class=>"button-padding") %>
-    <% end %>
-  </div>
-</div>
-</div> 
-<%end%> 
-
       </div>
+         <hr>
+       <%end %>
       
+    <% if (@button == "No") %>
+    <% if( !@systems.blank? ) %>
+    <span style="padding-left:713px;"><a href="#myscoreModal" role="button" class="btnpink" data-toggle="modal"><b>Score</b></a></span>
+    <%end%>
+    <div>
+    <div id="myscoreModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">SCORE</h3>
+      </div>
+      <div  class="score-div padding">
+        <%= form_for(:company_criteria, :url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
+        <%= render(:partial=>'score', :locals=>{:f=>f}) %>
+        
+        <% end %>
+      </div>
+    </div>
+    </div> 
+    <%else %>
+    <a href="#editModal" role="button" class="btn btn-primary  button" data-toggle="modal"><b>Edit</b></a>
+    <div>
+    <div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel" style="padding-left:15px;">SCORE</h3>
+      </div>
+      <div  class="score-div padding">
+        <%= form_for(:company_criteria, :url=>{:action=>'updateScore' , :company_id => @company.id}) do |f| %>
+        <%= render(:partial=>'edit', :locals=>{:f=>f}) %>
+        <% end %>
+      </div>
+    </div>
+    </div> 
+    <%end%> 
+  </div>
+      </div>
     </div>
       
     
   </div>
 
-
-</div>	
 </div>
+
 </div>
 
 

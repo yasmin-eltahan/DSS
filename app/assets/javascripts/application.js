@@ -21,9 +21,32 @@ $(function(){
     });
 });
 
+// $(".img-circle").css('opacity','0.4');
+
+
+
+//    $(".box-list").hover(function() {
+//        $(this).find(".img-circle").stop().animate({ opacity: 1 });
+//    }, function() {
+//       $(this).find(".img-circle").stop().animate({ opacity: 0.4 }); 
+//    });
+
+
+
+
+
+
+
+
 $(function(){
     $('.inner').slimScroll({
         height: '560px'
+    });
+});
+
+$(function(){
+    $('.inner2').slimScroll({
+        height: '450px'
     });
 });
 

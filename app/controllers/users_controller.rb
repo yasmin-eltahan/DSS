@@ -6,15 +6,15 @@ require 'koala'
 def index
 	
 	#@graphs = Koala::Facebook::GraphAPI.new
-	@graph = Koala::Facebook::API.new(current_user.oauth_token)
+	#@graph = Koala::Facebook::API.new(current_user.oauth_token)
 	#(CAACEdEose0cBAJ0cpjv2uPJXFZAqMoJytX9GHJdggQtB5hrFz8W5IsZCMYxqiJMfkQEJU2ocrMjJlcNBblZCg5ohAFxxSgMPilVHB6zOR91ZCawcpdlPs1yO32KQogFPBafYleQvnNVJu0t1nSHMRyvRxgwiIDKgmROp7pxLlLf35n15YNEaBpKZBGsKABwisK1KP3XzyvQZDZD)
 	#@graph.get_connections("SAP", "feed")
 	#@graph.class
 	#@graph.first
 	#@results = params[:page] ?
 	#@graph.get_page('params[:page]') :
-	@result = @graph.get_object("koppel")
-	@likes = @graph.get_connections("me", "feed")
+	#@result = @graph.get_object("koppel")
+	#@likes = @graph.get_connections("me", "feed")
 	# posts = @graph.get_connections("me", "posts")
  #    @postids = posts.map { |p| p['id'] }
 end

@@ -1,4 +1,5 @@
 DSS::Application.routes.draw do
+<<<<<<< HEAD
   # The priority is based upon order of creation:
   # first created -> highest priority.
 match 'auth/:provider/callback', to: 'sessions#create'
@@ -9,6 +10,47 @@ match 'signout', to: 'sessions#destroy', as: 'signout'
    root :to => "home#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
+=======
+
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+
+# match 'auth/:provider/callback', to: 'sessions#create'
+# match 'auth/failure', to: redirect('/')
+# match 'signout', to: 'sessions#destroy', as: 'signout'
+
+#   <div id="user_nav">
+#   <% if current_user %>
+#     Signed in as <strong><%= current_user.name %></strong>!
+#     <%= link_to "Sign out", signout_path, id: "sign_out" %>
+#   <% else %>
+#     <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+#   <% end %>
+# </div>
+
+
+
+
+  #attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid 
+ 
+
+#   def self.from_omniauth(auth)
+#   where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+#     user.provider = auth.provider
+#     user.uid = auth.uid
+#     user.name = auth.info.name
+#     user.oauth_token = auth.credentials.token
+#     user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+#     user.save!
+#   end
+# end
+
+  devise_for :users
+  #root :to => "home#index"
+  root :to => "companies#list"
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+>>>>>>> b6ef979080ccc19a9f436267541cfc10fd8511b3
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

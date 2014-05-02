@@ -1,17 +1,20 @@
 <br>
+<br>
+<br>
 <div  class="container">
 	<div class="header"><%= @system.name %></div> <br>
 	<div  class="show-box-list">
 		<div class="tabbable"> <!-- Only required for left/right tabs -->
-		  <ul class="nav nav-tabs">
+		  <ul class="nav nav-tabs colorr">
 		    <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
 		    <li ><a href="#tab2" data-toggle="tab">versions</a></li>
 		    <li ><a href="#tab3" data-toggle="tab">Reviews</a></li>
 		  </ul>
-		  <div class="tab-content">
+		  <div class="tab-content" style="padding-left:20px;">
 
 		    <div class="tab-pane active" id="tab1">
 		      <br>
+		      <div>
 		      <li> <b>Launched On:</b> 6 July 1992 </li><br>
 		      <li> <b>Number of users:</b> <%= @system.no_of_employees %></li> <br>
 		      <li> <b>Programming Language:</b> <%= @system.programming_language %></li><br>
@@ -27,6 +30,7 @@
 		       <span class="padding">	<%= t.technical.name %>: <%= t.value %>  </span><br>
 		        <% end %>
 		      </li>
+		  	</div>
 		    </div>
 
 		    <div class="tab-pane" id="tab2">

@@ -1,4 +1,6 @@
+
 <div class="color">
+<div class="modal-body body"> 
 <% @criteria.each do |c| %> 
 <div >
 <h4 class="criteria-background"><%= c.criteria.name %>
@@ -11,10 +13,23 @@
 		    <% sid = s.system.id %>
 		    <%  @id = sid.to_s  + "," + w.to_s + "," + cid.to_s %>
 			<% name = s.system.name %>
-			<div class="text"><%= f.label(name) %></div>
-		   <span style="margin-left:100px;"> <%= f.text_field(@id , :class=>"span1")%> </span><br>
+			<div class="row">
+            <div class="span2">
+			<div class="text" style="padding-left:20px"><%= f.label(name) %></div>
+			</div>
+			<div class="span7 pull">  
+		   <span style="margin-left:100px;"> <%= f.text_field(@id , :class=>"span2")%> </span><br>
+		   </div>
+		   </div>
 		</div>
 	<%end%>
 	<hr>
 <%end%>
-<div>
+</div>
+</div>
+<div class="modal-footer" style="margin-left:-20px;margin-bottom:-20px;">
+         <%= f.submit("submit") %>
+</div>
+
+
+

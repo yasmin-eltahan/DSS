@@ -1,13 +1,17 @@
 <body>
 <br>
+<br>
+<br>
 <div class="container">
-	<div class="header" > SAP Systems </div>
+	<div class="header" > Systems </div>
     <br>
-       
+       <div class="scroll2">
+       	<div class="scrollablediv">
 		<% @systems.each do |system| %>
 		    <div class = "box-list" >
 			<tr> <br>
-		    <td> <%= link_to("#{system.name}",{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title")%></td> <br><br>
+		    <td> <%= link_to("#{system.name}",{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title link-color")%></td> <br>By <span> <%= link_to("#{system.vendor.name}",{:controller=>"vendors",:action=>'show',:id=>system.vendor_id} , :class=>"vendor-link")%><br>
+		    <br>
 		 	Description: <br>
 			 	<div class="line-break">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			 	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -20,6 +24,8 @@
 	 	   </div>
 	 	   <br>
 	 	<% end %>
+	 </div>
+	</div>
     
 </div>
 </body>

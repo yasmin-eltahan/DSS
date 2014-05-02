@@ -1,6 +1,19 @@
 module ApplicationHelper
 
-	def top_software
+  def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+	
+
+  def top_software
 	require 'rubygems'
     require 'nokogiri'
     require 'open-uri' 

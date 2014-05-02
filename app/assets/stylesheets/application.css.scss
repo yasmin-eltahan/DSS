@@ -19,6 +19,14 @@ modalmaxsize {
 }
 
 
+inline {
+  display:inline-block;
+}
+
+nav-link {
+  font-weight:bold;  
+}
+
  .text {
   font-size: 15px;
  }
@@ -56,8 +64,8 @@ modalmaxsize {
  }
 
 .color {
-       background: #f2f2f2;
-       padding: 5px;
+  background: #FDF9E9;
+  padding: 0px;
 	margin-left: -22px;
 	margin-right: 2px;
 	margin-top: 0px;
@@ -66,12 +74,15 @@ modalmaxsize {
 .header {
 	 font-size: 40px;
 	 margin: 8px 10px;
-	 color: #339999;
+	 #color: #339999;
+   color: #A64D4D;
 	 font-family: Britannic Bold;
 }
 
 .criteria-background {
-	color: #339999;
+	#color: #339999;
+  color:#564A7B;
+  #color: #7e3f63;
 	padding-left: 17px;
 	padding-top: 5px;
 	margin-right: 10px;
@@ -82,22 +93,117 @@ modalmaxsize {
 	padding-right: 2px;
 }
 
+.bold {
+  font-weight:bold;
+}
+
 
 .box-list {
  background: #f2f2f2;
+ # background:#fcf8e3;
+  #border: 1px solid #fbeed5;
+#-webkit-border-radius: 4px;
+#-moz-border-radius: 4px;
+#border-radius: 4px;
   -moz-border-radius: 3px;
        -webkit-border-radius: 3px; 
-      min-height: 100px;
-      padding-left: 20px;
+     min-height: 100px;
+    padding-left: 20px;
     
+}
+
+.colorr {
+  background-color: #E6E6E6;
+
+}
+
+fix {
+   position:fixed;
+}
+
+#background {
+  background-color:#FDF9E9;
 }
 
 .show-box-list {
 	  background: #f2f2f2;
+  # background:#fcf8e3;
 	   -moz-border-radius: 3px;
-       -webkit-border-radius: 3px; 
-      min-height: 560px;
-      padding-left: 20px;
+      -webkit-border-radius: 3px; 
+      height: 520px;
+      padding-left: 1px;
+
+}
+
+.scroll-div {
+height:520px;
+overflow:auto;
+}
+
+.login-form {
+    background: #f2f2f2;
+       -moz-border-radius: 3px;
+       -webkit-border-radius: 3px;   
+       width: 220px;
+      height: 270px;
+    margin-top: 117px;
+    margin-left: 15px;
+
+    # background:#fcf8e3;
+ # border: 1px solid #fbeed5;
+#-webkit-border-radius: 4px;
+#-moz-border-radius: 4px;
+#border-radius: 4px;
+}
+
+.topvendors-form {
+      background: #f2f2f2;
+       -moz-border-radius: 3px;
+       -webkit-border-radius: 3px;   
+       width: 220px;
+      height: 250px;
+    margin-top: 76px;
+    margin-left: 15px;
+}
+
+.topvendor{
+  padding-left:38px;
+  padding-top:6px;
+  font-size:16px;
+}
+
+
+
+.topsoftwares-form {
+      background: #f2f2f2;
+          #  border: 1px solid #d8d8d8;
+            border-radius: 4px 4px 0 0;
+       -moz-border-radius: 3px;
+       -webkit-border-radius: 3px;   
+       width: 250px;
+      height: 490px;
+    margin-top: 117px;
+    margin-left: 0px;
+    position:fixed;
+}
+
+.link-color {
+  color: #4D4D4D;
+}
+
+.link-color-purple:hover {
+  #color:#7e3f63;
+  color:  #282041;
+  text-decoration:none;
+}
+
+.link-color-purple {
+   color:#564A7B;
+}
+
+.link-color:hover {
+  color: #191919;
+  text-decoration:none;
 }
 
 
@@ -118,6 +224,16 @@ modalmaxsize {
 	
 }
 
+.bg {
+opacity:0.4;
+  
+}
+
+.bg:hover {
+  opacity:1.0;
+
+}
+
 .padding {
 	padding-left: 23px;
 }
@@ -131,6 +247,9 @@ modalmaxsize {
 	height:450px;
 	overflow: auto;
 }
+
+
+
 
 
 hr {
@@ -200,8 +319,26 @@ background: #f2f2f2;
   -moz-border-radius: 3px;
        -webkit-border-radius: 3px; 
       
-      max-width: 260px;
+    width: 260px;
     margin-top: 95px;
+}
+
+.vendor-link {
+  font-size:12px;
+  font-weight:bold;
+}
+
+
+
+.sign-in {
+  padding-left:50px;
+  padding-top:6px;
+ font-size:18px;
+}
+
+.currentuser-name {
+  padding-top:10px;
+  margin-left:590px;
 }
 
 .t_list {
@@ -212,17 +349,35 @@ margin-bottom:15px;
 padding-left: 20px;
 }
 
+.signin-button {
+  font-weight:bold;
+}
+
+.navlink-color {
+  color:white;
+}
+
 .top{
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-color: #ffffff;
+
+color: #fff;
+text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+background-color: #6c8393;
+border: 1px solid #6e8290;
+border-bottom-color: #586873;
+border-radius: 4px 4px 0 0;
+
+height:30px;
+#-moz-border-radius: 5px;
+#-webkit-border-radius: 5px;
+#color: #ffffff;
 font-size: 25px;
-background: #339999;
-font-family: Britannic Bold;
+#background: #339999;
+font: 13px Helvetica, arial, freesans, clean, sans-serif;
+font-weight:bold;
 padding-left: 20px;
-border-bottom-style: solid;
-border-bottom-width: 4px;
-border-bottom-color: #ffffff; 
+#border-bottom-style: solid;
+#border-bottom-width: 4px;
+#border-bottom-color: #ffffff; 
 }
 
 

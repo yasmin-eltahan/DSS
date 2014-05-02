@@ -21,12 +21,41 @@ $(function(){
     });
 });
 
+<<<<<<< HEAD
+=======
+// $(".img-circle").css('opacity','0.4');
+
+
+
+//    $(".box-list").hover(function() {
+//        $(this).find(".img-circle").stop().animate({ opacity: 1 });
+//    }, function() {
+//       $(this).find(".img-circle").stop().animate({ opacity: 0.4 }); 
+//    });
+
+
+
+
+
+
+
+
+>>>>>>> b6ef979080ccc19a9f436267541cfc10fd8511b3
 $(function(){
     $('.inner').slimScroll({
         height: '560px'
     });
 });
 
+<<<<<<< HEAD
+=======
+$(function(){
+    $('.inner2').slimScroll({
+        height: '450px'
+    });
+});
+
+>>>>>>> b6ef979080ccc19a9f436267541cfc10fd8511b3
 
 
 $ (function(){

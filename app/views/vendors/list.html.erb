@@ -1,9 +1,9 @@
 <body>
-	
+<br>	
 <br>
 <br>
 <div class="container">	
-<a href="#myModal" role="button" class="btn btn-primary new" data-toggle="modal"><i class="icon-plus icon-white"></i> <b>New</b></a>
+
 <div>
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
@@ -16,15 +16,24 @@
  <% end %>
 </div> 
 </div>
+
+	<div class="row">
+    <div class="span10">
+    <div class="header" style="padding-left:15px">Vendors</div>
+    </div>
+    <div class="span2" style="padding-left:65px">
+    <a href="#myModal" role="button" class="btns" data-toggle="modal"><i class="icon-plus icon-white"></i> <b style="color:white">New</b></a>
+    </div>
+    </div>
 		
 		
-		<div class="header"> Vendors</div>
+
 		<br>
 		<% @vendors.each do |vendor| %>
 		<div class ="box-list">
 		<br>
 		
-		<%= link_to(vendor.name.gsub("-" , " "), {:action => 'show', :id => vendor.id} ,:class => "title") %>
+		<%= link_to(vendor.name.gsub("-" , " "), {:action => 'show', :id => vendor.id} ,:class => "title link-color-purple") %>
 		<br>
 		<br>
 		<address class ="add">
@@ -43,5 +52,4 @@
 <%end%>
 
 	</div>
-	<button class = "button"> sarah</button>
 </body>

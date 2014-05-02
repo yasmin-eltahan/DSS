@@ -37,6 +37,7 @@
         opacity : .4,
 
         // enables always-on mode for the scrollbar
+
         alwaysVisible : true,
 
 

@@ -70,6 +70,8 @@ end
     end
 end
 
+
+
 @systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id} , :order=>("final_score DESC"))
 
 

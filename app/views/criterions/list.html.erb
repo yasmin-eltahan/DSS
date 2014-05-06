@@ -1,0 +1,43 @@
+<body>
+<br>	
+<br>
+<br>
+<div class="container">	
+
+<div>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Add A Criteria</h3>
+  </div>
+  <%= form_for(@criterionnew , :as=>:criterion, :url=>{:action=>'create'}) do |f| %>
+  <%= render(:partial=> 'form' , :locals => {:f => f})%>
+ <% end %>
+</div> 
+</div>
+
+	<div class="row">
+    <div class="span10">
+    <div class="header" style="padding-left:15px">Criteria</div>
+    </div>
+    <div class="span2" style="padding-left:65px">
+    <a href="#myModal" role="button" class="btns" data-toggle="modal"><i class="icon-plus icon-white"></i> <b style="color:white">New</b></a>
+    </div>
+    </div>
+		
+		
+
+		<br>
+		<% @criterion.each do |criterion| %>
+		<div class ="box-list">
+		<br>
+		<p class ="title link-color-purple"> <%= criterion.name%></p>
+		<p class= "line-break">  <%= criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
+		
+	</div>
+	
+<%end%>
+
+	</div>
+</body>

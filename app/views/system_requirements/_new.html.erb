@@ -1,0 +1,30 @@
+<%= form_for(:system_requirement, :url=>{:controller => 'system_requirements' , :action=>'create' , :id => @system.id}) do |f| %>
+<br>
+<br>
+<br>
+<br>
+<% @types.each do |type|%>
+<p style="padding-left:20px;"><h4 class = "link-color-purple"><%= type.name%></h4></p>
+<% @string = type.string%>
+<% @requirement = Requirement.where(:type_id => type.id)%>
+<h6> &#9733; Please Choose Your Requirements:</h6>
+<div <%if@string%>class ="list2"<%end%>>
+<% @requirement.each do |req|%>
+<label class = "label1" style="padding-left:20px;"><%= check_box_tag "requirements_ids[]", req.id , @reqids.include?(req.id) , :class => "companyreq", id: dom_id(req)%><%= req.name%></label>
+<%if !@string%>
+<div id=<%="#{req.id}"-%>>
+<p class ="drop2"><select class= "drop span12" , id =<%="#{req.id}"-%>>
+	<option value="">Please Choose</option>
+  <option value="true">Maximum</option>
+  <option value="false">Minimum</option>
+</select></p>
+<p class= "reqtext"><%= f.text_field(req.id , :class => "span3" , :placeholder => "e.g 2GB") %></p>
+<p><%= hidden_field :requirement_id, req.id %></p>
+<br>
+</div>
+<%end%>
+<%end%>
+</div>
+<%end%>
+<%=f.submit%>
+<%end%>

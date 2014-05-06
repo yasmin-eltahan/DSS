@@ -35,8 +35,8 @@ module ApplicationHelper
       doc.css("h2"). each do |item|
       @name = item.text
       @system = System.find_by_name(@name)
-      if (@system.blank?)
-      @system = System.create(:name=> @name)
+      if @system.blank?
+        @system = System.create(:name => @name)
       end
       @new = Rank.new(:rank => @count , :system_id => @system.id , :source => url)
       @ranks = Rank.all
@@ -71,8 +71,8 @@ def top_vendors
       doc.css("#wp-table-reloaded-id-31-no-1 td.column-1"). each do |item|
       @name = item.text
       @vendor= Vendor.find_by_name(@name)
-      if (@vendor.blank?)
-      @vendor = Vendor.create(:name=> @name)
+      if @vendor.blank?
+        @vendor = Vendor.create(:name => @name)
       end
       @new = Rank.new(:rank => @count , :vendor_id => @vendor.id , :source => url)
       @ranks = Rank.all

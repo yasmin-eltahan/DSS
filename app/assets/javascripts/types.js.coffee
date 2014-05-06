@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 
+
 jQuery ->
   $('form').on 'click', '.remove', (event) ->
     $(this).prev('input[type=hidden]').val('1')
@@ -14,3 +15,4 @@ $(document).on 'click', 'form .add_fields', (event) ->
   regexp = new RegExp($(this).data('id'), 'g')
   $(this).before($(this).data('fields').replace(regexp, time))
   event.preventDefault()
+

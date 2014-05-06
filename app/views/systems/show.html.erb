@@ -13,6 +13,7 @@
 		  <div class="tab-content" style="padding-left:20px;">
 
 		    <div class="tab-pane active" id="tab1">
+		    	<div class="inner-content-div">
 		      <br>
 		      <div>
 		      <li> <b>Launched On:</b> 6 July 1992 </li><br>
@@ -25,13 +26,64 @@
 		      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 		      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 		      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</ul></li><br>
-		      <li><b>Technical Details: </b><br><br>
-		     	<% @technicals.each do |t| %> 
-		       <span class="padding">	<%= t.technical.name %>: <%= t.value %>  </span><br>
-		        <% end %>
-		      </li>
+		      <li><b>Technical Details: </b></li>
+		      <%if @systemreq.blank?%>
+  			<div>
+     <div style="padding-left:23px; margin-left:790px;"><a href="#newreq" role="button" class="btnpink" data-toggle="modal" title = "Add Requirements" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> </div>
+
+      <div id="newreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Add System Technical Details</h3>
+      </div>
+      <%= form_for(:system_requirement, :url=>{:controller => 'system_requirements' , :action=>'create' , :id => @system.id}) do |f| %>
+       <%= render(:partial=> 'system_requirements/new' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+          <%else%>
+          <div>
+     <div style="padding-left:23px; margin-left:790px;"> <a href="#editreq" role="button" class="btnpink" data-toggle="modal" title = "Edit Requirements" style = "color:#ffffff"><i class="icon-pencil icon-white"></i> Edit</a> </div>
+
+      <div id="editreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Edit System Technical details</h3>
+      </div>
+      <%= form_for(:company_requirement, :url=>{:controller => 'system_requirements' , :action=>'update' , :id => @system.id}) do |f| %>
+       <%= render(:partial=> 'system_requirements/edit' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+          <%end%>
+         
+          <div style="padding-left:20px;">
+          <%@types.each do|type|%>
+          <% @string = type.string%>
+          <p style="padding-left:20px;"><h5 class = "link-color-purple"><%= type.name%></h5></p>
+          <p class = "line-break"><%= type.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <%@rids = Requirement.where(:type_id => type.id)%>
+          <h6 class ="link-color-purple">&#9734; <%= type.name%> Requirements:</h6>
+          <%@rids.each do|rid|%>
+          <%if @reqids.include?(rid.id)%>
+          <% @record = SystemRequirement.where(:system_id => @system.id , :requirement_id => rid.id).first%>
+          <%@m = @record.max%>
+          <%@v = @record.value%>
+          &#149; <%= rid.name%> 
+          <%if !@string%>
+          : <%= @v%> <%if @m%> Max.<%else%> Min.<%end%> 
+          <%end%>
+          <%end%>
+          <br>
+          <%end%>
+          <%end%>
+        </div>
+        <br>
 		  	</div>
 		    </div>
+		</div>
 
 		    <div class="tab-pane" id="tab2">
 		    	<br>

@@ -1,8 +1,8 @@
-class CreateCompanyCriteria < ActiveRecord::Migration
+class CreateCompanyCriterions < ActiveRecord::Migration
   def change
-    create_table :company_criteria do |t|
+    create_table :company_criterions do |t|
     	t.references :company
-    	t.references :criteria
+    	t.references :criterion
     	t.references :system
     	t.integer "weight"
     	t.integer "value"

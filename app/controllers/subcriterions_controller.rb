@@ -1,0 +1,2 @@
+class SubcriterionsController < ApplicationController
+end

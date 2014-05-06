@@ -7,6 +7,11 @@ class SystemsController < ApplicationController
 
 	def show
 		@system = System.find(params[:id])
+		@types =Type.all
+		@val =""
+		@Maximum = false
+		@drop=false
+		@reqids = SystemRequirement.find(:all,:select => "requirement_id",:conditions=>{:system_id => @system.id}).collect(&:requirement_id)
 		@technicals = SystemTechnical.find(:all,:conditions => {:system_id => @system.id})
 		@versions = Version.find(:all,:conditions => {:system_id => @system.id})
             require 'rubygems'

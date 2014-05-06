@@ -83,4 +83,5 @@ class TypesController < ApplicationController
 	  #   @survey.destroy
 	  #   redirect_to surveys_url, notice: "Successfully destroyed survey."
 	  # end
+
 end

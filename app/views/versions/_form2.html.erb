@@ -1,4 +1,4 @@
- <div class="modal-body body">
+ <div class="modal-body body" style="margin-left:-20px">
     <p>
 	<dl>		
 		
@@ -12,13 +12,20 @@
 <dt><%= f.label("Price") %></dt>
 <dd><%= f.text_field(:Price , :class => "span3")%> USD</dd>
 
+<h6> &#9733; Please Choose Specs:</h6>
+<div class = "list">
+	<%= hidden_field_tag "version[spec_ids][]", nil%>
+<% Spec.all.each do |spec| %>
+   <label><%= check_box_tag "version[spec_ids][]", spec.id , @version.spec_ids.include?(spec.id) , id: dom_id(spec)%><%=spec.name %></label>
+  <% end %>
+</div>
+
 </dl>
 </br>
 
 </p>
   </div>
-  <div class="modal-footer">
-    
- 	<button class = " btn btn-primary" type = "submit">Save</button>
-    
+  <div class="modal-footer" style="margin-left:-20px;margin-bottom:-20px;">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+ 	<button class = " btn btn-primary" type = "submit">Save</button> 
   </div>

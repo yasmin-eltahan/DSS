@@ -12,19 +12,22 @@
 <dt><%= f.label("Price") %></dt>
 <dd><%= f.text_field(:Price , :class => "span3")%> USD</dd>
 
+<h6> &#9733; Please Choose Specs:</h6>
+<div class = "list">
+	<%= hidden_field_tag "version[spec_ids][]", nil%>
+<% Spec.all.each do |spec| %>
+   <label class = "label1"><%= check_box_tag "version[spec_ids][]", spec.id%><%= spec.name%></label>
+  <% end %>
+</div>
 
 <%= f.hidden_field :system_id , :value=> @system.id %>
-
-
-
-
 </dl>
 </br>
 
 </p>
   </div>
   <div class="modal-footer">
-    
+   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> 
  	<button class = " btn btn-primary" type = "submit">Save</button>
     
   </div>

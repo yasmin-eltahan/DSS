@@ -51,7 +51,7 @@
 	      <div  class="score-div padding">
 	        <% @criterion = Criterion.find(criterion.id) %>
 	        <%= form_for(@criterion , :as=>:criterion, :url=>{:action=>'update', :id=>criterion.id}) do |f| %>
-			<%= render(:partial=>'form', :locals=>{:f=>f}) %>
+			<%= render(:partial=>'edit', :locals=>{:f=>f}) %>
 			<%end%>
 	      </div>
 	    </div>

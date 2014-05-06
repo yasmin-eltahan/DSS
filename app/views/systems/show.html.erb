@@ -58,7 +58,8 @@
 		      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 		      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</ul></li><br>
 		      <li><b>Technical Details: </b></li>
-		      <%if @systemreq.blank?%>
+          <% @systemreq = SystemRequirement.where(:system_id => @system.id)%>
+		      <%if @systemreq.size==0%>
   			<div>
      <div style="padding-left:23px; margin-left:790px;"><a href="#newreq" role="button" class="btnpink" data-toggle="modal" title = "Add Requirements" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> </div>
 
@@ -83,7 +84,7 @@
        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
        <h3 id="myModalLabel">Edit System Technical details</h3>
       </div>
-      <%= form_for(:company_requirement, :url=>{:controller => 'system_requirements' , :action=>'update' , :id => @system.id}) do |f| %>
+      <%= form_for(:system_requirement, :url=>{:controller => 'system_requirements' , :action=>'update' , :id => @system.id}) do |f| %>
        <%= render(:partial=> 'system_requirements/edit' , :locals => {:f => f})%>
        <% end %>
         </div>
@@ -102,12 +103,14 @@
           <% @record = SystemRequirement.where(:system_id => @system.id , :requirement_id => rid.id).first%>
           <%@m = @record.max%>
           <%@v = @record.value%>
-          &#149; <%= rid.name%> 
-          <%if !@string%>
-          : <%= @v%> <%if @m%> Max.<%else%> Min.<%end%> 
-          <%end%>
-          <%end%>
+          &#149; <%= rid.name%>
+          <%if @string%>
           <br>
+          <%end%>
+          <%if !@string%>
+          : <%= @v%> <%if @m%> Max.<%else%> Min.<%end%><br>
+          <%end%>
+          <%end%>
           <%end%>
           <%end%>
         </div>
@@ -157,6 +160,13 @@
               <li><b>Year: </b><%=version.year%></li>
               <li><b>Price: </b><%=version.Price%> USD</li>
             </ul>
+            <h6 class ="link-color-purple">&#9734; Specs</h6>
+            <% @specs = version.specs%>
+            <div>
+            <% @specs.each do |spec|%>
+            &#149; <%= spec.name%><br>
+            <%end%>
+            </div>
               <hr>
 		      	<%end%>
         

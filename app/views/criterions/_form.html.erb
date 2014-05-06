@@ -1,9 +1,9 @@
- <div class="modal-body" style="margin-left:-20px">
+ <div class="modal-body">
  
 <fieldset>		
 <div class="field" style="margin-left:30px;margin-top:20px">
 <b><%= f.label("Name") %></b>
-<%= f.text_field(:name ,:placeholder=>"eg.Database")%>
+<%= f.text_field(:name)%>
 <br>
 
 <b><%= f.label("Description") %></b>
@@ -19,7 +19,7 @@
 </fieldset>
   </div>
 
-  <div class="modal-footer" style="margin-left:-20px;margin-bottom:-20px;">
+  <div class="modal-footer">
          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
  		<button class = "btn btn-primary" type = "submit">Save</button>
 		</div>

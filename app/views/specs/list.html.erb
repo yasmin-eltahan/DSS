@@ -9,9 +9,9 @@
   
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Add A Criteria</h3>
+    <h3 id="myModalLabel">Add A Spec</h3>
   </div>
-  <%= form_for(@criterionnew , :as=>:criterion, :url=>{:action=>'create'}) do |f| %>
+  <%= form_for(@spec, :as=>:spec, :url=>{:action=>'create'}) do |f| %>
   <%= render(:partial=> 'form' , :locals => {:f => f})%>
  <% end %>
 </div> 
@@ -19,7 +19,7 @@
 
 	<div class="row">
     <div class="span10">
-    <div class="header" style="padding-left:15px">Criteria</div>
+    <div class="header" style="padding-left:15px">Specs</div>
     </div>
     <div class="span2" style="padding-left:65px">
     <a href="#myModal" role="button" class="btns" data-toggle="modal"><i class="icon-plus icon-white"></i> <b style="color:white">New</b></a>
@@ -28,55 +28,44 @@
 		
 		<br>
 
-		<% @criterion.each do |criterion| %>
+		<% @specs.each do |spec| %>
 	<div class="box-list">
 		<div style="padding-left:20px;">
 
 		<div class="row">
 		<div class="span4" style="margin-top:5px;">
-		<h4><b class="link-color" ><%= criterion.name %></b></h4>
+		<h4><b class="link-color" ><%= spec.name %></b></h4>
 		</div>
 		<div class="span3 offset4 pull-right" style="padding-top:9px;padding-left:73px">
-		<a href="#<%= criterion.id %>" role="button"  data-toggle="modal"  class="btns btn-mini"> <i class="icon-pencil icon-white" title="edit" ></i></a>
-		<span style="padding-left:8px"><%= link_to({:action => 'destroy', :id=>criterion.id},:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </span><br>
+		<a href="#<%= spec.id %>" role="button"  data-toggle="modal"  class="btns btn-mini"> <i class="icon-pencil icon-white" title="edit" ></i></a>
+		<span style="padding-left:8px"><%= link_to({:action => 'destroy', :id=>spec.id},:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </span><br>
 		</div>
 		</div>
 
 		<div>
-	    <div id="<%= criterion.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div id="<%= spec.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	        <h3 id="myModalLabel">Edit Criterion</h3>
+	        <h3 id="myModalLabel">Edit Spec</h3>
 	      </div>
 	      <div  class="score-div padding">
-	        <% @criterion = Criterion.find(criterion.id) %>
-	        <%= form_for(@criterion , :as=>:criterion, :url=>{:action=>'update', :id=>criterion.id}) do |f| %>
-			<%= render(:partial=>'form', :locals=>{:f=>f}) %>
+	        <% @spec = Spec.find(spec.id) %>
+	        <%= form_for(@spec , :as=>:spec, :url=>{:action=>'update', :id=>spec.id}) do |f| %>
+			<%= render(:partial=>'edit', :locals=>{:f=>f}) %>
 			<%end%>
 	      </div>
 	    </div>
 	    </div>
 
 	    <div class="line-break">
-	    <br>
+	    <br> <%= spec.description%>
 	    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 	    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 	    <br>
 	    </div>
-
-		<div style="padding-left:5px;">
-		<span class="link-color-purple"><b>&#9734; Sub-Criteria</b></span><br><br>
-		<div class= " listt list">
-			<ul>
-			<% criterion.subcriterions.each do |s|%>
-			<li><%= s.name %></li>
-			<%end%>
-			</ul>
-			</div>
-		</div>
-		<br>
 	</div>
+	<br>
 	</div>
 	<br>
 <%end%>

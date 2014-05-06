@@ -25,10 +25,27 @@ def show
 		@boolean = "No"
 	    @systemreq.each do |s|
 	    	if(s.system_id == system.id)
-		    	if ((s.requirement_id == c.requirement_id) && (s.value.to_s == c.value.to_s))
-		    		@boolean = "Yes"
-		    		break
-		    	end
+	    		if (s.requirement_id == c.requirement_id)
+				    if ( c.requirement.type.string == true)
+						@boolean = "Yes"
+						break
+						    	
+					else
+					    if(c.max == true)
+   							if(c.value.to_i >= s.value.to_i)
+   								@boolean = "Yes"
+								break
+   							end
+					    else
+					    	if(c.max == false)
+					    		if(c.value.to_i <= s.value.to_i)
+	   								@boolean = "Yes"
+									break
+   								end	
+					    	end
+					    end
+					end
+				end
 		    end
 	    end
 	    if(@boolean == "No")
@@ -78,8 +95,6 @@ end
 
 
 @systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id} , :order=>("final_score DESC"))
-
-
 @edits = CompanyCriterions.find(:all,:conditions => ['system_id is not null and company_id = ?',  @company.id])
 
 
@@ -111,6 +126,7 @@ def updateScore
 	 @list = params[:company_criteria]
 		if !@list.nil?
 		@list.each do |key, value|
+		puts '222222222222222222222222222222222' + value
 		result = key.split(',') 
 		systemid = result.first
 		criteriaid = result.last

@@ -1,0 +1,2 @@
+class CompanySubcriterionsController < ApplicationController
+end

@@ -38,6 +38,7 @@
     <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
     <li><a href="#tab2" data-toggle="tab">Criteria</a></li>
      <li ><a href="#tab3" data-toggle="tab">Score</a></li>
+     <li ><a href="#tab4" data-toggle="tab">Requirements</a></li>
   </ul>
 
   <div class="tab-content">
@@ -102,16 +103,10 @@
     </div>
 
     <div class="tab-pane" id="tab2">
-      <br>
-      <% if !@criteria.blank?%>
-      <ul><% @criteria.each do |criteria| %> 
-      <p class = "title"><%=criteria.criteria.name%></p><p>Weight: <%=criteria.weight%>%</p>
-      <p class = "line-break"><%=criteria.criteria.description%></p>
-      <br>
-      <%end%>
-      </ul>
-      <div>
-      <a href="#Modal" role="button" class="btn btn-primary addin" data-toggle="modal" title = "Edit Criteria"><i class="icon-pencil icon-white" ></i> Edit</a>
+      <div class="inner-content-div">
+        <% if !@criteria.blank?%>
+        <div>
+      <div style="padding-left:23px; margin-left:790px;"><a href="#Modal" role="button" class="btnpink" data-toggle="modal" title = "Edit Criteria" style ="color:#ffffff;"><i class="icon-pencil icon-white" ></i> Edit</a></div>
 
       <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
@@ -119,14 +114,31 @@
        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
        <h3 id="myModalLabel">Edit Criteria of Company</h3>
       </div>
-      <%= form_for(:company_criteria, :url=>{:controller => 'company_criteria' , :action=>'edit_criteria' , :id => @company.id}) do |f| %>
-       <%= render(:partial=> 'company_criteria/edit' , :locals => {:f => f})%>
+      <%= form_for(:company_criterions, :url=>{:controller => 'company_criterions' , :action=>'edit_criteria' , :id => @company.id}) do |f| %>
+       <%= render(:partial=> 'company_criterions/edit' , :locals => {:f => f})%>
        <% end %>
         </div>
           </div>
-      <%else%>
-    <div>
-     <div style="padding-left:23px;"> <a href="#mModal" role="button" class="btn btn-primary" data-toggle="modal" title = "Add Criteria"><i class="icon-plus icon-white" ></i> New</a> </div>
+
+      <ul><% @criteria.each do |criteria| %> 
+      <p class = "title"><h4 class = "link-color-purple"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
+      <p class = "line-break"><%=criteria.criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
+      <% @cid = Subcriterion.where(:criterion_id => criteria.criterion.id) %>
+      <h5 class ="link-color-purple">&#9734; Sub-Criteria Chosen:</h5>
+      <div>
+      <%@cid.each do |s|%>
+      <%if @subids.include?(s.id)%>
+      &#149; <%= s.name%><br>
+      <%end%>
+      <%end%>
+    </div>
+      <hr>
+      <br>
+      <%end%>
+      </ul>
+<%else%>
+      <div>
+     <div style="padding-left:23px; margin-left:790px;"> <a href="#mModal" role="button" class="btnpink" data-toggle="modal" title = "Add Criteria" style ="color:#ffffff;"><i class="icon-plus icon-white" ></i> New</a> </div>
 
       <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
@@ -134,17 +146,19 @@
        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
        <h3 id="myModalLabel">Add Criteria To Company</h3>
       </div>
-      <%= form_for(:company_criteria, :url=>{:controller => 'company_criteria' , :action=>'enter_criteria' , :id => @company.id}) do |f| %>
-       <%= render(:partial=> 'company_criteria/view' , :locals => {:f => f})%>
+      <%= form_for(:company_criterions, :url=>{:controller => 'company_criterions' , :action=>'enter_criteria' , :id => @company.id}) do |f| %>
+       <%= render(:partial=> 'company_criterions/view' , :locals => {:f => f})%>
        <% end %>
         </div>
           </div>
           <%end%>
     </div>
+    </div>
 
-      <div class="tab-pane " id="tab3">
+        <div class="tab-pane " id="tab3">
       <div class="inner-content-div">
-       <% @systems.each do |s| %>
+
+        <% @systems.each do |s| %>
         <h4 style="padding-left:23px"> <b class="link-color-purple"><%= s.system.name %></b> </h4>
       <div>
       <div class="row">
@@ -152,7 +166,7 @@
           <% if (@button == "Yes")  %>
             <% @edits.each do |e| %>
                <% if (e.system_id == s.system_id)%>
-               <b style="padding-left:42px"><%= e.criteria.name %></b><br>
+               <b style="padding-left:42px"><%= e.criterion.name %></b><br>
                <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
                <br><br>
                <%end%>
@@ -171,8 +185,7 @@
       </div>
          <hr>
        <%end %>
-      
-    <% if (@button == "No") %>
+       <% if (@button == "No") %>
     <% if( !@systems.blank? ) %>
     <span style="padding-left:713px;"><a href="#myscoreModal" role="button" class="btnpink" data-toggle="modal"><b>Score</b></a></span>
     <%end%>
@@ -191,7 +204,7 @@
     </div>
     </div> 
     <%else %>
-    <a href="#editModal" role="button" class="btn btn-primary  button" data-toggle="modal"><b>Edit</b></a>
+    <a href="#editModal" role="button" class="btnpink  button" data-toggle="modal" style ="color:#ffffff;"><i class="icon-pencil icon-white"></i> Edit</a>
     <div>
     <div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
@@ -206,8 +219,77 @@
     </div>
     </div> 
     <%end%> 
-  </div>
       </div>
+    </div>
+
+    <div class="tab-pane" id="tab4">
+    <div class="inner-content-div">
+
+      <%if @companyreq.blank?%>
+    <div>
+     <div style="padding-left:23px; margin-left:790px;"><a href="#newreq" role="button" class="btnpink" data-toggle="modal" title = "Add Requirements" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> </div>
+
+      <div id="newreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Add Company Requirements</h3>
+      </div>
+      <%= form_for(:company_requirement, :url=>{:controller => 'company_requirements' , :action=>'create' , :id => @company.id}) do |f| %>
+       <%= render(:partial=> 'company_requirements/new' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+                    <%else%>
+          <div>
+     <div style="padding-left:23px; margin-left:790px;"> <a href="#editreq" role="button" class="btnpink" data-toggle="modal" title = "Edit Requirements" style = "color:#ffffff"><i class="icon-pencil icon-white"></i> Edit</a> </div>
+
+      <div id="editreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel">Edit Company Requirements</h3>
+      </div>
+      <%= form_for(:company_requirement, :url=>{:controller => 'company_requirements' , :action=>'update' , :id => @company.id}) do |f| %>
+       <%= render(:partial=> 'company_requirements/edit' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+          </div>
+          <%end%>
+         
+          <div style="padding-left:20px;">
+          <%@types.each do|type|%>
+          <% @string = type.string%>
+          <p style="padding-left:20px;"><h4 class = "link-color-purple"><%= type.name%></h4></p>
+          <p class = "line-break"><%= type.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <%@rids = Requirement.where(:type_id => type.id)%>
+          <h5 class ="link-color-purple">&#9734; <%= type.name%> Requirements:</h5>
+          <%@rids.each do|rid|%>
+          <%if @reqids.include?(rid.id)%>
+          <% @record = CompanyRequirement.where(:company_id => @company.id , :requirement_id => rid.id).first%>
+          <%@m = @record.max%>
+          <%@v = @record.value%>
+          &#149; <%= rid.name%> 
+          <%if !@string%>
+          : <%= @v%> <%if @m%> Max.<%else%> Min.<%end%> 
+          <%end%>
+          <%end%>
+          <br>
+          <%end%>
+          <%end%>
+        </div>
+        <br>
+          
+
+
+          
+
+    </div>
+    </div>
+
+
+
+    
     </div>
       
     

@@ -3,10 +3,10 @@
 <div class="modal-body body"> 
 <% @criteria.each do |c| %> 
 <div >
-<h4 class="criteria-background"><%= c.criteria.name %>
+<h4 class="criteria-background"><%= c.criterion.name %>
 <span class="pull-right"><%= c.weight %>%<span></h4>
 </div>
-<% cid = c.criteria.id %>
+<% cid = c.criterion.id %>
 <% w = c.weight%>
 	<% @systems.each do |s| %>
 	    <div style="padding-left:20px;">

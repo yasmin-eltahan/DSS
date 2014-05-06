@@ -7,14 +7,19 @@ class CompaniesController < ApplicationController
 	end
 
 def show
-#@company = Company.find(1)
 @company = Company.find(params[:id])
-@criteria = CompanyCriteria.where(:company_id => @company)
-@ids = CompanyCriteria.find(:all,:select => "criteria_id",:conditions=>{:company_id => @company}).collect(&:criteria_id)
-@subids = CompanySubcriteria.find(:all,:select => "subcriteria_id",:conditions=>{:company_id => @company}).collect(&:subcriteria_id)
+@criteria = CompanyCriterions.where(:company_id => @company.id)
+@ids = CompanyCriterions.find(:all,:select => "criterion_id",:conditions=>{:company_id => @company.id}).collect(&:criterion_id)
+@subids = CompanySubcriterions.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company.id}).collect(&:subcriterion_id)
 @companyreq = CompanyRequirement.find(:all,:conditions => {:company_id => @company.id})
 @systemreq = SystemRequirement.all
 @allsystems = System.all
+@types =Type.all
+@company = Company.find(params[:id])
+@val =""
+@Maximum = false
+@drop=false
+@reqids = CompanyRequirement.find(:all,:select => "requirement_id",:conditions=>{:company_id => @company.id}).collect(&:requirement_id)
 @allsystems.each do |system|
 	@companyreq.each do |c|
 		@boolean = "No"
@@ -47,13 +52,13 @@ end
 
 
 @systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id})
-@criteria = CompanyCriteria.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
 @id = ""
 @button = "No"
 
 @systems.each do |s|
 	systemid = s.system.id
-	values = CompanyCriteria.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid})
+	values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid})
 	if !values.blank?
 		@button = "Yes"
 		@totalscore = 0
@@ -75,7 +80,7 @@ end
 @systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id} , :order=>("final_score DESC"))
 
 
-@edits = CompanyCriteria.find(:all,:conditions => ['system_id is not null and company_id = ?',  @company.id])
+@edits = CompanyCriterions.find(:all,:conditions => ['system_id is not null and company_id = ?',  @company.id])
 
 
 
@@ -92,7 +97,7 @@ def createScore
 		systemid = result.first
 		criteriaid = result.last
 		weight = result[1]
-		@add = CompanyCriteria.create(:company_id => @companyid, :weight=>weight, :system_id=>systemid , :criteria_id=>criteriaid, :value => value)
+		@add = CompanyCriterions.create(:company_id => @companyid, :weight=>weight, :system_id=>systemid , :criterion_id=>criteriaid, :value => value)
 		end
 	    end
 	    redirect_to(:action => 'show' ,:id=> @companyid)	
@@ -110,7 +115,7 @@ def updateScore
 		systemid = result.first
 		criteriaid = result.last
 		weight = result[1]
-		@find = CompanyCriteria.find(:all, :conditions=> {:company_id => @companyid , :criteria_id=>criteriaid , :system_id=>systemid})
+		@find = CompanyCriterions.find(:all, :conditions=> {:company_id => @companyid , :criterion_id=>criteriaid , :system_id=>systemid})
 		res = @find.first
 		if (res.value == value)
 		else

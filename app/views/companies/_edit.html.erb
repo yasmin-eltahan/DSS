@@ -2,14 +2,14 @@
 <div class="modal-body body"> 
 <% @criteria.each do |c| %> 
 <div >
-<h4 class="criteria-background"><%= c.criteria.name %>
+<h4 class="criteria-background"><%= c.criterion.name %>
 <span class="pull-right"><%= c.weight %>%<span></h4>
 </div>
-<% cid = c.criteria.id %>
+<% cid = c.criterion.id %>
 <% w = c.weight%>
 	<% @edits.each do |e| %>
 	    <div style="padding-left:39px;">
-	    	<% if (c.criteria.id == e.criteria_id) %>
+	    	<% if (c.criterion.id == e.criterion_id) %>
 		    <% sid = e.system.id %>
 		    <%  @id = sid.to_s  + "," + w.to_s + "," + cid.to_s %>
 			<span class="text"><% name = e.system.name %></span>

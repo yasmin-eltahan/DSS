@@ -41,6 +41,7 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
+      <div class="inner-content-div">
       <br>
     	<ul style="padding-left:23px;">
         <li><b>Description:</b><br></li>
@@ -68,9 +69,11 @@
       </address>
     	</ul>
       <br>
-    <br>
     </div>
+  </div>
+
     <div class="tab-pane" id="tab2">
+      <div class="inner-content-div">
       <br>
       <ul><% @systems.each do |system| %>
       <p class = "title"><%= link_to("#{system.name}",{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title link-color-purple")%></p>
@@ -94,7 +97,7 @@
         </div>
       </div>
     </div>
-      
+      </div>
     </div>
       
     

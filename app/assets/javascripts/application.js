@@ -67,33 +67,33 @@ $(function(){
 
 $ (function(){
 $(".cb").click(function(){
-	if($(this).is(':checked')){
-	var c = $(this).val()
-	$('#'+c).slideDown();
-	}
-	else{
+  if($(this).is(':checked')){
+  var c = $(this).val()
+  $('#'+c).slideDown();
+  }
+  else{
     var v= ""
-		var c = $(this).val()
-		$('#'+c).slideUp();
+    var c = $(this).val()
+    $('#'+c).slideUp();
     $('#'+c).find('input[type=text]').val(v);
-		$('#'+c).find('input[type=checkbox]:checked').removeAttr('checked');
+    $('#'+c).find('input[type=checkbox]:checked').removeAttr('checked');
     $('.save').attr("disabled", true);
-	}
+  }
 });
 });
 
 $ (function(){
 var sum= 0; 
 $('.weight').keyup(function(){
-	sum= 0; 
+  sum= 0; 
   $('.weight').each(function() {
     sum += Number($(this).val());
   });
   if (sum == 100){
-  	$('.save').removeAttr("disabled");
+    $('.save').removeAttr("disabled");
   }
   else{
-  	$('.save').attr("disabled", true);
+    $('.save').attr("disabled", true);
   }
 });
 });
@@ -106,5 +106,3 @@ $('.drop').change(function(){
  $('#'+select).find('input[type="hidden"]').val(max);
 });
 });
-
-

@@ -2,13 +2,13 @@ class CriterionsController < ApplicationController
 	def list
 	@criterion = Criterion.all
 	@criterionnew = Criterion.new
-  	3.times { @criterionnew.subcriterions.build }
+  	2.times { @criterionnew.subcriterions.build }
 	end
 
 	def create
 		@criterion = Criterion.new(params[:criterion])
 		if @criterion.save
-		redirect_to(:action => 'show' , :id => @criterion.id)
+		redirect_to(:action => 'list')
 		else 
 			render('new')
 		end	
@@ -18,7 +18,7 @@ class CriterionsController < ApplicationController
 	def update 
 		@criterion = Criterion.find(params[:id])
 		if @criterion.update_attributes(params[:criterion])
-			redirect_to(:action => 'show' , :id => params[:id])
+			redirect_to(:action => 'list')
 		else 
 			render('edit')
 		end
@@ -27,5 +27,6 @@ class CriterionsController < ApplicationController
 
 	def destroy 
 		Criterion.find(params[:id]).destroy
+		redirect_to(:action => 'list')
 	end
 end

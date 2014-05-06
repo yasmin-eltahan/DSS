@@ -125,7 +125,7 @@
       <p class = "line-break"><%=criteria.criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
       <% @cid = Subcriterion.where(:criterion_id => criteria.criterion.id) %>
       <h5 class ="link-color-purple">&#9734; Sub-Criteria Chosen:</h5>
-      <div>
+      <div class ="listt list2">
       <%@cid.each do |s|%>
       <%if @subids.include?(s.id)%>
       &#149; <%= s.name%><br>

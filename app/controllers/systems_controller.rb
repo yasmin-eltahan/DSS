@@ -110,4 +110,19 @@ class SystemsController < ApplicationController
 		end	
 	end 
 
+	def update 
+		@system = System.find(params[:id])
+		if @system.update_attributes(params[:system])
+			redirect_to(:action => 'show' , :id => params[:id])
+		else 
+			render('edit')
+		end
+
+	end 
+
+	def destroy 
+		System.find(params[:id]).destroy
+      redirect_to(:action => 'list')
+	end
+
 end

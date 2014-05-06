@@ -2,7 +2,37 @@
 <br>
 <br>
 <div  class="container">
-	<div class="header"><%= @system.name %></div> <br>
+	<div>
+
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Edit A System</h3>
+  </div>
+  <%= form_for(@system , :as=>:system, :url=>{:action=>'update' , :id => @system.id}) do |f| %>
+  <%= render(:partial=> 'form' , :locals => {:f => f})%>
+ <% end %>
+</div>
+</div> 
+
+<br>
+<div class="row">
+    <div class="span7">
+    <div class="header" style="padding-left:15px"><%= @system.name %></div> <br>
+    </div>
+    <div class="span1" style="padding-left:300px">
+   <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
+    </div>
+    <div class="span1 pull-right" style="margin-right:-18px">
+   <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
+
+    </div>
+</div>
+
+
+
 	<div  class="show-box-list">
 		<div class="tabbable"> <!-- Only required for left/right tabs -->
 		  <ul class="nav nav-tabs colorr">
@@ -10,6 +40,7 @@
 		    <li ><a href="#tab2" data-toggle="tab">versions</a></li>
 		    <li ><a href="#tab3" data-toggle="tab">Reviews</a></li>
 		  </ul>
+
 		  <div class="tab-content" style="padding-left:20px;">
 
 		    <div class="tab-pane active" id="tab1">
@@ -82,17 +113,55 @@
         </div>
         <br>
 		  	</div>
-		    </div>
+        </div>
 		</div>
 
 		    <div class="tab-pane" id="tab2">
-		    	<br>
-		      <ul>
+          <div class="inner-content-div">
+            <div>
+      <div style="padding-left:23px"><a href="#mModal" role="button"  style="margin-left:700px" class="btnpink"  data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a></div>
+
+      <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+       <h3 id="myModalLabel"><%= @system.name %> Version</h3>
+      </div>
+      <%= form_for(@version, :as=>:version, :url=>{:controller => 'versions' , :action=>'create' , :id => @system.id}) do |f| %>
+       <%= render(:partial=> 'versions/form' , :locals => {:f => f})%>
+       <% end %>
+        </div>
+      </div>
+      <br>
 		      	<% @versions.each do |version| %> 
-		      	<li><%= version.name %></li><br>
+		      	<p class = "title link-color-purple"><%= version.name%></p>
+            <div class="span3 offset4 pull-right" style="padding-top:9px;padding-left:73px">
+            <a href="#<%= version.id %>" role="button"  data-toggle="modal"  class="btns btn-mini"> <i class="icon-pencil icon-white" title="edit" ></i></a>
+          <span style="padding-left:8px"><%= link_to({:action => 'destroy', :id=>version.id},:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </span><br>
+            </div>
+            <div>
+            <div id="<%= version.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+             <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="myModalLabel">Edit Version</h3>
+            </div>
+              <div  class="score-div padding">
+                <% @version = Version.find(version.id) %>
+               <%= form_for(@version , :as=>:version, :url=>{:controller => 'versions' , :action=>'update', :id=>version.id}) do |f| %>
+               <%= render(:partial=>'versions/form2', :locals=>{:f=>f}) %>
+             <%end%>
+              </div>
+            </div>
+            </div>
+            <ul>
+              <li><b>Year: </b><%=version.year%></li>
+              <li><b>Price: </b><%=version.Price%> USD</li>
+            </ul>
+              <hr>
 		      	<%end%>
-		      </ul>
+        
 		    </div>
+        </div>
 
 		      <div class="tab-pane " id="tab3">
 		      	<div class="inner-content-div">

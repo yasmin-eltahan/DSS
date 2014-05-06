@@ -1,6 +1,6 @@
 <fieldset>
-  <b><%= f.label :name, "Sub Criterion name:" %></b><br/>
+  <span style="font-size:9px"><%= f.label :name, "Sub-Criteria" %></span>
   <%= f.text_field :name %>
   <%= f.hidden_field :_destroy %>
-  <%= link_to "remove", '#', class: "remove_fields" %>
+  <%= link_to "x" , "#" , class: "remove" , title: "Delete" %>
   </fieldset>

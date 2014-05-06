@@ -1,0 +1,30 @@
+ <div class="modal-body body">
+    <p>
+	<dl>		
+		
+<dt><%= f.label("Name") %></dt>
+<dd><%= f.text_field(:name)%></dd>
+
+<dt><%= f.label("Year") %></dt>
+<dd><%= f.text_field(:year , :class => "span2")%></dd>
+
+
+<dt><%= f.label("Price") %></dt>
+<dd><%= f.text_field(:Price , :class => "span3")%> USD</dd>
+
+
+<%= f.hidden_field :system_id , :value=> @system.id %>
+
+
+
+
+</dl>
+</br>
+
+</p>
+  </div>
+  <div class="modal-footer">
+    
+ 	<button class = " btn btn-primary" type = "submit">Save</button>
+    
+  </div>

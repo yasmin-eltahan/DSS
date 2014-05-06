@@ -32,7 +32,7 @@
 <br>
 
 <div class="show-box-list">
-<div class="tabbable show-box-list"> 
+<div class="tabbable"> 
 
   <ul class="nav nav-tabs colorr">
     <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
@@ -105,7 +105,7 @@
       <br>
       <% if !@criteria.blank?%>
       <ul><% @criteria.each do |criteria| %> 
-      <p class = "title"><%=criteria.criteria.name%></p><p>Weight: <%=criteria.weight%>%</p>
+      <p class = "title link-color"><%=criteria.criteria.name%></p><p>Weight: <%=criteria.weight%>%</p>
       <p class = "line-break"><%=criteria.criteria.description%></p>
       <br>
       <%end%>
@@ -130,7 +130,8 @@
       <div class="tab-pane " id="tab3">
       <div class="inner-content-div">
        <% @systems.each do |s| %>
-        <h4 style="padding-left:23px"> <b class="link-color-purple"><%= s.system.name %></b> </h4>
+        <h4 style="padding-left:23px"> <b><%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%></b> </h4>
+
       <div>
       <div class="row">
         <div class="span3">   
@@ -197,9 +198,7 @@
       
     
   </div>
-
 </div>
-
 </div>
 
 

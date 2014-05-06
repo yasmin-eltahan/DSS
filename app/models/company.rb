@@ -7,4 +7,13 @@ class Company < ActiveRecord::Base
      has_many :crtieria, :through => :company_criteria
      has_many :company_subcriteria
 
+    
+	   def self.search(search)
+	  if search
+	    find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+	  else
+	    find(:all , :order=>("name ASC"))
+	  end
+	end
+
 end

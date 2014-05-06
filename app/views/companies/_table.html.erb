@@ -1,0 +1,47 @@
+<% @companies.each do |company| %>
+	     	<div class="box-list" >
+                <div style="padding:10px">
+	                <div>
+	                	<div class="row">
+		                	<div class="span4" style="padding-left:20px">
+		                	<%= link_to({:action => 'show', :id => company.id}) do %>
+							<%= image_tag("sap2.png", :class=> "img-circle bg" , height: '90', width: '90' )%> 
+							<%end%>
+							<br>
+							<br>
+							<div style="padding-left:10px">
+							<address class ="add">
+					  			<strong class = "address">Address:</strong><br>
+					  			<%=company.address%><br>
+					  			<abbr title="Phone">P:</abbr> <%=company.phone%> 
+								</address>
+							<address>
+					  			<strong class = "address">Website:</strong><br>
+					 			 <a href="#"><%=company.website%></a>
+							</address>
+							</div>
+							</div>
+							<div class="span7" style="margin-top:10px">
+							<br>
+							
+							<span style="font-size:25px;"><b><%= link_to(company.name, {:action => 'show', :id => company.id} ,:class => "link-color-purple") %></b></span>
+							<br>
+							<br>
+							<br>
+							<b>Description</b>
+							<br>
+							<div class="line-break">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>						
+			</div>	
+			<br>
+	<%end%>

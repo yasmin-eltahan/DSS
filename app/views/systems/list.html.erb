@@ -3,30 +3,36 @@
 <br>
 <br>
 <div class="container">
-	<div class="header" > Systems </div>
-    <br>
+	<div class="row" >
+	<div class="span3">
+	<div class="header" style="padding-left:18px"> Systems </div>
+	</div>
+
+	<div class="span3 offset5 pull-right" >
+    
+			<%= form_tag( 'list', :method => 'get', :id=>"system-search", :class=>"pull-left" ,  :remote=>true) do %>
+				<div class="input-append" style="margin-left:60px;backgroun-color:red;">
+			 	<%= text_field_tag :search, params[:search] , :id=>"appendedInputButton" , :class=>"span9", :placeholder=>"search systems.." , :type=>"text" %>
+			  	<button class="btn" type="submit">
+			  		<i class="icon-search"></i>
+			  	</button>
+			  	</div>
+			<% end %>
+	</div>
+	</div>
+
        <div class="scroll2">
        	<div class="scrollablediv">
-		<% @systems.each do |system| %>
-		    <div class = "box-list" >
-			<tr> <br>
-		    <td> <%= link_to("#{system.name}",{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title link-color")%></td> <br>By <span> <%= link_to("#{system.vendor.name}",{:controller=>"vendors",:action=>'show',:id=>system.vendor_id} , :class=>"vendor-link")%><br>
-		    <br>
-		 	Description: <br>
-			 	<div class="line-break">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			 	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			 	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			 	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			 	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			 	proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <br><br>
-			   </div>
-	 	   </tr>
-	 	   </div>
-	 	   <br>
-	 	<% end %>
+
+          <div id="systemlist">
+		     <%= render 'table' %>
+          </div>
+
 	 </div>
 	</div>
     
 </div>
+
+
 </body>
 

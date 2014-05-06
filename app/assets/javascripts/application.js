@@ -21,6 +21,46 @@ $(function(){
     });
 });
 
+$(function(){
+ $("#Budget-serach input").keyup(function (){
+    $.get($("#Budget-serach").attr("action"), $("#Budget-serach").serialize(), null, "script");
+    return false;
+  });
+});
+
+$(function(){
+ $("#system-search input").keyup(function (){
+    $.get($("#system-search").attr("action"), $("#system-search").serialize(), null, "script");
+    return false;
+  });
+});
+
+
+$(function(){
+ $("#vendor-search input").keyup(function (){
+    $.get($("#vendor-search").attr("action"), $("#vendor-search").serialize(), null, "script");
+    return false;
+  });
+});
+
+$(function(){
+ $("#company-search input").keyup(function (){
+    $.get($("#company-search").attr("action"), $("#company-search").serialize(), null, "script");
+    return false;
+  });
+});
+
+
+
+
+
+// $(function() {
+//     $("#options").click(function(){
+//         $("#req-div").toggle("slow");
+//     });
+// });
+
+
 // $(".img-circle").css('opacity','0.4');
 
 
@@ -40,7 +80,7 @@ $(function(){
 
 $(function(){
     $('.inner').slimScroll({
-        height: '560px'
+        height: '450px'
     });
 });
 

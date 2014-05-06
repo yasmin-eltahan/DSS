@@ -151,6 +151,7 @@ overflow:auto;
     # background:#fcf8e3;
  # border: 1px solid #fbeed5;
 #-webkit-border-radius: 4px;
+
 #-moz-border-radius: 4px;
 #border-radius: 4px;
 }
@@ -190,20 +191,32 @@ overflow:auto;
   color: #4D4D4D;
 }
 
-.link-color-purple:hover {
-  #color:#7e3f63;
-  color:  #282041;
-  text-decoration:none;
-}
-
-.link-color-purple {
-   color:#564A7B;
-}
-
 .link-color:hover {
   color: #191919;
   text-decoration:none;
 }
+
+.link-color-purple:hover {
+  #color:#7e3f63;
+  color: #004466;
+  text-decoration:none;
+}
+
+.link {
+  color:#006DA3
+}
+
+.link-color-purple {
+  # color:#43366C;
+    color:#006DA3;
+}
+
+.remove {
+  font-weight:bold;
+  padding-left:10px;
+}
+
+
 
 
 .line-break {
@@ -337,7 +350,7 @@ background: #f2f2f2;
 
 .currentuser-name {
   padding-top:10px;
-  margin-left:590px;
+  margin-left:460px;
 }
 
 .t_list {

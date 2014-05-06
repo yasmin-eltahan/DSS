@@ -1,10 +1,10 @@
 class CompaniesController < ApplicationController
 
-	def list
-	@companies = Company.all
-	@company = Company.new
-	
-	end
+def list
+@companies = Company.search(params[:search]) 
+@company = Company.new
+
+end
 
 def show
 #@company = Company.find(1)

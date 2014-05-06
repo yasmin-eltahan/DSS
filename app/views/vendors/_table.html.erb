@@ -1,0 +1,21 @@
+<% @vendors.each do |vendor| %>
+			<div class ="box-list">
+			<br>
+			
+			<%= link_to(vendor.name.gsub("-" , " "), {:action => 'show', :id => vendor.id} ,:class => "title link-color-purple") %>
+			<br>
+			<br>
+			<address class ="add">
+	  			<strong class = "address">Address:</strong><br>
+	  			<%=vendor.address%><br>
+	  			<abbr title="Phone">P:</abbr> <%=vendor.phone%> 
+				</address>
+			<address>
+	  			<strong class = "address">Website:</strong><br>
+	 			 <a href="#"><%=vendor.website%></a>
+				</address>
+			<br>
+			
+		</div>
+		<br>
+<%end%>

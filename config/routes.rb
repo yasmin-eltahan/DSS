@@ -34,8 +34,8 @@ DSS::Application.routes.draw do
 # end
 
   devise_for :users
-  #root :to => "home#index"
-  root :to => "companies#list"
+  root :to => "home#index"
+  #root :to => "companies#list"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

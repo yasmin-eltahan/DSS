@@ -1,0 +1,44 @@
+     <div class="modal-body" style="margin-left:-20px">
+     <fieldset>
+       <div class="field" style="margin-left:30px;margin-top:20px">
+		<b><%= f.label("Name") %></b>
+		<%= f.text_field(:name ,:placeholder=>"eg.Database")%>
+		<br>
+
+		<div class="row" style="padding-left:40px;">
+		<div class="span4">
+			<div class="row">
+			<div class="span2">
+			<%= f.radio_button :technical, false %>
+			</div>
+			<div class="span2" style="margin-left:-8px;padding-top:2px;">
+			<b><%= f.label("Business") %></b>
+			</div>
+			</div>
+		</div>
+		<div class="span4" style="margin-left:-20px;">
+			<div class="row">
+			<div class="span2">
+			<%= f.radio_button :technical , true , checked: true %> 
+			</div>
+			<div class="span2" style="margin-left:-8px;padding-top:2px;">
+			<b><%= f.label("Technical") %></b>
+			</div>
+			</div>
+		</div>
+		</div>
+
+        <div>
+        <div id="req-div" style="margin-left:20px;">   
+		<%= f.fields_for :requirements do |builder| %>
+		<%= render(:partial=>'requirement_fields', :locals=>{:f=>builder}) %>
+		<%end%> 
+	    <span><%= link_to_add_fields "Add Another Option", f, :requirements %></span>
+    	</div>
+    	</div>
+    	</div>	
+    </fieldset> 
+</div>
+<div class="modal-footer" style="margin-left:-20px;margin-bottom:-20px;">
+         <%= f.submit("submit") %>
+		</div>

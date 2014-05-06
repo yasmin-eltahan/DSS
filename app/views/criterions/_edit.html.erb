@@ -1,0 +1,25 @@
+ <div class="modal-body" style="margin-left:-20px">
+ 
+<fieldset>		
+<div class="field" style="margin-left:30px;margin-top:20px">
+<b><%= f.label("Name") %></b>
+<%= f.text_field(:name ,:placeholder=>"eg.Database")%>
+<br>
+
+<b><%= f.label("Description") %></b>
+<%= f.text_area(:description , :size => "8x8")%>
+
+<div id="req-div" style="margin-left:20px;"> 
+<%= f.fields_for :subcriterions do |builder| %>
+<%= render 'subcriterion_fields', f: builder %>
+<% end %>
+  <span><%= link_to_add_fields "Add Sub-Criteria", f, :subcriterions %></span>
+</br>
+</div>
+</fieldset>
+  </div>
+
+  <div class="modal-footer" style="margin-left:-20px;margin-bottom:-20px;">
+         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+ 		<button class = "btn btn-primary" type = "submit">Save</button>
+		</div>

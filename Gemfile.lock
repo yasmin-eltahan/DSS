@@ -60,8 +60,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    jwt (0.1.11)
-      multi_json (>= 1.5)
+    jwt (0.1.12)
     koala (1.9.0)
       addressable
       faraday
@@ -71,7 +70,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    multi_json (1.9.3)
+    multi_json (1.10.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nokogiri (1.6.1-x86-mingw32)
@@ -119,8 +118,7 @@ GEM
     rake (10.3.1)
     rdoc (3.12.2)
       json (~> 1.4)
-    rmagick (2.12.2)
-    sass (3.3.6)
+    sass (3.3.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -155,7 +153,6 @@ DEPENDENCIES
   nokogiri
   omniauth-facebook
   rails (= 3.2.13)
-  rmagick (~> 2.12.2)
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)

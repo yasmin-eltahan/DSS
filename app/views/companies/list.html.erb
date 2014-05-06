@@ -1,81 +1,44 @@
-
 <br>
 <br>
 <br>
 <div class="container">	
 
-<div>
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">New Company</h3>
-  </div>
-  <%= form_for(@company , :as=>:company, :url=>{:action=>'create'}) do |f| %>
-  <%= render(:partial=> 'form' , :locals => {:f => f})%>
- <% end %>
-</div> 
-</div>
-		
-<div class="row">
-<div class="span2">
-<div class="header" style="padding-left:20px"> Companies</div><br>
-</div>
-<div class="span3 offset7 pull-right">
-<a href="#myModal" role="button" class="btns" data-toggle="modal" style="margin-left:150px"><i class="icon-plus icon-white"></i> <b style="color:white">New</b></a>
-</div>
-</div>
-        <div style="margin-top:-20px">
-		<% @companies.each do |company| %>
-		<br>
-
-	     	<div class="box-list" >
-                <div style="padding:10px">
-	                <div>
-	                	<div class="row">
-		                	<div class="span4" style="padding-left:20px">
-		                	<%= link_to({:action => 'show', :id => company.id}) do %>
-							<%= image_tag("sap2.png", :class=> "img-circle bg" , height: '90', width: '90' )%> 
-							<%end%>
-							<span style="padding:19px"><%= link_to(company.name, {:action => 'show', :id => company.id} ,:class => "title link-color-purple") %></span>
-							<br>
-							<br>
-							<div style="padding-left:10px">
-							<address class ="add">
-					  			<strong class = "address">Address:</strong><br>
-					  			<%=company.address%><br>
-					  			<abbr title="Phone">P:</abbr> <%=company.phone%> 
-								</address>
-							<address>
-					  			<strong class = "address">Website:</strong><br>
-					 			 <a href="#"><%=company.website%></a>
-							</address>
-							</div>
-							</div>
-							<div class="span7">
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<b>Description</b>
-							<br>
-							<div class="line-break">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</div>
-							</div>
-						</div>
-					</div>
-				</div>						
-			</div>
-	
-	<%end%>
 	<div>
+	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h3 id="myModalLabel">New Company</h3>
+	  </div>
+	  <%= form_for(@company , :as=>:company, :url=>{:action=>'create'}) do |f| %>
+	  <%= render(:partial=> 'form' , :locals => {:f => f})%>
+	 <% end %>
+	</div> 
+	</div>
+
+    <div class="row" >
+	<div class="span3">
+	<div class="header" style="padding-left:18px"> Companies</div> <br>
+	</div>
+
+	<div class="span3 offset4" style="margin-left:400px;padding-left:60px;">
+    
+			<%= form_tag( 'list', :method => 'get', :id=>"company-search", :class=>"pull-left" ,  :remote=>true) do %>
+				<div class="input-append">
+			 	<%= text_field_tag :search, params[:search] , :id=>"appendedInputButton" , :class=>"span12", :placeholder=>"search companies.." , :type=>"text" %>
+			  	<button class="btn" type="submit">
+			  		<i class="icon-search"></i>
+			  	</button>
+			  	</div>
+			<% end %>
+	</div>
 	
-	
- </div>
+	<div class="span1 pull-right" style="padding-left:20px;" >
+	<a href="#myModal" role="button" class="btns" data-toggle="modal"><i class="icon-plus icon-white"></i></a>
+	</div>
+	</div>
+		
+    <div id="companylist">
+	<%= render 'table' %>
+    </div>
+</div>

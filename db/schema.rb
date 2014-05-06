@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505212945) do
+ActiveRecord::Schema.define(:version => 20140505204508) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
     t.integer  "company_id"
     t.integer  "criteria_id"
     t.integer  "system_id"
-    t.integer  "weight"
     t.integer  "value"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "weight",      :default => 0
   end
 
   create_table "company_criterions", :force => true do |t|
@@ -53,10 +53,10 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
   create_table "company_requirements", :force => true do |t|
     t.integer  "company_id"
     t.integer  "requirement_id"
+    t.string   "value"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.boolean  "max"
-    t.string   "value"
   end
 
   create_table "company_subcriteria", :force => true do |t|
@@ -81,6 +81,13 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "criteria", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "criterions", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -99,9 +106,10 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
 
   create_table "requirements", :force => true do |t|
     t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "type_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "reviews", :force => true do |t|
@@ -130,12 +138,20 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "subcriteria", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "criteria_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "subcriterions", :force => true do |t|
     t.string   "name"
     t.string   "description"
+    t.integer  "criterion_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "criterion_id"
   end
 
   create_table "system_requirements", :force => true do |t|
@@ -156,13 +172,13 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
   end
 
   create_table "systems", :force => true do |t|
-    t.string   "name"
-    t.string   "programming_language"
-    t.string   "description"
     t.integer  "vendor_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.string   "name"
+    t.string   "programming_language"
     t.integer  "no_of_employees"
+    t.text     "description"
   end
 
   create_table "systems_technicals", :id => false, :force => true do |t|
@@ -199,8 +215,6 @@ ActiveRecord::Schema.define(:version => 20140505212945) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
     t.string   "username"
   end
 

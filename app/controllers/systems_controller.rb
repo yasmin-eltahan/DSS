@@ -1,7 +1,7 @@
 class SystemsController < ApplicationController
 
 	def list
-    @systems = System.all
+    @systems = System.search(params[:search]) 
 	#@user = current_user.id
 	end
 

@@ -32,7 +32,7 @@
 <br>
 
 <div class="show-box-list">
-<div class="tabbable show-box-list"> 
+<div class="tabbable"> 
 
   <ul class="nav nav-tabs colorr">
     <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
@@ -121,7 +121,7 @@
           </div>
 
       <ul><% @criteria.each do |criteria| %> 
-      <p class = "title"><h4 class = "link-color-purple"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
+      <p class = "title link-color"><h4 class = "link-color-purple"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
       <p class = "line-break"><%=criteria.criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
       <% @cid = Subcriterion.where(:criterion_id => criteria.criterion.id) %>
       <h5 class ="link-color-purple">&#9734; Sub-Criteria Chosen:</h5>
@@ -157,9 +157,8 @@
 
         <div class="tab-pane " id="tab3">
       <div class="inner-content-div">
-
-        <% @systems.each do |s| %>
-        <h4 style="padding-left:23px"> <b class="link-color-purple"><%= s.system.name %></b> </h4>
+       <% @systems.each do |s| %>
+        <h4 style="padding-left:23px"> <b><%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%></b> </h4>
       <div>
       <div class="row">
         <div class="span3">   
@@ -284,7 +283,6 @@
     </div>
   </div>
 </div>
-
 </div>
 
 

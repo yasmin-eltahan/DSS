@@ -1,7 +1,7 @@
 class VendorsController < ApplicationController
 	
 	def list
-	@vendors = Vendor.order("vendors.name ASC")
+	@vendors = Vendor.search(params[:search]) 
 	@vendor = Vendor.new
 	
 	end

@@ -124,8 +124,9 @@
       <p class = "title link-color"><h4 class = "link-color"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
       <p class = "line-break"><%=criteria.criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
       <% @cid = Subcriterion.where(:criterion_id => criteria.criterion.id) %>
+
       <h5 class ="link-color">&#9734; Sub-Criteria Chosen:</h5>
-      <div>
+      <div class ="listt list2">
       <%@cid.each do |s|%>
       <%if @subids.include?(s.id)%>
       &#149; <%= s.name%><br>
@@ -178,7 +179,7 @@
           <div frame="box" class="border">
           <div>
           <b style="padding-left:18px">Score</b><br>
-          <span style="padding-left:22px"><% if !s.final_score.nil? %><%= s.final_score %><%else %><span style="padding-left:10px;"></span><%end%></span>
+          <span style="padding-left:30px"><% if !s.final_score.nil? %><%= s.final_score %><%else %><span style="padding-left:10px;"></span><%end%></span>
           </div>
         </div>
         </div>
@@ -187,6 +188,7 @@
 
       <div style="padding-left:22px">
         <b>&#9734; System Requirements</b><br>
+        <div style="padding-left:15px;">
         <% @req = SystemRequirement.find(:all,:conditions=>{:system_id => s.system_id}) %>
         <% @types = Type.all %>
         <% @types.each do |type| %>
@@ -207,6 +209,7 @@
           <%end%>
         </ul>
         <%end%>
+      </div>
       </div>
 
          <hr>
@@ -263,6 +266,7 @@
            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
            <h3 id="myModalLabel">Add Company Requirements</h3>
           </div>
+
           <%= form_for(:company_requirement, :url=>{:controller => 'company_requirements' , :action=>'create' , :id => @company.id}) do |f| %>
            <%= render(:partial=> 'company_requirements/new' , :locals => {:f => f})%>
            <% end %>
@@ -270,6 +274,7 @@
     <%else%>
           
          <span style="padding-left:23px; margin-left:790px;"> <a href="#editreq" role="button" class="btnpink" data-toggle="modal" title = "Edit Requirements" style = "color:#ffffff"><i class="icon-pencil icon-white"></i> Edit</a> </span>
+
 
           <div id="editreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       
@@ -308,20 +313,9 @@
         <%end%>
         </div>
 
-          
-
-
-          
-
     </div>
     </div>
-
-
-
-    
     </div>
-      
-    
   </div>
 </div>
 </div>

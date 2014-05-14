@@ -22,7 +22,6 @@ module ApplicationHelper
   end	
 
 
-
   def top_software
 	require 'rubygems'
     require 'nokogiri'

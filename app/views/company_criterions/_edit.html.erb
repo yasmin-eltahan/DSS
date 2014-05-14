@@ -13,12 +13,12 @@
 			<%@v = ""%>
 			<%end%>
 	<div id=<%="#{criteria.id}"-%> <% if @m.blank? %>style="display:none;"<%end%>>
-	<p class = "p"><%= f.text_field(criteria.id , :class => "span4 weight", :placeholder =>"weight %" , :value => @v) %> %</p>
+	<p class = "p"><%= f.text_field(criteria.id , :class => "span4 weight", :placeholder =>"weight" , :value => @v) %> %</p>
 	<br>
 	<h6 style="padding-left:20px;"> &#9733; Please Choose Sub-Criteria:</h6>
 	<div class= "list" style="padding-left:20px;">
 	<% Subcriterion.where(:criterion_id => criteria.id).each do |sub|%>
-	<label class = "label1"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub)%><%= sub.name%></label>
+	<label class = "label2"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub)%><%= sub.name%></label>
 	<%end%>
 </div>
 </div>

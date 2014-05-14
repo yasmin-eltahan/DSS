@@ -1,7 +1,7 @@
 class SpecsController < ApplicationController
 	
 	def list
-	@specs = Spec.all
+	@specs = Spec.search(params[:search]) 
 	@spec = Spec.new
 	
 	end

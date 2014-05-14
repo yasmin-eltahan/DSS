@@ -1,6 +1,6 @@
 class CriterionsController < ApplicationController
 	def list
-	@criterion = Criterion.all
+	@criterion = Criterion.search(params[:search]) 
 	@criterionnew = Criterion.new
   	2.times { @criterionnew.subcriterions.build }
 	end

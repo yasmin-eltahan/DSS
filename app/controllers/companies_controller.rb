@@ -25,10 +25,27 @@ def show
 		@boolean = "No"
 	    @systemreq.each do |s|
 	    	if(s.system_id == system.id)
-		    	if ((s.requirement_id == c.requirement_id) && (s.value.to_s == c.value.to_s))
-		    		@boolean = "Yes"
-		    		break
-		    	end
+	    		if (s.requirement_id == c.requirement_id)
+				    if ( c.requirement.type.string == true)
+						@boolean = "Yes"
+						break
+						    	
+					else
+					    if(c.max == true)
+   							if(c.value.to_i >= s.value.to_i)
+   								@boolean = "Yes"
+								break
+   							end
+					    else
+					    	if(c.max == false)
+					    		if(c.value.to_i <= s.value.to_i)
+	   								@boolean = "Yes"
+									break
+   								end	
+					    	end
+					    end
+					end
+				end
 		    end
 	    end
 	    if(@boolean == "No")
@@ -78,8 +95,6 @@ end
 
 
 @systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id} , :order=>("final_score DESC"))
-
-
 @edits = CompanyCriterions.find(:all,:conditions => ['system_id is not null and company_id = ?',  @company.id])
 
 
@@ -133,6 +148,9 @@ end
 	def create
 		@company = Company.new(params[:company])
 		if @company.save
+			if !current_user.blank?
+				CompanyUsers.create(:company_id => @company.id , :user_id => current_user.id, :role => "admin")
+			end
 		redirect_to(:action => 'show' , :id => @company.id)
 		else 
 			render('new')

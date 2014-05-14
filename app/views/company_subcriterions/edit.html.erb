@@ -1,0 +1,53 @@
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class ="container">
+	<div  class="show-box-list">
+		<div class="tabbable"> 
+  <ul class="nav nav-tabs colorr">
+<li class="active"><a href="#tab1" data-toggle="tab">Sub Criteria</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <div class="inner-content-div">
+
+      <h4 class="link-color-purple" style ="padding-left:23px;"><b>Please Enter Weight For Sub-Criteria:</b></h4>
+      <br>
+<%= form_for(:company_subcriterions, :url=>{:action=>'create' , :id => @company}) do |f| %>
+
+      <% @criteria.each do|c|%>
+      <h4><p style="padding-left:23px;" class = "title link-color"><%= c.criterion.name%><label style="margin-top:-20px; margin-left: 200px; font-size: 18px;"id=<%="#{c.id}"-%>><%= c.weight%></label><label style="margin-top:-25px; margin-left: 230px; font-size: 18px;">%</label></p></h4>
+     <br>
+      <h6 class ="link-color" style= "padding-left:23px;">&#9734; Please Assign Weight to Sub-Criteria:</h6>
+      
+      <div class ="list2" id=<%="sub#{c.id}"-%>>
+      <% @subcriteria.each do|sub|%>
+      <%if sub.subcriterion.criterion_id == c.criterion.id%>
+      <% @m = CompanySubcriterions.where(:id=>sub.id).first%>
+      <% if !@m.blank?%>
+      <% @v= @m.weight.to_s%>
+      <%else%>
+      <%@v = ""%>
+      <%end%>
+      <p style="padding-left:23px; margin-right:0px;"> &#149; <%= sub.subcriterion.name%> <p style="padding-left:150px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span3 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p><p>
+      	
+      <%end%>
+      <%end%>
+  </div>
+      <br>
+      <%end%>
+
+      <button class = "btn btn-primary save" type = "submit" style="margin-left:750px;">Save</button>
+    
+       <% end %>
+      </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>

@@ -6,6 +6,10 @@ class Company < ActiveRecord::Base
      has_many :company_systems
      has_many :crtieria, :through => :company_criteria
      has_many :company_subcriteria
+     has_many :company_users
+     has_many :users , :through => :company_users
+
+     accepts_nested_attributes_for :company_users , allow_destroy: true
 
     
 	   def self.search(search)

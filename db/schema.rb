@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513002243) do
+ActiveRecord::Schema.define(:version => 20140513165053) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -24,10 +24,13 @@ ActiveRecord::Schema.define(:version => 20140513002243) do
     t.boolean  "public"
     t.integer  "no_of_employees"
     t.integer  "revenue"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "phone"
     t.integer  "no_of_branches"
+    t.text     "description"
+    t.boolean  "show",            :default => false
+    t.boolean  "confirm",         :default => false
   end
 
   create_table "company_criteria", :force => true do |t|
@@ -48,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20140513002243) do
     t.integer  "value"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
   end
 
   create_table "company_requirements", :force => true do |t|
@@ -80,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20140513002243) do
     t.integer  "final_score"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "company_users", :force => true do |t|
@@ -104,6 +109,15 @@ ActiveRecord::Schema.define(:version => 20140513002243) do
     t.string   "source"
     t.integer  "system_id"
     t.integer  "vendor_id"
+  end
+
+  create_table "reasons", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "criterion_id"
+    t.integer  "user_id"
+    t.text     "reason"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "requirements", :force => true do |t|
@@ -198,8 +212,8 @@ ActiveRecord::Schema.define(:version => 20140513002243) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",       :null => false
+    t.string   "encrypted_password",     :default => "",       :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -208,9 +222,10 @@ ActiveRecord::Schema.define(:version => 20140513002243) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.string   "username"
+    t.string   "role",                   :default => "viewer"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

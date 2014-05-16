@@ -6178,17 +6178,15 @@ a.badge:focus {
 .carousel-control {
   position: absolute;
   top: 40%;
-  left: 15px;
+  left: 150px;
   width: 40px;
   height: 40px;
   margin-top: -20px;
   font-size: 60px;
   font-weight: 100;
   line-height: 30px;
-  color: #ffffff;
+  color:#222222;
   text-align: center;
-  background: #222222;
-  border: 3px solid #ffffff;
   -webkit-border-radius: 23px;
      -moz-border-radius: 23px;
           border-radius: 23px;
@@ -6197,13 +6195,13 @@ a.badge:focus {
 }
 
 .carousel-control.right {
-  right: 15px;
+  right: 150px;
   left: auto;
 }
 
 .carousel-control:hover,
 .carousel-control:focus {
-  color: #ffffff;
+  color: #222222;
   text-decoration: none;
   opacity: 0.9;
   filter: alpha(opacity=90);

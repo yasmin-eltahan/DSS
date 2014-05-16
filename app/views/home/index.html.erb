@@ -1,16 +1,11 @@
-<div id="myCarousel" class="carousel slide" style= "margin-top:50px;">
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
+<div id="myCarousel" class="carousel slide" style= "margin-top:60px;">
   <!-- Carousel items -->
   <div class="carousel-inner">
-    <div class="active item" style= "margin-left:130px;"><%= image_tag("sap.jpg")%> </div>
-    <div class="item" style= "margin-left:130px;"><%= image_tag("Oracle.png")%></div>
-    <div class="item" style= "margin-left:130px;"><%= image_tag("MSDynamics.jpg")%></div>
+    <div class="active item" style ="margin-left:200px;"><%= image_tag("sap.jpg" , :width => "900" , :height => "100")%> </div>
+    <div class="item" style ="margin-left:200px;"><%= image_tag("Oracle.png", :width => "900" , :height => "100")%></div>
+    <div class="item" style ="margin-left:200px;"><%= image_tag("MSDynamics.jpg", :width => "900" , :height => "100")%></div>
   </div>
   <!-- Carousel nav -->
-  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev"><b>&lsaquo;</b></a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next"><b>&rsaquo;</b></a>
 </div>

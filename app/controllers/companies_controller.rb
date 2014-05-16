@@ -172,4 +172,18 @@ end
       redirect_to(:action => 'list')
 	end
 
+	def confirm
+		@companies = Company.where(:confirm => false)
+	end
+
+	def confirmed
+		@confirmids = params[:companies]
+		@confirmids.each do|id|
+			@record = Company.where(:id => id)
+			@record.update_all(:confirm => true)
+
+			redirect_to(:action => 'list')
+		end
+	end
+
 end

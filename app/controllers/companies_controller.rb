@@ -17,6 +17,7 @@ def show
 @types =Type.all
 @company = Company.find(params[:id])
 @val =""
+@reason = ""
 @Maximum = false
 @drop=false
 @reqids = CompanyRequirement.find(:all,:select => "requirement_id",:conditions=>{:company_id => @company.id}).collect(&:requirement_id)
@@ -68,35 +69,38 @@ def show
 end
 
 
-@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id})
-@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
-@id = ""
-@button = "No"
-
-@systems.each do |s|
-	systemid = s.system.id
-	values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid})
-	if !values.blank?
-		@button = "Yes"
-		@totalscore = 0
-		values.each do |value|
-	     @criteria_weight = value.weight
-	     @criteria_value = value.value
-	     @criteria_score = @criteria_weight*@criteria_value
-	     @totalscore = @totalscore + @criteria_score
-		end
-		record = CompanySystem.where(:company_id => @company.id , :system_id=>systemid)
-		record.each do |r|
-		r.update_attributes(:final_score=> @totalscore)
+	@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil})
+	@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+	@id = ""
+	@button = "No"
+	@systems.each do |s|
+		systemid = s.system.id
+		values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
+		if !values.blank?
+			@button = "Yes"
+			@totalscore = 0
+			values.each do |value|
+		     @criteria_weight = value.weight
+		     @criteria_value = value.value
+		     @criteria_score = @criteria_weight*@criteria_value
+		     @totalscore = @totalscore + @criteria_score
+			end
+			record = CompanySystem.where(:company_id => @company.id , :system_id=>systemid , :user_id=> current_user.id)
+			if !record.blank?
+                r = record.first
+                r.update_attributes(:final_score => @totalscore)
+			else
+				record = CompanySystem.create(:company_id => @company.id , :system_id=>systemid , :user_id=> current_user.id , :final_score=>@totalscore)
+			end
 	    end
-    end
 end
 
 
 
-@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id} , :order=>("final_score DESC"))
-@edits = CompanyCriterions.find(:all,:conditions => ['system_id is not null and company_id = ?',  @company.id])
-
+#@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id} , :order=>("final_score DESC"))
+if user_signed_in? 
+@edits = CompanyCriterions.find(:all,:conditions => ['system_id is not null and company_id = ? and user_id = ?',  @company.id , current_user.id])
+end
 
 
 
@@ -109,13 +113,19 @@ def createScore
 		if !@list.nil?
 		@list.each do |key, value|
 		result = key.split(',') 
-		systemid = result.first
-		criteriaid = result.last
-		weight = result[1]
-		@add = CompanyCriterions.create(:company_id => @companyid, :weight=>weight, :system_id=>systemid , :criterion_id=>criteriaid, :value => value)
+		decide = result.first
+			if (decide == "reason")
+			criteriaid = result.last
+			@add = Reason.create(:company_id => @companyid , :criterion_id=>criteriaid , :reason => value , :user_id=> current_user.id)
+			else
+			systemid = result.first
+			criteriaid = result.last
+			weight = result[1]
+			@add = CompanyCriterions.create(:company_id => @companyid, :weight=>weight, :system_id=>systemid , :criterion_id=>criteriaid, :value => value , :user_id=> current_user.id)
+			end
 		end
 	    end
-	    redirect_to(:action => 'show' ,:id=> @companyid)	
+	    redirect_to(:action => 'score' ,:id=> @companyid)	
 
 
 end
@@ -126,21 +136,32 @@ def updateScore
 	 @list = params[:company_criteria]
 		if !@list.nil?
 		@list.each do |key, value|
-		puts '222222222222222222222222222222222' + value
-		result = key.split(',') 
-		systemid = result.first
-		criteriaid = result.last
-		weight = result[1]
-		@find = CompanyCriterions.find(:all, :conditions=> {:company_id => @companyid , :criterion_id=>criteriaid , :system_id=>systemid})
-		res = @find.first
-		if (res.value == value)
-		else
-			res.update_attributes(:value => value)
-		end
+			result = key.split(',') 
+			decide = result.first
+			if (decide == "reason")
+				criteriaid = result.last
+				@find = Reason.find(:all,:conditions=>{:company_id => @companyid , :criterion_id=>criteriaid , :user_id=> current_user.id})
+			    res = @find.first
+			    if (res.reason.to_s == value)
+				else
+					res.update_attributes(:reason => value)
+				end
+			else
+				systemid = result.first
+				criteriaid = result.last
+				weight = result[1]
+				@find = CompanyCriterions.find(:all, :conditions=> {:company_id => @companyid , :criterion_id=>criteriaid , :system_id=>systemid, :user_id=> current_user.id})
+				res = @find.first
+
+				if (res.value == value)
+				else
+					res.update_attributes(:value => value)
+				end
+			end
 
 		end
 	    end
-	    redirect_to(:action => 'show' ,:id=> @companyid)	
+	    redirect_to(:action => 'score' ,:id=> @companyid)	
 
 
 end
@@ -168,6 +189,45 @@ end
 	def destroy 
 		Company.find(params[:id]).destroy
       redirect_to(:action => 'list')
+	end
+
+	def score
+		@company = Company.find(params[:id])	
+		@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil})
+		@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+			@id = ""
+			@button = "No"
+			@systems.each do |s|
+				systemid = s.system.id
+				values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
+				if !values.blank?
+					@button = "Yes"
+					@totalscore = 0
+					values.each do |value|
+				     @criteria_weight = value.weight
+				     @criteria_value = value.value
+				     @criteria_score = @criteria_weight*@criteria_value
+				     @totalscore = @totalscore + @criteria_score
+					end
+					record = CompanySystem.where(:company_id => @company.id , :system_id=>systemid , :user_id=> current_user.id)
+					if !record.blank?
+		                r = record.first
+		                r.update_attributes(:final_score => @totalscore)
+					else
+						record = CompanySystem.create(:company_id => @company.id , :system_id=>systemid , :user_id=> current_user.id , :final_score=>@totalscore)
+					end
+			    end
+		end
+
+		respond_to do |format|
+				format.html
+				format.pdf do
+				pdf = ScorePdf.new(@company , @systems)
+				send_data pdf.render, filename: "#{@company.name} scoring.pdf",
+                            type: "application/pdf",
+                            disposition: "inline"
+				end
+		end
 	end
 
 end

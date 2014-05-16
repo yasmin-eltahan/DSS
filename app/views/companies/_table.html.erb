@@ -1,11 +1,28 @@
 <% @companies.each do |company| %>
+            <% if user_signed_in? %>
+			<% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> company.id , :user_id=> current_user.id})%>
+			<% @admin = User.find(current_user.id)%>
+			<%end%>
+			<% if( (( !user_signed_in? ) &&(company.confirm == true) && (company.show == true)) || (((!@user.blank? && company.show == false) || (company.show == true)) && (company.confirm == true))||((!@admin.blank? && @admin.role =="admin")) )%>
 	     	<div class="box-list" >
                 <div style="padding:10px">
 	                <div>
 	                	<div class="row">
 		                	<div class="span4" style="padding-left:20px">
-		                	<%= link_to({:action => 'show', :id => company.id}) do %>
-							<%= image_tag("sap2.png", :class=> "img-circle bg" , height: '90', width: '90' )%> 
+							<% if( !@user.blank? || ( !@admin.blank? && @admin.role == "admin") )%>
+			                	<%= link_to({:action => 'show', :id => company.id}) do %>
+			                	<% if !company.image.blank? %>
+								<%= image_tag("#{company.image_url.to_s }" , :class=>"img-circle bg")%>
+								<%else%>
+								<%= image_tag("circle.jpg" , :class=>"img-circle bg")%>
+								<%end%>
+								<%end%>
+							<%else%>
+								<% if !company.image.blank? %>
+								<%= image_tag("#{company.image_url.to_s }" , :class=>"img-circle bg")%>
+								<%else%>
+								<%= image_tag("circle.jpg" , :class=>"img-circle bg")%>
+								<%end%>
 							<%end%>
 							<br>
 							<br>
@@ -23,8 +40,11 @@
 							</div>
 							<div class="span7" style="margin-top:10px">
 							<br>
-							
+							<% if( ( !@user.blank?) || ( !@admin.blank? && @admin.role == "admin") )%>
 							<span style="font-size:25px;"><b><%= link_to(company.name, {:action => 'show', :id => company.id} ,:class => "link-color-purple") %></b></span>
+							<%else%>
+							<b class="link-color-purple" style="font-size:25px;"><%= company.name%></b>
+							<%end%>
 							<br>
 							<br>
 							<br>
@@ -44,4 +64,5 @@
 				</div>						
 			</div>	
 			<br>
+	    <%end%>
 	<%end%>

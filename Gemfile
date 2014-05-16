@@ -12,7 +12,9 @@ gem 'omniauth-facebook'
 gem 'nokogiri'
 gem 'bootstrap-sass', '~>2.3.1.0'
 gem 'devise', '~> 2.2.3'
-#gem 'rmagick', '~> 2.12.2'
+gem 'carrierwave'
+gem 'rmagick', '~> 2.12.2'
+gem 'prawn'
 
 
 

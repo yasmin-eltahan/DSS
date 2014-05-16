@@ -1,7 +1,8 @@
 class Vendor < ActiveRecord::Base
-   attr_accessible :name, :address , :website , :revenue , :public , :no_of_employees , :headquarters , :phone , :description
+   attr_accessible :name, :address , :image,  :website , :revenue , :public , :no_of_employees , :headquarters , :phone , :description
    has_many :systems
    has_many :ranks
+   mount_uploader :image, ImageUploader
 
    def self.search(search)
   if search

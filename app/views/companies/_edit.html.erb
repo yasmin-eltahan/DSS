@@ -7,6 +7,7 @@
 </div>
 <% cid = c.criterion.id %>
 <% w = c.weight%>
+     <% if !@edits.blank? %>
 	<% @edits.each do |e| %>
 	    <div style="padding-left:39px;">
 	    	<% if (c.criterion.id == e.criterion_id) %>
@@ -25,7 +26,22 @@
            <%end%>
 		</div>
 	<%end%>
+	<%end%>
+	<br>
+	<b style="padding-left:20px">Reason</b>
+	<br>
+	<% @reason = "reason" + "," + cid.to_s %>
+	<%if user_signed_in? %>
+	<% find = Reason.find(:all , :conditions => {:company_id=> @company.id , :criterion_id => c.criterion.id , :user_id=> current_user.id}) %>
+	<% if !find.blank? %>
+	<% r = find.first %>
+	<% value = r.reason %>
+	<span style="padding-left:20px;"><%= f.text_area(@reason , :value=> value , :rows => "8")%> </span>
+	<%else %>
+	<%= f.text_area(@reason, :rows => "8" )%>
+	<%end%>
 	<hr>
+	<%end%>
 <%end%>
 </div>
 </div>

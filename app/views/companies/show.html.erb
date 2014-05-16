@@ -1,7 +1,11 @@
 <br>
 <br>
 <br>
-
+<% if !flash[:notice].blank?%>
+<div class="alert alert-error">
+<%= flash[:notice]%>
+</div>
+<%end%>
 <div class="container">
 
 <div>
@@ -28,11 +32,15 @@
       <div class="span1" style="padding-left:300px">
       <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
       </div>
+    <%end%>
+    <% @admin = User.find(current_user.id)%>
+    <% if (@admin.role == "admin") ||(( !@user.blank? ) && (@user.role == "admin"))%>
       <div class="span1 pull-right" style="margin-right:-18px">
       <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
       </div>
-
     <%end%>
+
+    
 </div>
 <br>
 
@@ -44,6 +52,7 @@
     <li><a href="#tab2" data-toggle="tab">Criteria</a></li>
      <li ><a href="#tab3" data-toggle="tab">Requirements</a></li>
      <li ><a href="#tab4" data-toggle="tab">Score</a></li>
+     <li ><a href="#tab5" data-toggle="tab">Users</a></li>
   </ul>
 
   <div class="tab-content">
@@ -130,13 +139,13 @@
       <ul><% @criteria.each do |criteria| %> 
       <p class = "title link-color"><h4 class = "link-color"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
       <p class = "line-break"><%=criteria.criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
-      <% @cid = Subcriterion.where(:criterion_id => criteria.criterion.id) %>
+      <% @cid = CompanySubcriterions.where(:company_id => @company.id) %>
 
       <h5 class ="link-color">&#9734; Sub-Criteria Chosen:</h5>
       <div class ="listt list2">
       <%@cid.each do |s|%>
-      <%if @subids.include?(s.id)%>
-      &#149; <%= s.name%><br>
+      <%if s.subcriterion.criterion_id == criteria.criterion.id%>
+      &#149; <%= s.subcriterion.name%> &nbsp;&nbsp; &nbsp;&nbsp;<%= s.weight%>%<br>
       <%end%>
       <%end%>
     </div>
@@ -175,7 +184,7 @@
       <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
       <% @user = @user.first %>
       <% if (( !@user.blank? ) && ( @user.role == "consultant") )%>
-      <% if (@button == "Yes")  %>
+      <% if (@button == "No")  %>
       <div>
       <div class="row">
         <div class="span3">   
@@ -219,12 +228,14 @@
             <div class="span3 offset3 pull-right">
              <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => consultant.user_id }) %>
              <% r = fin.first %>
+              <% if !r.blank? %>
               <div frame="box" class="border">
-              <div>
+              <div>  
               <b style="padding-left:18px">Score</b><br>
               <span style="padding-left:30px"><%= r.final_score %></span>
               </div>
-            </div> 
+            </div>
+              <%end%>
             </div>
           </div>
        <%end%>
@@ -260,7 +271,7 @@
        <%end %>
 
 
-    <% if (@button == "No") %>
+    <% if (@button == "Yes") %>
     <% if( !@systems.blank? ) %>
     <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
     <% @user = @user.first %>
@@ -368,6 +379,46 @@
 
     </div>
     </div>
+    <div class="tab-pane" id="tab5">
+    <div class="inner-content-div">
+      <div style="padding-left:23px; margin-left:790px;"><a href="#user" role="button" class="btnpink" data-toggle="modal" title = "Add Users" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> </div>
+
+          <div id="user" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      
+           <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+           <h3 id="myModalLabel">Add Admins and Consultants</h3>
+          </div>
+
+          <%= form_for(:company_user, :url=>{:controller => 'company_users' , :action=>'create' , :id => @company.id}) do |f| %>
+           <%= render(:partial=> 'company_users/new' , :locals => {:f => f})%>
+           <% end %>
+          </div>
+
+      <div>
+        <p style = "padding-left:23px;" class ="link-color-purple"><b>Admins:</b></p>
+      <% @admins = CompanyUsers.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "admin"}).collect(&:user_id)%>
+      <% @admins.each do |admin|%>
+      <% @user = User.find_by_id(admin)%>
+      <li style = "padding-left:25px;"><b>Username:</b> <%= @user.username%> <br> &nbsp;&nbsp;&nbsp;<b>Email:</b> <%= @user.email%>
+      <% @id = CompanyUsers.where(:company_id => @company.id , :user_id => admin).first%>
+      <p style="padding-left:800px; margin-top:-40px;"><%= link_to({:controller => 'company_users',:action => 'destroy', :id=>@id.id , :company =>  @company.id },:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </p></li><br>
+      <%end%>
+    </div>
+    <hr>
+    <div>
+        <p style = "padding-left:23px;" class ="link-color-purple"><b>Consultants:</b></p>
+      <% @admins = CompanyUsers.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "consultant"}).collect(&:user_id)%>
+      <% @admins.each do |admin|%>
+      <% @user = User.find_by_id(admin)%>
+      <li style = "padding-left:25px;"><b>Username:</b> <%= @user.username%> <br> &nbsp;&nbsp;&nbsp;<b>Email:</b> <%= @user.email%>
+        <p style="padding-left:800px; margin-top:-40px;"><%= link_to({:controller => 'company_users',:action => 'destroy', :id=>@id.id , :company =>  @company.id },:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </p></li><br>
+      <%end%>
+    </div>
+    </div>
+  </div>
+
+
     </div>
   </div>
 </div>

@@ -142,9 +142,9 @@ class ScorePdf < Prawn::Document
 	        	finalscore = CompanySystem.find(:all,:conditions => ['user_id is not null and company_id = ? and system_id = ?',  @company.id , s.system_id]) 
 		        int = 0 
 		        finalscore.each do |f| 
-		            int = int + f.final_score.to_i
+		            int = int + f.final_score
 		        end
-		        i = int / finalscore.size.to_i 
+		        i = int / finalscore.size 
 	 			text "Score: #{i}"  
  			end 
  			move_down 10
@@ -155,9 +155,9 @@ class ScorePdf < Prawn::Document
 	            getaverage = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id , :system_id => s.system_id , :criterion_id => c.criterion_id}) 
 	            average = 0
 	            getaverage.each do |av| 
-	                average = average + av.value.to_i 
+	                average = average + av.value 
 	            end
-	            final = average/ getaverage.size.to_i 
+	            final = average/ getaverage.size 
 	            # text "Weight: #{c.weight}" 
 	            # text "Value: #{final }"
 	            table([[make_cell(:content => "#{c.criterion.name}") , make_cell(:content => "#{c.weight}%"), make_cell(:content => "#{final}")]], :column_widths => widths)

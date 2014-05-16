@@ -9,6 +9,8 @@ class Company < ActiveRecord::Base
 	 has_many :company_users
      has_many :users , :through => :company_users
      mount_uploader :image, ImageUploader
+     accepts_nested_attributes_for :company_users , allow_destroy: true
+
     
 	def self.search(search)
 	  if search

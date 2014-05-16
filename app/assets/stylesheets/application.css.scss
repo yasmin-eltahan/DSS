@@ -79,6 +79,14 @@ nav-link {
 	 font-family: Britannic Bold;
 }
 
+.home {
+   font-size: 20px;
+   margin: 8px 10px;
+   #color: #339999;
+   color: #A64D4D;
+   font-family: Britannic Bold;
+}
+
 .criteria-background {
 	#color: #339999;
   color:#564A7B;
@@ -216,9 +224,6 @@ overflow:auto;
   font-weight:bold;
   padding-left:10px;
 }
-
-
-
 
 .line-break {
 	max-width: 100ch;
@@ -403,11 +408,22 @@ position: absolute;
   margin-left: 190px;
   margin-top: -35px;
 }
+.p2{
+position: absolute;
+  margin-left: 100px;
+  margin-top: -35px;
+}
 
 .label1{
   width: 200px; 
   margin-right: 0px;
    background: #f2f2f2;}
+
+   .label2{
+  width: 150px; 
+  margin-right: 0px;
+   background: #f2f2f2;}
+
 
 .list{
   -webkit-column-count:3;

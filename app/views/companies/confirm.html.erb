@@ -1,0 +1,13 @@
+<br>
+<br>
+<br>
+<br>
+<div style="padding-left:25px;">
+	<%= form_for(:confirm, :url=>{:action=>'confirmed' , :id => @company}) do |f| %>
+<% @companies.each do |company|%>
+<%= check_box_tag "companies[]", company.id%> <%= link_to(company.name,{:action => 'show', :id => company.id})%>
+<br>
+<%end%>
+<%=f.submit%>
+<%end%>
+</div>

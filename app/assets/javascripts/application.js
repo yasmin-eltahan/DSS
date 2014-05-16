@@ -96,6 +96,26 @@ $(".cb").click(function(){
 });
 
 $ (function(){
+$('.subw').keyup(function(){
+  var n = $(this).attr('id')
+  var v = $('#'+n).text();
+  var vint = parseInt(v);
+  var sum= 0; 
+  $('#sub'+n).find('input.subw[type=text]').each(function(){
+    sum += Number($(this).val());
+  });
+
+  if (sum == vint){
+    $('.save').removeAttr("disabled");
+  }
+  else{
+    $('.save').attr("disabled", true);
+  }
+});
+});
+
+
+$ (function () {
 var sum= 0; 
 $('.weight').keyup(function(){
   sum= 0; 
@@ -110,6 +130,7 @@ $('.weight').keyup(function(){
   }
 });
 });
+
 
 $ (function(){
   var max = "";

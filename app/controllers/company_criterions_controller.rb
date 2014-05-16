@@ -35,7 +35,7 @@ class CompanyCriterionsController < ApplicationController
 		end
 	end
 	if @co.save && @subc.save 
-		redirect_to(:controller => 'companies' , :action =>'show' , :id=> @company)
+		redirect_to(:controller => 'company_subcriterions' , :action =>'new' , :id=> @company)
 	end
 	end
 
@@ -87,7 +87,7 @@ class CompanyCriterionsController < ApplicationController
 			
 		end
 	end
-		redirect_to(:controller => 'companies' , :action =>'show' , :id=> @company)
+		redirect_to(:controller => 'company_subcriterions' , :action =>'edit' , :id=> @company)
 	end
 	
 end

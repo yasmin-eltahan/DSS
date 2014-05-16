@@ -4,6 +4,8 @@
 <% @string = type.string%>
 <% @requirement = Requirement.where(:type_id => type.id)%>
 <h6> &#9733; Please Choose Your Requirements:</h6>
+<div id=<%="#{type.id}"-%>>
+	<%= check_box "all", type.id ,:class => "all" ,:checked =>false , :id => type.id%>All
 <div <%if@string%>class ="list2"<%end%>>
 <% @requirement.each do |req|%>
 <label class = "label1" style="padding-left:20px;"><%= check_box_tag "requirements_ids[]", req.id , @reqids.include?(req.id) , :class => "companyreq", id: dom_id(req)%><%= req.name%></label>
@@ -30,6 +32,7 @@
 </div>
 <%end%>
 <%end%>
+</div>
 </div>
 <%end%>
 </div>

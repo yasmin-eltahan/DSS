@@ -148,6 +148,7 @@ end
 	def create
 		@company = Company.new(params[:company])
 		if @company.save
+			flash[:sucess] = "Company Is Added Successfully Please Wait for Confirmation!!"
 			if !current_user.blank?
 				CompanyUsers.create(:company_id => @company.id , :user_id => current_user.id, :role => "admin")
 			end

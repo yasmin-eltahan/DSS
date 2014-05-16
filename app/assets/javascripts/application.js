@@ -96,6 +96,19 @@ $(".cb").click(function(){
 });
 
 $ (function(){
+$(".all").click(function(){
+  if($(this).is(':checked')){
+  var c = $(this).attr('id')
+  $('#'+c).find('input[type=checkbox]').prop("checked", true);
+  
+  }
+  else{
+    $('#'+c).find('input[type=checkbox]:checked').removeAttr('checked');
+  }
+});
+});
+
+$ (function(){
 $('.subw').keyup(function(){
   var n = $(this).attr('id')
   var v = $('#'+n).text();

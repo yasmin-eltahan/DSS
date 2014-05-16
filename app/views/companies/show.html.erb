@@ -6,6 +6,11 @@
 <%= flash[:notice]%>
 </div>
 <%end%>
+<% if !flash[:sucess].blank?%>
+<div class="alert alert-success">
+<%= flash[:sucess]%>
+</div>
+<%end%>
 <div class="container">
 
 <div>

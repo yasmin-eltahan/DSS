@@ -3,7 +3,11 @@
 			 	<div class="row">
 		                	<div class="span4" style="padding-left:20px">
 		                	<%= link_to({:action => 'show', :id => vendor.id}) do %>
+		                	<br><% if !vendor.image.blank? %>
 		                	<%= image_tag("#{vendor.image_url(:thumb).to_s }" , :class=>"img-circle bg")%>
+		                	<%else%>
+								<%= image_tag("circle.jpg" , :class=>"img-circle bg")%>
+		                	<%end%>
 							<%end%>
 							<br>
 							<br>
@@ -19,9 +23,11 @@
 							</address>
 							</div>
 							</div>
-							<div class="span7" style="margin-top:10px">
+							<div class="span7" style="margin-top:30px">
 							<br>
-							<span style="font-size:25px;"><b><%= link_to(vendor.name.gsub("-" , " "), {:action => 'show', :id => vendor.id} ,:class => "title link-color-purple") %></b></span>
+							<br>
+							<span style="font-size:25px;"><b><%= link_to(vendor.name.gsub("-" , " "), {:action => 'show', :id => vendor.id} ,:class => "link-color-purple") %></b></span>
+							<br>
 							<br>
 							<br>
 							<br>

@@ -73,6 +73,34 @@
         </div>
     </div>
      <%else%>
+
+       <div class="topsoftwares-form">  
+        <div class = "top"> 
+           <div class="topvendor">Top 5 Softwares</div>
+        </div>
+        <br>
+        <% top_software %>
+        <% @ran.each do |r|%>
+
+        <div class="row" style="padding-left:30px;">
+        <div class="span3">
+        <% if( r.system.vendor.image.blank?) %>
+        <%= image_tag("smalllogo.jpg", :alt => "rss feed")%>
+        <%else%>
+        <%= image_tag("#{r.system.vendor.image_url(:thumb2).to_s }" )%>
+        <%end%>
+        </div>
+        <div class="span6" style="padding-left:10px;">
+        <span><span class="link-color"><b><%= r.rank %>.</b></span>
+        <b><%= link_to(r.system.name, {:controller => 'systems',:action => 'show', :id => r.system_id} , :class=>"link-color") %></b>
+        </span><br>
+        by <%= link_to(r.system.vendor.name, {:controller => 'vendors',:action => 'show', :id => r.system.vendor_id },:class=>"vendor-link") %>
+        </div>
+       </div>
+        <br><br>
+        <%end%>
+      </div>
+
    
 
     

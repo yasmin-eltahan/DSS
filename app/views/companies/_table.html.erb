@@ -12,7 +12,7 @@
 							<% if( !@user.blank? || ( !@admin.blank? && @admin.role == "admin") )%>
 			                	<%= link_to({:action => 'show', :id => company.id}) do %>
 			                	<% if !company.image.blank? %>
-								<%= image_tag("#{company.image_url.to_s }" , :class=>"img-circle bg")%>
+								<%= image_tag("#{company.image_url(:thumb).to_s }" , :class=>"img-circle bg")%>
 								<%else%>
 								<%= image_tag("circle.jpg" , :class=>"img-circle bg")%>
 								<%end%>

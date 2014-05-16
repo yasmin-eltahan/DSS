@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body class = "container-fluid" style="background: #E6E6E6;">
+<body class = "container-fluid" id = "background">
 <div class="fix">
 <div class="navbar navbar">
   <div class="navbar-inner kay"> 
@@ -29,8 +29,8 @@
         </li>
         <li><%= link_to (image_tag 'logout.png') , destroy_user_session_path,:title => "logout",  method: :delete %></li>
         <%else%>
-        <li style="margin-left:400px;"><button class = "btn btn-info pull-right" type = "submit">sign in</button></li>
-        <li style="margin-left:480px; margin-top:-35px;"><button class = "btn pull-right" type = "submit">sign up</button></li>
+        <li style="margin-left:430px; margin-top:0px"><div><a href="#signinModal" role="button" class="btn btn-info"  data-toggle="modal" title = "Add A System">Sign In</a></div></li>
+        <li style="margin-left:1100px; margin-top:-41px;"><div><a href="#signupModal" role="button" class="btn"  data-toggle="modal" title = "Add A System">Sign Up</a></div></li>
         <%end%>
       </ul>
     </div>
@@ -68,6 +68,33 @@
           </div>
           <div class="modal-footer">
     <button class = "btn btn-primary" type = "submit">Sign Up</button>
+  </div>
+  <% end %>
+        </div>
+    </div>
+
+    <div>
+        <div id="signinModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Sign Up</h3>
+          </div>
+          <div class="modal-body" "body">
+            <br>
+           <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+          <div><b><label> <i class="icon-user"></i>Username or Email</label></b>
+            <%= f.text_field :login%></div>
+
+          <div><b><label> <i class="icon-lock"></i> Password</label></b>
+          <%= f.password_field :password %></div>
+
+          <% if devise_mapping.rememberable? -%>
+            <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+          <% end -%>
+          </div>
+          <div class="modal-footer">
+    <button class = "btn btn-primary" type = "submit">Sign In</button>
   </div>
   <% end %>
         </div>

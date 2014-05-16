@@ -10,7 +10,7 @@
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	    <h3 id="myModalLabel">New Company</h3>
 	  </div>
-	  <%= form_for(@company , :as=>:company, :url=>{:action=>'create'}) do |f| %>
+	  <%= form_for(@company , :as=>:company, :url=>{:action=>'create'} , :html => {:multipart => true}) do |f| %>
 	  <%= render(:partial=> 'form' , :locals => {:f => f})%>
 	 <% end %>
 	</div> 
@@ -33,8 +33,11 @@
 			<% end %>
 	</div>
 	
+
 	<div class="span1 pull-right" style="padding-left:20px;" >
+	<% if user_signed_in? %>
 	<a href="#myModal" role="button" class="btns" data-toggle="modal"><i class="icon-plus icon-white"></i></a>
+	<%end%>
 	</div>
 	</div>
 		

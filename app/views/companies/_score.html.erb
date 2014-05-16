@@ -14,15 +14,18 @@
 		    <%  @id = sid.to_s  + "," + w.to_s + "," + cid.to_s %>
 			<% name = s.system.name %>
 			<div class="row">
-            <div class="span2">
+            <div class="span5">
 			<div class="text" style="padding-left:20px"><%= f.label(name) %></div>
 			</div>
-			<div class="span7 pull">  
-		   <span style="margin-left:100px;"> <%= f.text_field(@id , :class=>"span2")%> </span><br>
+			<div class="span4 pull">  
+		   <span style="margin-left:100px;"> <%= f.text_field(@id , :value=> 0 , :class=>"span3")%> </span><br>
 		   </div>
 		   </div>
 		</div>
 	<%end%>
+	<b style="padding-left:20px">Reason</b><br>
+	<% @reason = "reason" + "," + cid.to_s %>
+	<span style="padding-left:20px"><%= f.text_area(@reason , :rows => "8")%> </span>
 	<hr>
 <%end%>
 </div>

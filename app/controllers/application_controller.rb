@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  after_filter :store_location
+ after_filter :store_location
 
 def store_location
   # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -18,6 +18,6 @@ def after_sign_in_path_for(resource)
 end
 
 def after_sign_out_path_for(resource)
-  session[:previous_url] || root_path
+   root_path
 end
 end

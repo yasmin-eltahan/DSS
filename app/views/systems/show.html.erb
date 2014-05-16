@@ -22,6 +22,8 @@
     <div class="span7">
     <div class="header" style="padding-left:15px"><%= @system.name %></div> <br>
     </div>
+    <% if user_signed_in? %>
+     <% if current_user.role == "admin" %>
     <div class="span1" style="padding-left:300px">
    <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
     </div>
@@ -29,6 +31,8 @@
    <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
 
     </div>
+    <%end%>
+    <%end%>
 </div>
 
 
@@ -65,13 +69,17 @@
 			  	 <div class="span3 offset4 pull-right">
 				  	 <% @systemreq = SystemRequirement.find(:all,:conditions => {:system_id => @system.id}) %>
 				   	 <% if (@systemreq.size == 0) %>
-	  			
+				   	 <% if user_signed_in? %>
+	  			 <% if current_user.role == "admin" %>
 			     <a href="#newreq" role="button" class="btnpink" data-toggle="modal" title = "Add Requirements" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> 
-
+                  <%end%>
+                  <%end%>
 	          	<%else%>
-	         
+	          	<% if user_signed_in? %>
+	             <% if current_user.role == "admin" %>
 			    <a href="#editreq" role="button" class="btnpink" data-toggle="modal" title = "Edit Requirements" style = "color:#ffffff"><i class="icon-pencil icon-white"></i> Edit</a> 
-
+                 <%end%>
+                 <%end%>
 	          	<%end%>
 			  	 </div>
 		  	 </div>
@@ -133,7 +141,11 @@
 		    <div class="tab-pane" id="tab2">
           <div class="inner-content-div">
             <div>
-      <div style="padding-left:23px"><a href="#mModal" role="button"  style="margin-left:700px" class="btnpink"  data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a></div>
+        <% if user_signed_in? %>
+        <% if current_user.role == "admin" %>
+      		<div style="padding-left:23px"><a href="#mModal" role="button"  style="margin-left:700px" class="btnpink"  data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a></div>
+        <%end%>
+        <%end%>
 
       <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
@@ -150,8 +162,13 @@
 		      	<% @versions.each do |version| %> 
 		      	<p class = "title link-color-purple"><%= version.name%></p>
             <div class="span3 offset4 pull-right" style="padding-top:9px;padding-left:73px">
-            <a href="#<%= version.id %>" role="button"  data-toggle="modal"  class="btns btn-mini"> <i class="icon-pencil icon-white" title="edit" ></i></a>
-          <span style="padding-left:8px"><%= link_to({:action => 'destroy', :id=>version.id},:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </span><br>
+            <% if user_signed_in? %>
+            <% if current_user.role == "admin" %>
+            <a href="#<%= version.id %>" role="button"  data-toggle="modal"  class="btns btn-mini"> <i class="icon-pencil icon-white" title="edit" ></i></a>    
+          <span style="padding-left:8px"><%= link_to({:action => 'destroy', :id=>version.id},:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </span>
+          <%end%>
+          <%end%>
+          <br>
             </div>
             <div>
             <div id="<%= version.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

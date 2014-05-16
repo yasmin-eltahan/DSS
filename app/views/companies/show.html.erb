@@ -31,12 +31,21 @@
     <div class="span7">
     <div class="header" style="padding-left:15px"><%= @company.name %></div>
     </div>
-    <div class="span1" style="padding-left:300px">
-    <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
-    </div>
-    <div class="span1 pull-right" style="margin-right:-18px">
-    <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
-    </div>
+    <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+    <% @user = @user.first %>
+    <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
+      <div class="span1" style="padding-left:300px">
+      <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
+      </div>
+    <%end%>
+    <% @admin = User.find(current_user.id)%>
+    <% if (@admin.role == "admin") ||(( !@user.blank? ) && (@user.role == "admin"))%>
+      <div class="span1 pull-right" style="margin-right:-18px">
+      <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
+      </div>
+    <%end%>
+
+    
 </div>
 <br>
 
@@ -59,7 +68,7 @@
 
       <div class="row">
       <div class="span4">
-      <div style="padding-left:55px;"><%= image_tag("logo.jpg", :alt => "rss feed")%></div><br><br>
+      <div style="padding-left:55px;"><%= image_tag @company.image_url.to_s %></div><br><br>
       </div>
       <div class="span6 line-break">
       <br>
@@ -114,21 +123,23 @@
 
     <div class="tab-pane" id="tab2">
       <div class="inner-content-div">
-        <% if !@criteria.blank?%>
+        <% if !@criteria.blank? %>
         <div>
-      <div style="padding-left:23px; margin-left:790px;"><a href="#Modal" role="button" class="btnpink" data-toggle="modal" title = "Edit Criteria" style ="color:#ffffff;"><i class="icon-pencil icon-white" ></i> Edit</a></div>
+        <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
+        <div style="padding-left:23px; margin-left:790px;"><a href="#Modal" role="button" class="btnpink" data-toggle="modal" title = "Edit Criteria" style ="color:#ffffff;"><i class="icon-pencil icon-white" ></i> Edit</a></div>
+        <%end%>
 
-      <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  
-       <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-       <h3 id="myModalLabel">Edit Criteria of Company</h3>
-      </div>
-      <%= form_for(:company_criterions, :url=>{:controller => 'company_criterions' , :action=>'edit_criteria' , :id => @company.id}) do |f| %>
-       <%= render(:partial=> 'company_criterions/edit' , :locals => {:f => f})%>
-       <% end %>
+        <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+         <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+         <h3 id="myModalLabel">Edit Criteria of Company</h3>
         </div>
+        <%= form_for(:company_criterions, :url=>{:controller => 'company_criterions' , :action=>'edit_criteria' , :id => @company.id}) do |f| %>
+         <%= render(:partial=> 'company_criterions/edit' , :locals => {:f => f})%>
+         <% end %>
           </div>
+      </div>
 
       <ul><% @criteria.each do |criteria| %> 
       <p class = "title link-color"><h4 class = "link-color"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
@@ -149,7 +160,9 @@
       </ul>
 <%else%>
       <div>
+      <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
      <div style="padding-left:23px; margin-left:790px;"> <a href="#mModal" role="button" class="btnpink" data-toggle="modal" title = "Add Criteria" style ="color:#ffffff;"><i class="icon-plus icon-white" ></i> New</a> </div>
+     <%end%>
 
       <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
@@ -168,33 +181,70 @@
 
       <div class="tab-pane " id="tab4">
       <div class="inner-content-div">
+      <span style="padding-left:723px">  <%= link_to("View Report (PDF)" ,{:controller=>"companies",:action=>'score',:id=>@company.id ,:format=>"pdf" }, :class=>"link-color-purple")%></span>
 
        <% @systems.each do |s| %>
         <h4 style="padding-left:23px"> <b><%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%></b> </h4>
 
+      <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
+      <% @user = @user.first %>
+      <% if (( !@user.blank? ) && ( @user.role == "consultant") )%>
+      <% if (@button == "No")  %>
       <div>
       <div class="row">
         <div class="span3">   
-          <% if (@button == "Yes")  %>
             <% @edits.each do |e| %>
                <% if (e.system_id == s.system_id)%>
                <b style="padding-left:42px"><%= e.criterion.name %></b><br>
                <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
                <br><br>
                <%end%>
-            <% end %>
-          <% end %>
+            <% end %>  
         </div>
         <div class="span3 offset3 pull-right">
-          <div frame="box" class="border">
-          <div>
-          <b style="padding-left:18px">Score</b><br>
-          <span style="padding-left:30px"><% if !s.final_score.nil? %><%= s.final_score %><%else %><span style="padding-left:10px;"></span><%end%></span>
+           <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => current_user.id }) %>
+           <% r = fin.first %>
+            <div frame="box" class="border">
+            <div>
+            <b style="padding-left:18px">Score</b><br>
+            <span style="padding-left:30px"><%= r.final_score %></span>
+            </div>
           </div>
-        </div>
+         
         </div>
       </div>
       </div>
+       <% end %>
+       <%else%>
+       <% @consultants = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
+       <% @consultants.each do |consultant| %>
+       <span style="padding-left:23px;"> Consultant <%= consultant.user.username %>:</span><br>
+       <% @consultantscores = CompanyCriterions.find(:all , :conditions=> {:company_id=>@company.id , :user_id=> consultant.user_id}) %>
+               <div class="row">
+              <div class="span3"> 
+           <% @consultantscores.each do |e| %>
+             <% if (e.system_id == s.system_id)%>
+                 <b style="padding-left:42px"><%= e.criterion.name %></b><br>
+                 <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
+                 <br><br>
+              <%end%>
+           <%end%>
+            </div>
+            <div class="span3 offset3 pull-right">
+             <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => consultant.user_id }) %>
+             <% r = fin.first %>
+              <% if !r.blank? %>
+              <div frame="box" class="border">
+              <div>  
+              <b style="padding-left:18px">Score</b><br>
+              <span style="padding-left:30px"><%= r.final_score %></span>
+              </div>
+            </div>
+              <%end%>
+            </div>
+          </div>
+       <%end%>
+       <%end%>
 
       <div style="padding-left:22px">
         <b>&#9734; System Requirements</b><br>
@@ -226,10 +276,13 @@
        <%end %>
 
 
-
-    <% if (@button == "No") %>
+    <% if (@button == "Yes") %>
     <% if( !@systems.blank? ) %>
+    <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+    <% @user = @user.first %>
+    <% if (( !@user.blank? ) && (@user.role == "consultant")) %>
     <span style="padding-left:713px;"><a href="#myscoreModal" role="button" class="btnpink" data-toggle="modal"><b>Score</b></a></span>
+    <%end%>
     <%end%>
     <div>
     <div id="myscoreModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -245,8 +298,12 @@
       </div>
     </div>
     </div> 
-    <%else %>
+  <%else%>
+    <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+    <% @user = @user.first %>
+    <% if (  ( !@user.blank? ) && (@user.role == "consultant")) %>
     <a href="#editModal" role="button" class="btnpink  button" data-toggle="modal" style ="color:#ffffff;"><i class="icon-pencil icon-white"></i> Edit</a>
+    <%end%>
     <div>
     <div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
@@ -260,7 +317,7 @@
       </div>
     </div>
     </div> 
-    <%end%> 
+   <%end %>
       </div>
     </div>
 
@@ -268,7 +325,9 @@
     <div class="inner-content-div">
 
     <%if @companyreq.blank?%>
+         <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
          <div style="padding-left:23px; margin-left:790px;"><a href="#newreq" role="button" class="btnpink" data-toggle="modal" title = "Add Requirements" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> </div>
+         <%end%>
 
           <div id="newreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       
@@ -282,9 +341,9 @@
            <% end %>
           </div>
     <%else%>
-          
+          <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
          <span style="padding-left:23px; margin-left:790px;"> <a href="#editreq" role="button" class="btnpink" data-toggle="modal" title = "Edit Requirements" style = "color:#ffffff"><i class="icon-pencil icon-white"></i> Edit</a> </span>
-
+         <%end%>
 
           <div id="editreq" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       

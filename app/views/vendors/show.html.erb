@@ -23,6 +23,8 @@
     <div class="span7">
     <div class="header" style="padding-left:15px"><%= @vendor.name %></div> <br>
     </div>
+    <% if user_signed_in? %>
+    <% if current_user.role == "admin" %>
     <div class="span1" style="padding-left:300px">
    <a href="#myModal" role="button" class="btns" data-toggle="modal" title = "Edit"><i class="icon-pencil icon-white" ></i></a>
     </div>
@@ -30,6 +32,8 @@
    <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
 
     </div>
+    <%end%>
+    <%end%>
 </div>
 
 
@@ -43,9 +47,26 @@
     <div class="tab-pane active" id="tab1">
       <div class="inner-content-div">
       <br>
+
+      <div class="row">
+      <div class="span4">
+      <div style="padding-left:55px;"><%= image_tag @vendor.image_url.to_s %></div><br><br>
+      </div>
+      <div class="span6 line-break">
+      <br>
+      <%= @vendor.description%>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br>
+      </div>
+      </div>
     	<ul style="padding-left:23px;">
-        <li><b>Description:</b><br></li>
-         <p class = "line-break"><% if !@vendor.description.nil? %><%= @vendor.description %><%end%> </p>
+         <li><b>Consultant:</b><br></li>
+         <%= @vendor.consultant %> 
+        <br>
     		 <li><b>Revenue:</b><br></li>
     		 <%= @vendor.revenue %>	
     		<br>
@@ -83,8 +104,11 @@
 
     </ul>
     <div>
+      <% if user_signed_in? %>
+       <% if current_user.role == "admin" %>
       <div style="padding-left:23px"><a href="#mModal" role="button"  style="margin-left:700px" class="btnpink"  data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a></div>
-
+       <%end%>
+       <%end%>
       <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
        <div class="modal-header">

@@ -15,20 +15,33 @@
   <div class="navbar-inner kay"> 
      
       <ul class="nav navbar-nav">
-
         <li class="nav-link"><%= link_to({:controller => 'home',:action => 'index'} , :class=>"navlink-color") do %> <i class="icon-home"> </i> Home <%end%> </li>
        <li class="nav-link"><%= link_to("Company", {:controller => 'companies',:action => 'list'} , :class=>"navlink-color") %></li>
         <li  class="nav-link"><%= link_to("Vendor", {:controller => 'vendors',:action => 'list'} , :class=>"navlink-color") %></li>
         <li  class="nav-link"><%= link_to("System", {:controller => 'systems',:action => 'list'} , :class=>"navlink-color") %></li>
-        <li  class="nav-link"><%= link_to("Requirement", {:controller => 'types',:action => 'new'} , :class=>"navlink-color") %></li>
-        <li  class="nav-link"><%= link_to("Criteria", {:controller => 'criterions',:action => 'list'} , :class=>"navlink-color") %></li>
-        <li  class="nav-link"><%= link_to("Specs", {:controller => 'specs',:action => 'list'} , :class=>"navlink-color") %></li>
         <% if user_signed_in? %>
-        <li class="currentuser-name pull-right"><i class="icon-user"></i>
+        <% if current_user.role == "admin" %>
+        <li  class="nav-link"><%= link_to("Requirement", {:controller => 'types',:action => 'new'} , :class=>"navlink-color") %></li>
+        <li  class="nav-link"><%= link_to("Criteria", {:controller => 'criterions',:action => 'list'} , :class=>"navlink-color") %>
+        </li>
+        <li  class="nav-link"><%= link_to("Specs", {:controller => 'specs',:action => 'list'} , :class=>"navlink-color") %></li>
+        <li  class="nav-link"><%= link_to("Confirmations", {:controller => 'specs',:action => 'list'} , :class=>"navlink-color") %></li>
+        <% @count = Company.where(:confirm=>false).size %>
+        <li class="badge" style="margin-top:10.5px;margin-left:-7px;"><%= @count %></li>
+        <%end%>
+        <%end%>
+        <% if user_signed_in? %>
+        <% if current_user.role == "admin" %>
+        <li class="currentuser-name pull-right" style="position:absolute;right:-470px;"><i class="icon-user"></i>
          Logged in as <strong><%= current_user.username %></strong>.
         </li>
-        <li><%= link_to (image_tag 'logout.png') , destroy_user_session_path,:title => "logout",  method: :delete %></li>
-       
+        <li style="position:absolute;right:-540px"><%= link_to (image_tag 'logout.png') , destroy_user_session_path,:title => "logout",  method: :delete %></li>
+        <%else%>
+        <li class="currentuser-name pull-right" style="position:absolute;right:-870px;"><i class="icon-user"></i>
+         Logged in as <strong><%= current_user.username %></strong>.
+        </li>
+        <li style="position:absolute;right:-940px"><%= link_to (image_tag 'logout.png') , destroy_user_session_path,:title => "logout",  method: :delete %></li>
+        <%end%>
         <%end%>
       </ul>
     </div>
@@ -60,8 +73,8 @@
         </div>
     </div>
      <%else%>
- 
-     <div class="topsoftwares-form">  
+
+       <div class="topsoftwares-form">  
         <div class = "top"> 
            <div class="topvendor">Top 5 Softwares</div>
         </div>
@@ -71,7 +84,11 @@
 
         <div class="row" style="padding-left:30px;">
         <div class="span3">
+        <% if( r.system.vendor.image.blank?) %>
         <%= image_tag("smalllogo.jpg", :alt => "rss feed")%>
+        <%else%>
+        <%= image_tag("#{r.system.vendor.image_url(:thumb2).to_s }" )%>
+        <%end%>
         </div>
         <div class="span6" style="padding-left:10px;">
         <span><span class="link-color"><b><%= r.rank %>.</b></span>
@@ -83,6 +100,10 @@
         <br><br>
         <%end%>
       </div>
+
+   
+
+    
 
      <%end%>
   </div>

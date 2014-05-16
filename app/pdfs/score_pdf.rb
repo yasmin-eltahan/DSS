@@ -1,4 +1,5 @@
 class ScorePdf < Prawn::Document
+	include ActionView::Helpers::NumberHelper
 	def initialize (company, systems)
 		super(top_margin: 70)
 		@company = company
@@ -144,8 +145,8 @@ class ScorePdf < Prawn::Document
 		        finalscore.each do |f| 
 		            int = int + f.final_score
 		        end
-		        i = int / finalscore.size 
-	 			text "Score: #{i}"  
+		        i = int / finalscore.size  
+	 			text "Score: #{number_with_precision(i ,:precision => 2)}" 
  			end 
  			move_down 10
             widths = [150,100,100]
@@ -160,7 +161,7 @@ class ScorePdf < Prawn::Document
 	            final = average/ getaverage.size 
 	            # text "Weight: #{c.weight}" 
 	            # text "Value: #{final }"
-	            table([[make_cell(:content => "#{c.criterion.name}") , make_cell(:content => "#{c.weight}%"), make_cell(:content => "#{final}")]], :column_widths => widths)
+	            table([[make_cell(:content => "#{c.criterion.name}") , make_cell(:content => "#{c.weight}%"), make_cell(:content => "#{number_with_precision(final ,:precision => 2)}")]], :column_widths => widths)
 	        end 
 	        move_down 20  
 	       

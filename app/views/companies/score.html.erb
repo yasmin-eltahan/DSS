@@ -16,7 +16,7 @@
                       <% average = average + av.value %>
                       <%end%>
                       <% final = average/ getaverage.size %>
-                     <span style="padding-left:42px"> Weight: <%= c.weight %>% <span class="pull-right">Value: <%= final %></span></span>
+                     <span style="padding-left:42px"> Weight: <%= c.weight %>% <span class="pull-right">Value:<%= number_with_precision("#{final}", :precision => 2)%></span></span>
                    <br><br>
               <% end %>
             <%end%>
@@ -33,7 +33,7 @@
             <% int = int + f.final_score %>
             <%end%>
             <% i = int / finalscore.size %>
-            <span style="padding-left:30px"> <%= i  %></span>
+            <span style="padding-left:30px"><%= number_with_precision("#{i}", :precision => 2)%></span>
             </div>
             </div>
             

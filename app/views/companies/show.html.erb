@@ -38,10 +38,9 @@
       <div class="span1 pull-right" style="margin-right:-18px">
       <p class =" btns" title = "Delete"> <%= link_to({:action => 'destroy', :id=>params[:id]},:confirm => 'Are you sure you want to delete?!') do  %> <i class="icon-trash icon-white"></i> <%end%> </p>
       </div>
-    <%end%>
-
-    
+    <%end%>   
 </div>
+
 <br>
 
 <div class="show-box-list">
@@ -176,41 +175,45 @@
 
       <div class="tab-pane " id="tab4">
       <div class="inner-content-div">
-      <span style="padding-left:723px">  <%= link_to("View Report (PDF)" ,{:controller=>"companies",:action=>'score',:id=>@company.id ,:format=>"pdf" }, :class=>"link-color-purple")%></span>
-
+      <span style="padding-left:723px">  
+        <%= link_to("View Report (PDF)" ,{:controller=>"companies",:action=>'show',:id=>@company.id ,:format=>"pdf" }, :class=>"link-color-purple")%>
+      </span>
        <% @systems.each do |s| %>
-        <h4 style="padding-left:23px"> <b><%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%></b> </h4>
-
+        <h4 style="padding-left:23px"><b>
+        <%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%>
+        </b> </h4>
+      <% @edits = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id , :user_id=> current_user.id}) %>
       <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
       <% @user = @user.first %>
       <% if (( !@user.blank? ) && ( @user.role == "consultant") )%>
-      <% if (@button == "No")  %>
-      <div>
-      <div class="row">
-        <div class="span3">   
-            <% @edits.each do |e| %>
-               <% if (e.system_id == s.system_id)%>
-               <b style="padding-left:42px"><%= e.criterion.name %></b><br>
-               <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
-               <br><br>
-               <%end%>
-            <% end %>  
-        </div>
-        <div class="span3 offset3 pull-right">
-           <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => current_user.id }) %>
-           <% r = fin.first %>
-            <div frame="box" class="border">
-            <div>
-            <b style="padding-left:18px">Score</b><br>
-            <span style="padding-left:30px"><%= r.final_score %></span>
+      <% if ( !@edits.blank?)  %>
+          <div>
+          <div class="row">
+            <div class="span3">   
+                <% @edits.each do |e| %>
+                   <% if (e.system_id == s.system_id)%>
+                   <b style="padding-left:42px"><%= e.criterion.name %></b><br>
+                   <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
+                   <br><br>
+                   <%end%>
+                <% end %>  
+            </div>
+            <div class="span3 offset3 pull-right">
+               <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => current_user.id }) %>
+               <% r = fin.first %>
+                <div frame="box" class="border">
+                <div>
+                <b style="padding-left:18px">Score</b><br>
+                <span style="padding-left:30px"><%= r.final_score %></span>
+                </div>
+              </div>
+             
             </div>
           </div>
-         
-        </div>
-      </div>
-      </div>
+          </div>
        <% end %>
        <%else%>
+
        <% @consultants = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
        <% @consultants.each do |consultant| %>
        <span style="padding-left:23px;"> Consultant <%= consultant.user.username %>:</span><br>
@@ -271,7 +274,7 @@
        <%end %>
 
 
-    <% if (@button == "Yes") %>
+    <% if ( @edits.blank?)  %>
     <% if( !@systems.blank? ) %>
     <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
     <% @user = @user.first %>
@@ -381,7 +384,9 @@
     </div>
     <div class="tab-pane" id="tab5">
     <div class="inner-content-div">
+      <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
       <div style="padding-left:23px; margin-left:790px;"><a href="#user" role="button" class="btnpink" data-toggle="modal" title = "Add Users" style = "color:#ffffff"><i class="icon-plus icon-white" ></i> New</a> </div>
+      <%end%>
 
           <div id="user" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       

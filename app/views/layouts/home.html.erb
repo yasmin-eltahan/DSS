@@ -44,8 +44,8 @@
         <li style="position:absolute;right:-940px"><%= link_to (image_tag 'logout.png') , destroy_user_session_path,:title => "logout",  method: :delete %></li>
         <%end%>
         <%else%>
-        <li style="margin-left:690px; margin-top:0px"><div><a href="#signinModal" role="button" class="btn btn-info"  data-toggle="modal" title = "Add A System">Sign In</a></div></li>
-        <li style="margin-left:1100px; margin-top:-41px;"><div><a href="#signupModal" role="button" class="btn"  data-toggle="modal" title = "Add A System">Sign Up</a></div></li>
+        <li style="margin-left:690px; margin-top:0px"><div><a href="#signinModal" role="button" class="btn btn-info"  data-toggle="modal">Sign In</a></div></li>
+        <li style="margin-left:1100px; margin-top:-41px;"><div><a href="#signupModal" role="button" class="btn"  data-toggle="modal">Sign Up</a></div></li>
         <%end%>
       </ul>
     </div>
@@ -66,7 +66,7 @@
           </div>
           <div class="modal-body" "body">
             <br>
-          <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+          <%= form_for(resource, :as => resource_name,:url => registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
 
             <div><label> <i class="icon-user"></i>Username</label>
@@ -79,7 +79,7 @@
             <%= f.password_field :password %></div>
 
             <div><label> <i class="icon-lock"></i> Password Confirmation</label>
-            <%= f.password_field :password_confirmation %></div>
+            <%= f.password_field :password_confirmation%></div>
           </div>
           <div class="modal-footer">
     <button class = "btn btn-primary" type = "submit">Sign Up</button>
@@ -92,11 +92,11 @@
         <div id="signinModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Sign Up</h3>
+            <h3 id="myModalLabel">Sign In</h3>
           </div>
           <div class="modal-body" "body">
             <br>
-           <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+           <%= form_for(resource, :as => resource_name, :validate => true,:url => session_path(resource_name)) do |f| %>
 
           <div><b><label> <i class="icon-user"></i>Username or Email</label></b>
             <%= f.text_field :login%></div>
@@ -114,5 +114,18 @@
   <% end %>
         </div>
     </div>
+
+     <div>
+  <div id="confirm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Companies to confirm</h3>
+    </div>
+    <%= form_for(:confirm ,:url=>{:controller => 'companies',:action=>'confirmed' , :id => @company}) do |f| %>
+    <%= render(:partial=> 'companies/confirm' , :locals => {:f => f})%>
+   <% end %>
+  </div> 
+  </div>
 </body>
 </html>

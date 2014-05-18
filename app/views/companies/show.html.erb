@@ -31,7 +31,7 @@
     <div class="span7">
     <div class="header" style="padding-left:15px"><%= @company.name %></div>
     </div>
-    <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+    <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
     <% @user = @user.first %>
     <% if ( ( !@user.blank? ) && (@user.role == "admin"))%>
       <div class="span1" style="padding-left:300px">
@@ -142,9 +142,9 @@
       </div>
 
       <ul><% @criteria.each do |criteria| %> 
-      <p class = "title link-color"><h4 class = "link-color"><%=criteria.criterion.name%><p style="margin-left:120px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
+      <p class = "title link-color"><h4 class = "link-color"><%=criteria.criterion.name%><p style="margin-left:300px; margin-top:-20px;"><%=criteria.weight%>%</p></h4></p>
       <p class = "line-break"><%=criteria.criterion.description%> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.</p>
-      <% @cid = CompanySubcriterions.where(:company_id => @company.id) %>
+      <% @cid = CompanySubcriterion.where(:company_id => @company.id) %>
 
       <h5 class ="link-color">&#9734; Sub-Criteria Chosen:</h5>
       <div class ="listt list2">
@@ -186,7 +186,7 @@
        <% @systems.each do |s| %>
         <h4 style="padding-left:23px"> <b><%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%></b> </h4>
 
-      <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
+      <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
       <% @user = @user.first %>
       <% if (( !@user.blank? ) && ( @user.role == "consultant") )%>
       <% if (@button == "No")  %>
@@ -207,7 +207,9 @@
             <div frame="box" class="border">
             <div>
             <b style="padding-left:18px">Score</b><br>
+            <%if !r.blank?%>
             <span style="padding-left:30px"><%= r.final_score %></span>
+            <%end%>
             </div>
           </div>
          
@@ -216,10 +218,10 @@
       </div>
        <% end %>
        <%else%>
-       <% @consultants = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
+       <% @consultants = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
        <% @consultants.each do |consultant| %>
        <span style="padding-left:23px;"> Consultant <%= consultant.user.username %>:</span><br>
-       <% @consultantscores = CompanyCriterions.find(:all , :conditions=> {:company_id=>@company.id , :user_id=> consultant.user_id}) %>
+       <% @consultantscores = CompanyCriterion.find(:all , :conditions=> {:company_id=>@company.id , :user_id=> consultant.user_id}) %>
                <div class="row">
               <div class="span3"> 
            <% @consultantscores.each do |e| %>
@@ -276,9 +278,9 @@
        <%end %>
 
 
-    <% if (@button == "Yes") %>
+    <% if (@button == "No") %>
     <% if( !@systems.blank? ) %>
-    <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+    <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
     <% @user = @user.first %>
     <% if (( !@user.blank? ) && (@user.role == "consultant")) %>
     <span style="padding-left:713px;"><a href="#myscoreModal" role="button" class="btnpink" data-toggle="modal"><b>Score</b></a></span>
@@ -291,7 +293,7 @@
         <h3 id="myModalLabel">SCORE</h3>
       </div>
       <div  class="score-div padding">
-        <%= form_for(:company_criteria, :url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
+        <%= form_for(:company_criteria,:url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
         <%= render(:partial=>'score', :locals=>{:f=>f}) %>
         
         <% end %>
@@ -299,7 +301,7 @@
     </div>
     </div> 
   <%else%>
-    <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+    <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
     <% @user = @user.first %>
     <% if (  ( !@user.blank? ) && (@user.role == "consultant")) %>
     <a href="#editModal" role="button" class="btnpink  button" data-toggle="modal" style ="color:#ffffff;"><i class="icon-pencil icon-white"></i> Edit</a>
@@ -336,7 +338,7 @@
            <h3 id="myModalLabel">Add Company Requirements</h3>
           </div>
 
-          <%= form_for(:company_requirement, :url=>{:controller => 'company_requirements' , :action=>'create' , :id => @company.id}) do |f| %>
+          <%= form_for(:company_requirement,:url=>{:controller => 'company_requirements' , :action=>'create' , :id => @company.id}) do |f| %>
            <%= render(:partial=> 'company_requirements/new' , :locals => {:f => f})%>
            <% end %>
           </div>
@@ -351,7 +353,7 @@
            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
            <h3 id="myModalLabel">Edit Company Requirements</h3>
           </div>
-          <%= form_for(:company_requirement, :url=>{:controller => 'company_requirements' , :action=>'update' , :id => @company.id}) do |f| %>
+          <%= form_for(:company_requirement,:url=>{:controller => 'company_requirements' , :action=>'update' , :id => @company.id}) do |f| %>
            <%= render(:partial=> 'company_requirements/edit' , :locals => {:f => f})%>
            <% end %>
             </div>
@@ -395,25 +397,25 @@
            <h3 id="myModalLabel">Add Admins and Consultants</h3>
           </div>
 
-          <%= form_for(:company_user, :url=>{:controller => 'company_users' , :action=>'create' , :id => @company.id}) do |f| %>
+          <%= form_for(:company_user,:url=>{:controller => 'company_users' , :action=>'create' , :id => @company.id}) do |f| %>
            <%= render(:partial=> 'company_users/new' , :locals => {:f => f})%>
            <% end %>
           </div>
 
       <div>
         <p style = "padding-left:23px;" class ="link-color-purple"><b>Admins:</b></p>
-      <% @admins = CompanyUsers.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "admin"}).collect(&:user_id)%>
+      <% @admins = CompanyUser.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "admin"}).collect(&:user_id)%>
       <% @admins.each do |admin|%>
       <% @user = User.find_by_id(admin)%>
       <li style = "padding-left:25px;"><b>Username:</b> <%= @user.username%> <br> &nbsp;&nbsp;&nbsp;<b>Email:</b> <%= @user.email%>
-      <% @id = CompanyUsers.where(:company_id => @company.id , :user_id => admin).first%>
+      <% @id = CompanyUser.where(:company_id => @company.id , :user_id => admin).first%>
       <p style="padding-left:800px; margin-top:-40px;"><%= link_to({:controller => 'company_users',:action => 'destroy', :id=>@id.id , :company =>  @company.id },:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </p></li><br>
       <%end%>
     </div>
     <hr>
     <div>
         <p style = "padding-left:23px;" class ="link-color-purple"><b>Consultants:</b></p>
-      <% @admins = CompanyUsers.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "consultant"}).collect(&:user_id)%>
+      <% @admins = CompanyUser.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "consultant"}).collect(&:user_id)%>
       <% @admins.each do |admin|%>
       <% @user = User.find_by_id(admin)%>
       <li style = "padding-left:25px;"><b>Username:</b> <%= @user.username%> <br> &nbsp;&nbsp;&nbsp;<b>Email:</b> <%= @user.email%>

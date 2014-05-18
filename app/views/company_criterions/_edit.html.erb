@@ -6,7 +6,7 @@
 		<% Criterion.all.each do|criteria|%>
 		
 	<label class = "label1 criteria-background"><h4><%= check_box_tag "criterions_ids[]", criteria.id , @ids.include?(criteria.id) , :class => "cb", id: dom_id(criteria)%> &nbsp;&nbsp;<%= criteria.name%></h4></label>
-	<% @m = CompanyCriterions.where(:company_id => @company , :criterion_id => criteria.id).first%>
+	<% @m = CompanyCriterion.where(:company_id => @company , :criterion_id => criteria.id).first%>
 			<% if !@m.blank?%>
 			<% @v= @m.weight.to_s%>
 			<%else%>
@@ -16,7 +16,7 @@
 	<p class = "p"><%= f.text_field(criteria.id , :class => "span4 weight", :placeholder =>"weight" , :value => @v) %> %</p>
 	<br>
 	<h6 style="padding-left:20px;"> &#9733; Please Choose Sub-Criteria:</h6>
-	<div class= "list" style="padding-left:20px;">
+	<div class= "list2" style="padding-left:20px;">
 	<% Subcriterion.where(:criterion_id => criteria.id).each do |sub|%>
 	<label class = "label2"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub)%><%= sub.name%></label>
 	<%end%>

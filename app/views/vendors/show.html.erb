@@ -12,7 +12,7 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Edit A Vendor</h3>
   </div>
-  <%= form_for(@vendo , :as=>:vendor, :url=>{:action=>'update' , :id => @vendor.id}) do |f| %>
+  <%= form_for(@vendo , :as=>:vendor, :validate => true, :url=>{:action=>'update' , :id => @vendor.id}) do |f| %>
   <%= render(:partial=> 'form' , :locals => {:f => f})%>
  <% end %>
 </div>

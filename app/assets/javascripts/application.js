@@ -114,11 +114,15 @@ $('.subw').keyup(function(){
   var v = $('#'+n).text();
   var vint = parseInt(v);
   var sum= 0; 
+  var total=0;
+  $('#divsub').find('input.subw[type=text]').each(function(){
+    total += Number($(this).val());
+  });
   $('#sub'+n).find('input.subw[type=text]').each(function(){
     sum += Number($(this).val());
   });
 
-  if (sum == vint){
+  if ((sum == vint)&& (total==100)){
     $('.save').removeAttr("disabled");
   }
   else{
@@ -153,3 +157,21 @@ $('.drop').change(function(){
  $('#'+select).find('input[type="hidden"]').val(max);
 });
 });
+
+$ (function(){
+$('#myModal').on('shown', function () {
+  $(ClientSideValidations.selectors.forms).validate();
+});
+});
+
+$ (function(){
+$('#myscoreModal').on('shown', function () {
+  $(ClientSideValidations.selectors.forms).validate();
+});
+});
+
+
+
+
+
+

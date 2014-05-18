@@ -15,12 +15,16 @@
     <div class="tab-pane active" id="tab1">
       <div class="inner-content-div">
       <br>
-<%= form_for(:company_subcriterions, :url=>{:action=>'create' , :id => @company}) do |f| %>
+<%= form_for(:company_subcriterions,:url=>{:action=>'create' , :id => @company}) do |f| %>
+
+<div id="divsub">
 
       <% @criteria.each do|c|%>
+
       <h4><p style="padding-left:23px;" class = "title link-color"><%= c.criterion.name%><label style="margin-top:-20px; margin-left: 200px; font-size: 18px;"id=<%="#{c.id}"-%>><%= c.weight%></label><label style="margin-top:-25px; margin-left: 230px; font-size: 18px;">%</label></p></h4>
      <br>
       <h6 class ="link-color" style= "padding-left:23px;">&#9734; Please Assign Weight to Sub-Criteria:</h6>
+      
       
       <div class ="list2" id=<%="sub#{c.id}"-%>>
       <% @subcriteria.each do|sub|%>
@@ -36,6 +40,7 @@
       <button class = "btn btn-primary save" type = "submit" disabled>Save</button>
     
        <% end %>
+      </div>
       </div>
 </div>
 </div>

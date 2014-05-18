@@ -1,0 +1,16 @@
+<div class="modal-body" "body">
+<div style="padding-left:25px;">
+	<h6> &#9733; Please Check Companies to be Confirmed</h6>
+	<% @companies = Company.where(:confirm => false)%>
+<% @companies.each do |company|%>
+<%= check_box_tag "companies[]", company.id%> <%= link_to(company.name,{:controller => 'companies',:action => 'show', :id => company.id})%>
+<br>
+<br>
+<%end%>
+</div>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+ 		<button class = "btn btn-primary" type = "submit">Save</button>
+    
+  </div>

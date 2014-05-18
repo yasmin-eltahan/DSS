@@ -3,8 +3,8 @@ class CompanySubcriterionsController < ApplicationController
 	def new
 		@v =""
 		@company = params[:id]
-		@criteria = CompanyCriterions.where(:company_id => @company)
-		@subcriteria = CompanySubcriterions.where(:company_id => @company)
+		@criteria = CompanyCriterion.where(:company_id => @company)
+		@subcriteria = CompanySubcriterion.where(:company_id => @company)
 	end
 
 
@@ -12,7 +12,7 @@ class CompanySubcriterionsController < ApplicationController
 		@company = params[:id]
 		@weight= params[:company_subcriterions]
 		@weight.each do|key,value|
-		@record = CompanySubcriterions.where(:id => key)
+		@record = CompanySubcriterion.where(:id => key)
 		@record.update_all(:weight =>value)
 		end
 
@@ -22,8 +22,8 @@ class CompanySubcriterionsController < ApplicationController
 	def edit
 		@v =""
 		@company = params[:id]
-		@criteria = CompanyCriterions.where(:company_id => @company)
-		@subcriteria = CompanySubcriterions.where(:company_id => @company)
+		@criteria = CompanyCriterion.where(:company_id => @company)
+		@subcriteria = CompanySubcriterion.where(:company_id => @company)
 	end
 
 end

@@ -63,8 +63,8 @@ class ScorePdf < Prawn::Document
 		move_down 20
 		text "Criteria" , style: :bold
 		move_down 6 
-		@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
-		@subids = CompanySubcriterions.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company.id}).collect(&:subcriterion_id)
+		@criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+		@subids = CompanySubcriterion.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company.id}).collect(&:subcriterion_id)
 	    @criteria.each do |criteria|  
         	text "#{criteria.criterion.name}   #{criteria.weight}%"  , style: :bold
             text "#{criteria.criterion.description} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua"
@@ -151,9 +151,9 @@ class ScorePdf < Prawn::Document
  			move_down 10
             widths = [150,100,100]
             table([["Criteria", "weight", "Value"]], :column_widths => widths)
-	        criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})    
+	        criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})    
 	        criteria.map do |c|
-	            getaverage = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id , :system_id => s.system_id , :criterion_id => c.criterion_id}) 
+	            getaverage = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id , :system_id => s.system_id , :criterion_id => c.criterion_id}) 
 	            average = 0
 	            getaverage.each do |av| 
 	                average = average + av.value 

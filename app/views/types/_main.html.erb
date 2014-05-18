@@ -27,6 +27,28 @@
 			</div>
 		</div>
 		</div>
+		<div class="row" style="padding-left:40px;">
+		<div class="span4">
+			<div class="row">
+			<div class="span2">
+			<%= f.radio_button :string, false %>
+			</div>
+			<div class="span2" style="margin-left:-8px;padding-top:2px;">
+			<b><%= f.label("Range") %></b>
+			</div>
+			</div>
+		</div>
+		<div class="span4" style="margin-left:-20px;">
+			<div class="row">
+			<div class="span2">
+			<%= f.radio_button :string , true %> 
+			</div>
+			<div class="span2" style="margin-left:-8px;padding-top:2px;">
+			<b><%= f.label("Fixed") %></b>
+			</div>
+			</div>
+		</div>
+	</div>
 
         <div>
         <div id="req-div" style="margin-left:20px;">   

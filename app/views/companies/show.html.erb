@@ -180,8 +180,25 @@
 
       <div class="tab-pane " id="tab4">
       <div class="inner-content-div">
-      <span style="padding-left:723px">  
+      <span style="padding-left:723px"> 
+      <% @cons_no = CompanyUsers.where(:company_id => @company.id , :role=>"consultant") %>
+      <% @if_allscored = CompanySystem.where(:company_id=> @company.id) %>
+      <% @cons_no.each do |c|%>
+          <% @b = "no" %>
+          <% @if_allscored.each do |a| %>
+              <% if (a.user_id == c.user_id) %>
+                <% @b = "yes" %>
+                <% break %>
+              <%end%>
+          <%end%>
+          <% if (@b == "no") %>
+          <%break%>
+          <%end%>
+      <%end%>
+       <% if (@b == "yes") %>
         <%= link_to("View Report (PDF)" ,{:controller=>"companies",:action=>'show',:id=>@company.id ,:format=>"pdf" }, :class=>"link-color-purple")%>
+      <%end%>
+     
       </span>
        <% @systems.each do |s| %>
 

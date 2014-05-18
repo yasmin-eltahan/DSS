@@ -23,7 +23,7 @@
 
       <% @criteria.each do|c|%>
       
-      <h4><p style="padding-left:23px;" class = "title link-color"><%= c.criterion.name%><label style="margin-top:-20px; margin-left: 200px; font-size: 18px;"id=<%="#{c.id}"-%>><%= c.weight%></label><label style="margin-top:-25px; margin-left: 230px; font-size: 18px;">%</label></p></h4>
+      <h4><p style="padding-left:23px;" class = "title link-color"><%= c.criterion.name%><label style="margin-top:-20px; margin-left: 300px; font-size: 18px;"id=<%="#{c.id}"-%>><%= c.weight%></label><label style="margin-top:-25px; margin-left: 320px; font-size: 18px;">%</label></p></h4>
      <br>
       <h6 class ="link-color" style= "padding-left:23px;">&#9734; Please Assign Weight to Sub-Criteria:</h6>
       
@@ -37,7 +37,7 @@
       <%@v = ""%>
       <%end%>
 
-      <p style="padding-left:23px; margin-right:0px;"> &#149; <%= sub.subcriterion.name%> <p style="padding-left:200px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span3 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p><p>
+      <p style="padding-left:23px; margin-right:0px;"> &#149; <%= sub.subcriterion.name%> <p style="padding-left:240px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span3 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p><p>
       	
       <%end%>
       <%end%>

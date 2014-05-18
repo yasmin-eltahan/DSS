@@ -139,7 +139,7 @@ $('.weight').keyup(function(){
   $('.weight').each(function() {
     sum += Number($(this).val());
   });
-  if (sum == 100){
+  if ((sum == 100) || (sum == 0)){
     $('.save').removeAttr("disabled");
   }
   else{

@@ -188,8 +188,8 @@
         <h4 style="padding-left:23px"><b>
         <%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%>
         </b> </h4>
-      <% @edits = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id , :user_id=> current_user.id}) %>
-      <% @user = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
+      <% @edits = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id , :user_id=> current_user.id}) %>
+      <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
       <% @user = @user.first %>
       <% if (( !@user.blank? ) && ( @user.role == "consultant") )%>
       <% if ( !@edits.blank?)  %>
@@ -222,7 +222,7 @@
        <%else%>
 
 
-       <% @consultants = CompanyUsers.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
+       <% @consultants = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
 
        <% @consultants.each do |consultant| %>
        <span style="padding-left:23px;"> Consultant <%= consultant.user.username %>:</span><br>
@@ -427,8 +427,9 @@
       <% @admins = CompanyUser.find(:all,:select => "user_id",:conditions=>{:company_id => @company.id , :role => "consultant"}).collect(&:user_id)%>
       <% @admins.each do |admin|%>
       <% @user = User.find_by_id(admin)%>
+      <% @id = CompanyUser.where(:company_id => @company.id , :user_id => admin).first%>
       <li style = "padding-left:25px;"><b>Username:</b> <%= @user.username%> <br> &nbsp;&nbsp;&nbsp;<b>Email:</b> <%= @user.email%>
-        <p style="padding-left:800px; margin-top:-40px;"><%= link_to({:controller => 'company_users',:action => 'destroy', :id=>@id.id , :company =>  @company.id },:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </p></li><br>
+        <p style="padding-left:800px; margin-top:-40px;"><%= link_to({:controller => 'company_users',:action => 'destroy', :id=> @id.id  , :company =>  @company.id },:confirm => 'Are you sure you want to delete?!' , :class=>"btns btn-mini") do  %> <i class="icon-trash icon-white" title="delete"></i> <%end%> </p></li><br>
       <%end%>
     </div>
     </div>

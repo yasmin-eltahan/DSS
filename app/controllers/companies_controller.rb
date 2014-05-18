@@ -69,14 +69,14 @@ def show
 end
 
 		@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil})
-		@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+		@criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
 		@id = ""
 		@button = "No"
         if(params.has_key?(:button))
         @button = "Yes"
 		@systems.each do |s|
 			systemid = s.system.id
-			values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
+			values = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
 			if !values.blank?
 				#@button = "Yes"
 				@totalscore = 0

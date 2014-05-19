@@ -96,6 +96,11 @@
     <div class="tab-pane" id="tab2">
       <div class="inner-content-div">
       <br>
+      <% if user_signed_in? %>
+       <% if current_user.role == "admin" %>
+      <div style="padding-left:23px"><a href="#mModal" role="button"  style="margin-left:700px" class="btnpink"  data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a></div>
+       <%end%>
+       <%end%>
       <ul><% @systems.each do |system| %>
       <p class = "title"><%= link_to("#{system.name}",{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title link-color-purple")%></p>
       <p class="line-break"><%=system.description%></p>
@@ -104,11 +109,6 @@
 
     </ul>
     <div>
-      <% if user_signed_in? %>
-       <% if current_user.role == "admin" %>
-      <div style="padding-left:23px"><a href="#mModal" role="button"  style="margin-left:700px" class="btnpink"  data-toggle="modal" title = "Add A System"><i class="icon-plus icon-white" ></i> New</a></div>
-       <%end%>
-       <%end%>
       <div id="mModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
        <div class="modal-header">

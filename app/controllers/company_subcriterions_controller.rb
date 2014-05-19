@@ -3,7 +3,7 @@ class CompanySubcriterionsController < ApplicationController
 	def new
 		@v =""
 		@company = params[:id]
-		@criteria = CompanyCriterion.where(:company_id => @company)
+		@criteria = CompanyCriterion.where(:company_id => @company, :system_id=>nil)
 		@subcriteria = CompanySubcriterion.where(:company_id => @company)
 	end
 
@@ -22,7 +22,7 @@ class CompanySubcriterionsController < ApplicationController
 	def edit
 		@v =""
 		@company = params[:id]
-		@criteria = CompanyCriterion.where(:company_id => @company)
+		@criteria = CompanyCriterion.where(:company_id => @company ,  :system_id=>nil)
 		@subcriteria = CompanySubcriterion.where(:company_id => @company)
 	end
 

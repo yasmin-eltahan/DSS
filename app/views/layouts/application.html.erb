@@ -72,7 +72,7 @@
         </div>
         <div class="span6" style="padding-left:10px;">
         <span><span class="link-color"><b><%= r.rank %>.</b></span>
-        <b><%= link_to(r.system.name, {:controller => 'systems',:action => 'show', :id => r.system_id} , :class=>"link-color") %></b>
+        <b><%= link_to(r.system.name.gsub("-" , " "), {:controller => 'systems',:action => 'show', :id => r.system_id} , :class=>"link-color") %></b>
         </span><br>
         by <%= link_to(r.system.vendor.name, {:controller => 'vendors',:action => 'show', :id => r.system.vendor_id },:class=>"vendor-link") %>
         </div>

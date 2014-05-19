@@ -146,10 +146,17 @@
       <% @cid = CompanySubcriterion.where(:company_id => @company.id) %>
 
       <h5 class ="link-color">&#9734; Sub-Criteria Chosen:</h5>
-      <div class ="listt list2">
+      <div class="list2">
       <%@cid.each do |s|%>
       <%if s.subcriterion.criterion_id == criteria.criterion.id%>
-      &#149; <%= s.subcriterion.name%> &nbsp;&nbsp; &nbsp;&nbsp;<%= s.weight%>%<br>
+      <div class="row">
+        <div class="span5" style="padding-left:50px;">
+        &#149; <%= s.subcriterion.name%>
+        </div>
+        <div class="span1 ">
+        <%= s.weight%>%<br>
+        </div>
+      </div>
       <%end%>
       <%end%>
     </div>
@@ -169,6 +176,7 @@
        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
        <h3 id="myModalLabel">Add Criteria To Company</h3>
       </div>
+
       <%= form_for(:company_criterions, :url=>{:controller => 'company_criterions' , :action=>'enter_criteria' , :id => @company.id}) do |f| %>
        <%= render(:partial=> 'company_criterions/view' , :locals => {:f => f})%>
        <% end %>
@@ -181,7 +189,7 @@
       <div class="tab-pane " id="tab4">
       <div class="inner-content-div">
       <span style="padding-left:723px"> 
-      <% @cons_no = CompanyUsers.where(:company_id => @company.id , :role=>"consultant") %>
+      <% @cons_no = CompanyUser.where(:company_id => @company.id , :role=>"consultant") %>
       <% @if_allscored = CompanySystem.where(:company_id=> @company.id) %>
       <% @cons_no.each do |c|%>
           <% @b = "no" %>

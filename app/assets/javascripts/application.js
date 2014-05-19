@@ -155,6 +155,7 @@ $('.drop').change(function(){
  max = $(this).val()
  var select = $(this).attr('id');
  $('#'+select).find('input[type="hidden"]').val(max);
+ 
 });
 });
 

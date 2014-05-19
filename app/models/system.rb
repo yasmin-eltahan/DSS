@@ -5,7 +5,7 @@ class System < ActiveRecord::Base
    belongs_to :vendor
    has_many :versions, :dependent => :destroy
    has_many :reviews ,:dependent => :destroy
-   has_many :company_criteria, :dependent => :destroy
+   has_many :company_criterions, :dependent => :destroy
    has_many :requirements, :through => :system_requirements
    has_many :system_requirements, :dependent => :destroy
    has_many :ranks, :dependent => :destroy

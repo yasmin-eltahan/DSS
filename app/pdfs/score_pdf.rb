@@ -139,6 +139,7 @@ class ScorePdf < Prawn::Document
             	end
           	end
         end
+
         	indent(290) do
 	        	finalscore = CompanySystem.find(:all,:conditions => ['user_id is not null and company_id = ? and system_id = ?',  @company.id , s.system_id]) 
 		        int = 0 
@@ -146,8 +147,41 @@ class ScorePdf < Prawn::Document
 		            int = int + f.final_score
 		        end
 		        i = int / finalscore.size  
-	 			text "Score: #{number_with_precision(i ,:precision => 2)}" 
- 			end 
+	 			#text "Score: #{number_with_precision(i ,:precision => 2)}" 
+ 			
+
+				@rr = 0
+				@position = ""
+				@rank = Rank.where(:system_id=> s.system_id)
+				if !@rank.blank?
+					@rank.each do |r|
+						if (Time.now.year.to_s == r.updated_at.year.to_s)
+							if (r.rank.to_i == 1)
+								i = i + 10
+								@rr = 10
+								@position = "1st"
+							else
+								if (r.rank.to_i == 2)
+									i = i + 5
+									@rr = 5
+									@position = "2nd"
+								else
+									if (r.rank.to_i == 3)
+										i = i + 3
+										@rr = 3
+										@position = "3rd"
+									end
+								end
+							end
+						end
+					end	
+				end
+				text "Score: #{number_with_precision(i ,:precision => 2)}" 
+			end
+				if !@rank.blank?
+				text "Rank #{@position}: #{@rr} points were added."
+				end
+
  			move_down 10
             widths = [150,100,100]
             table([["Criteria", "weight", "Value"]], :column_widths => widths)

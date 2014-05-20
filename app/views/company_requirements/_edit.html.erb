@@ -24,7 +24,7 @@
   <option value="true" <%if @Maximum && !@drop%> selected<%end%>>Maximum</option>
   <option value="false" <%if !@Maximum && !@drop%> selected<%end%>>Minimum</option>
 </select></p>
-<p class= "reqtext"><%= f.text_field(req.id ,:class => "span4" , :placeholder => "e.g 2GB", :value => @val) %></p>
+<p class= "reqtext"><%= f.text_field(req.id ,:class => "span5" , :placeholder => "e.g 2GB", :value => @val) %></p>
 <p><%= hidden_field :requirement_id, req.id %></p>
 <br>
 </div>

@@ -17,33 +17,42 @@
 
       <h4 class="link-color-purple" style ="padding-left:23px;"><b>Please Enter Weight For Sub-Criteria:</b></h4>
       <br>
-<%= form_for(:company_subcriterions, :url=>{:action=>'create' , :id => @company}) do |f| %>
+<%= form_for(:company_subcriterions,:url=>{:action=>'update' , :id => @company}) do |f| %>
+
+<div id="divsub">
 
       <% @criteria.each do|c|%>
-      <h4><p style="padding-left:23px;" class = "title link-color"><%= c.criterion.name%><label style="margin-top:-20px; margin-left: 200px; font-size: 18px;"id=<%="#{c.id}"-%>><%= c.weight%></label><label style="margin-top:-25px; margin-left: 230px; font-size: 18px;">%</label></p></h4>
-     <br>
-      <h6 class ="link-color" style= "padding-left:23px;">&#9734; Please Assign Weight to Sub-Criteria:</h6>
       
-      <div class ="list2" id=<%="sub#{c.id}"-%>>
-      <% @subcriteria.each do|sub|%>
-      <%if sub.subcriterion.criterion_id == c.criterion.id%>
-      <% @m = CompanySubcriterions.where(:id=>sub.id).first%>
+      <h4><p style="padding-left:23px;" class = "title link-color"><%= c.criterion.name%><label style="margin-top:-20px; margin-left: 300px; font-size: 18px;"id=<%="#{c.id}"-%>><%= c.weight%></label><label style="margin-top:-25px; margin-left: 320px; font-size: 18px;">%</label></p></h4>
+     <br>
+     <h6 class ="link-color" style= "padding-left:23px;">&#9734; Please Choose and Assign Weight to Sub-Criteria:</h6>
+     
+      <div class ="list2" style="padding-left:20px;" id=<%="sub#{c.id}"-%>>
+  <br>
+
+      <% Subcriterion.where(:criterion_id => c.criterion.id).each do |sub|%>
+     
+      <% @m = CompanySubcriterion.where(:company_id => @company, :subcriterion_id =>sub.id).first%>
       <% if !@m.blank?%>
       <% @v= @m.weight.to_s%>
       <%else%>
       <%@v = ""%>
       <%end%>
-      <p style="padding-left:23px; margin-right:0px;"> &#149; <%= sub.subcriterion.name%> <p style="padding-left:150px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span3 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p><p>
+
+      <label class = "label1"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub)%><%= sub.name%></label><p style="padding-left:260px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span5 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p>
+
       	
+      
       <%end%>
-      <%end%>
-  </div>
+      </div>
       <br>
+       <br>
       <%end%>
 
-      <button class = "btn btn-primary save" type = "submit" style="margin-left:755px;">Save</button>
+      <button class = "btn btn-primary save" type = "submit" style="margin-left:755px;" disabled>Save</button>
     
        <% end %>
+     </div>
       </div>
 </div>
 </div>

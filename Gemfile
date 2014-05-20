@@ -15,6 +15,7 @@ gem 'devise', '~> 2.2.3'
 gem 'carrierwave'
 gem 'rmagick', '~> 2.12.2'
 gem 'prawn'
+gem 'client_side_validations'
 
 
 

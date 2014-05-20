@@ -20,7 +20,7 @@
 	      </div>
 	      <div  class="score-div padding">
 	        <% @spec = Spec.find(spec.id) %>
-	        <%= form_for(@spec , :as=>:spec, :url=>{:action=>'update', :id=>spec.id}) do |f| %>
+	        <%= form_for(@spec , :as=>:spec, :validate => true,:url=>{:action=>'update', :id=>spec.id}) do |f| %>
 			<%= render(:partial=>'edit', :locals=>{:f=>f}) %>
 			<%end%>
 	      </div>

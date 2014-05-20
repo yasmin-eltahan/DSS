@@ -8,9 +8,9 @@ end
 
 def show
 @company = Company.find(params[:id])
-@criteria = CompanyCriterions.where(:company_id => @company.id)
-@ids = CompanyCriterions.find(:all,:select => "criterion_id",:conditions=>{:company_id => @company.id}).collect(&:criterion_id)
-@subids = CompanySubcriterions.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company.id}).collect(&:subcriterion_id)
+@criteria = CompanyCriterion.where(:company_id => @company.id)
+@ids = CompanyCriterion.find(:all,:select => "criterion_id",:conditions=>{:company_id => @company.id}).collect(&:criterion_id)
+@subids = CompanySubcriterion.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company.id}).collect(&:subcriterion_id)
 @companyreq = CompanyRequirement.find(:all,:conditions => {:company_id => @company.id})
 @systemreq = SystemRequirement.all
 @allsystems = System.all
@@ -68,15 +68,16 @@ def show
 	end	
 end
 
+
 		@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil} , :order=>("final_score DESC"))
-		@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+		@criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
 		@id = ""
 		@button = "No"
         if(params.has_key?(:button))
         @button = "Yes"
 		@systems.each do |s|
 			systemid = s.system.id
-			values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
+			values = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
 			if !values.blank?
 				#@button = "Yes"
 				@totalscore = 0
@@ -87,6 +88,7 @@ end
 			     @totalscore = @totalscore + @criteria_score
 				end
 	
+
 
 				record = CompanySystem.where(:company_id => @company.id , :system_id=>systemid , :user_id=> current_user.id)
 				if !record.blank?
@@ -108,6 +110,7 @@ end
                             disposition: "inline"
 				end
 		end
+
 
 # if user_signed_in? 
 # @edits = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id , :user_id=> current_user.id})
@@ -132,7 +135,7 @@ def createScore
 			systemid = result.first
 			criteriaid = result.last
 			weight = result[1]
-			@add = CompanyCriterions.create(:company_id => @companyid, :weight=>weight, :system_id=>systemid , :criterion_id=>criteriaid, :value => value , :user_id=> current_user.id)
+			@add = CompanyCriterion.create(:company_id => @companyid, :weight=>weight, :system_id=>systemid , :criterion_id=>criteriaid, :value => value , :user_id=> current_user.id)
 			end
 		end
 	    end
@@ -161,7 +164,7 @@ def updateScore
 				systemid = result.first
 				criteriaid = result.last
 				weight = result[1]
-				@find = CompanyCriterions.find(:all, :conditions=> {:company_id => @companyid , :criterion_id=>criteriaid , :system_id=>systemid, :user_id=> current_user.id})
+				@find = CompanyCriterion.find(:all, :conditions=> {:company_id => @companyid , :criterion_id=>criteriaid , :system_id=>systemid, :user_id=> current_user.id})
 				res = @find.first
 
 				if (res.value == value)
@@ -178,8 +181,9 @@ end
 	def create
 		@company = Company.new(params[:company])
 		if @company.save
+			flash[:sucess] = "Company Is Added Successfully Please Wait for Confirmation!!"
 			if !current_user.blank?
-				CompanyUsers.create(:company_id => @company.id , :user_id => current_user.id, :role => "admin")
+				CompanyUser.create(:company_id => @company.id , :user_id => current_user.id, :role => "admin")
 			end
 		redirect_to(:action => 'list')
 		else 
@@ -206,12 +210,12 @@ end
 	def score
 		@company = Company.find(params[:id])	
 		@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil})
-		@criteria = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
+		@criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
 			@id = ""
 			@button = "No"
 			@systems.each do |s|
 				systemid = s.system.id
-				values = CompanyCriterions.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
+				values = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id => systemid , :user_id=> current_user.id})
 				if !values.blank?
 					@button = "Yes"
 					@totalscore = 0
@@ -263,9 +267,6 @@ end
 		#redirect_to(:action => 'show' , :id=> @company.id)
 end
 
-	def confirm
-		@companies = Company.where(:confirm => false)
-	end
 
 	def confirmed
 		@confirmids = params[:companies]

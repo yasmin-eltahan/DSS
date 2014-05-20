@@ -20,7 +20,7 @@
 	      </div>
 	      <div  class="score-div padding">
 	        <% @edit = Type.find(type.id) %>
-	        <%= form_for(@edit , :as=>:type, :url=>{:controller => 'types' , :action=>'update', :id=>type.id}) do |f| %>
+	        <%= form_for(@edit , :as=>:type, :validate => true,:url=>{:controller => 'types' , :action=>'update', :id=>type.id}) do |f| %>
 			<%= render(:partial=>'main', :locals=>{:f=>f}) %>
 			<%end%>
 	      </div>

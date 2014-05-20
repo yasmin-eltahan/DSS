@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :role, :oauth_expires_at, :oauth_token, :provider, :uid
-   has_many :company_users
+   has_many :company_users, :dependent => :destroy
    has_many :companies , :through => :company_users
   def self.from_omniauth(auth)
   where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|

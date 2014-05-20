@@ -1,7 +1,7 @@
 <% @systems.each do |system| %>
 		    <div class = "box-list" >
 			<tr> <br>
-		    <td> <%= link_to("#{system.name}",{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title link-color")%></td> <br>By <span> <%= link_to("#{system.vendor.name}",{:controller=>"vendors",:action=>'show',:id=>system.vendor_id} , :class=>"vendor-link")%><br>
+		    <td> <%= link_to(system.name.gsub("-" , " "),{:controller=>"systems",:action=>'show',:id=>system.id}, :class=>"title link-color")%></td> <br>By <span> <%= link_to("#{system.vendor.name}",{:controller=>"vendors",:action=>'show',:id=>system.vendor_id} , :class=>"vendor-link")%><br>
 		    <br>
 		 	Description: <br>
 			 	<div class="line-break">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

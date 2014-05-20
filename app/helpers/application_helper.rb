@@ -33,11 +33,10 @@ module ApplicationHelper
     @count = 1
       doc.css("h2"). each do |item|
       @name = item.text
+      @name = @name.gsub(" " , "-")
       @system = System.find_by_name(@name)
-      if @system.blank?
-        @system = System.create(:name => @name)
-      end
-      @new = Rank.new(:rank => @count , :system_id => @system.id , :source => url)
+      if !@system.blank?
+        @new = Rank.new(:rank => @count , :system_id => @system.id , :source => url)
       @ranks = Rank.all
       if !@ranks.blank?
         @flag = "false"      
@@ -53,7 +52,8 @@ module ApplicationHelper
       else
         @new.save
       end
-      @count = @count+1
+        @count = @count+1
+      end
 end
 @ran = Rank.where(:vendor_id => nil).order("ranks.rank")
 end

@@ -11,7 +11,7 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Add A Criteria</h3>
   </div>
-  <%= form_for(@criterionnew , :as=>:criterion, :url=>{:action=>'create'}) do |f| %>
+  <%= form_for(@criterionnew , :as=>:criterion,:validate => true, :url=>{:action=>'create'}) do |f| %>
   <%= render(:partial=> 'form' , :locals => {:f => f})%>
  <% end %>
 </div> 

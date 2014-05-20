@@ -17,7 +17,8 @@
 
 $(function(){
     $('.inner-content-div').slimScroll({
-        height: '450px'
+        height: '450px',
+        alwaysVisible: true
     });
 });
 
@@ -96,16 +97,33 @@ $(".cb").click(function(){
 });
 
 $ (function(){
+$(".all").click(function(){
+  if($(this).is(':checked')){
+  var c = $(this).attr('id')
+  $('#'+c).find('input[type=checkbox]').prop("checked", true);
+  
+  }
+  else{
+    $('#'+c).find('input[type=checkbox]:checked').removeAttr('checked');
+  }
+});
+});
+
+$ (function(){
 $('.subw').keyup(function(){
   var n = $(this).attr('id')
   var v = $('#'+n).text();
   var vint = parseInt(v);
   var sum= 0; 
+  var total=0;
+  $('#divsub').find('input.subw[type=text]').each(function(){
+    total += Number($(this).val());
+  });
   $('#sub'+n).find('input.subw[type=text]').each(function(){
     sum += Number($(this).val());
   });
 
-  if (sum == vint){
+  if ((sum == vint)&& (total==100)){
     $('.save').removeAttr("disabled");
   }
   else{
@@ -122,7 +140,7 @@ $('.weight').keyup(function(){
   $('.weight').each(function() {
     sum += Number($(this).val());
   });
-  if (sum == 100){
+  if ((sum == 100) || (sum == 0)){
     $('.save').removeAttr("disabled");
   }
   else{
@@ -138,5 +156,24 @@ $('.drop').change(function(){
  max = $(this).val()
  var select = $(this).attr('id');
  $('#'+select).find('input[type="hidden"]').val(max);
+ 
 });
 });
+
+$ (function(){
+$('#myModal').on('shown', function () {
+  $(ClientSideValidations.selectors.forms).validate();
+});
+});
+
+$ (function(){
+$('#myscoreModal').on('shown', function () {
+  $(ClientSideValidations.selectors.forms).validate();
+});
+});
+
+
+
+
+
+

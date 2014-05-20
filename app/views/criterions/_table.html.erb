@@ -20,7 +20,7 @@
 	      </div>
 	      <div  class="score-div padding">
 	        <% @criterion = Criterion.find(criterion.id) %>
-	        <%= form_for(@criterion , :as=>:criterion, :url=>{:action=>'update', :id=>criterion.id}) do |f| %>
+	        <%= form_for(@criterion , :as=>:criterion, :validate => true,:url=>{:action=>'update', :id=>criterion.id}) do |f| %>
 			<%= render(:partial=>'edit', :locals=>{:f=>f}) %>
 			<%end%>
 	      </div>
@@ -37,7 +37,7 @@
 
 		<div style="padding-left:5px;">
 		<span class="link-color-purple"><b>&#9734; Sub-Criteria</b></span><br><br>
-		<div class= " listt list">
+		<div class= "list">
 			<ul>
 			<% criterion.subcriterions.each do |s|%>
 			<li><%= s.name %></li>

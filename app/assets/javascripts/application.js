@@ -17,7 +17,8 @@
 
 $(function(){
     $('.inner-content-div').slimScroll({
-        height: '450px'
+        height: '450px',
+        alwaysVisible: true
     });
 });
 

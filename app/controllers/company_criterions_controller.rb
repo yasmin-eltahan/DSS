@@ -7,10 +7,8 @@ class CompanyCriterionsController < ApplicationController
 	def enter_criteria
 		@company = params[:id]
 		@co = CompanyCriterion.new
-		@subc= CompanySubcriterion.new
 		@criteria = params[:criterions_ids]
 		@weight = params[:company_criterions]
-		@sub = params[:subcriterions_ids]
 		@sum = params[:company_criterions][:sum]
 
 		@criteria.each do |c|
@@ -24,17 +22,7 @@ class CompanyCriterionsController < ApplicationController
 				@co.save
 			end
 		end
-		if !@sub.blank?
-		@sub.each do |s|
-		
-			@subc = CompanySubcriterion.new(:company_id => @company, :subcriterion_id => s)
-			@check = CompanySubcriterion.where(:company_id => @company , :subcriterion_id => s)
-			if @check.blank?
-				@subc.save
-			end
-		end
-	end
-	if @co.save && @subc.save 
+	if @co.save 
 		redirect_to(:controller => 'company_subcriterions' , :action =>'new' , :id=> @company)
 	end
 	end
@@ -43,7 +31,7 @@ class CompanyCriterionsController < ApplicationController
 		@company = params[:id]
 		@co = CompanyCriterion.where(:company_id =>@company)
 		@ids = CompanyCriterion.find(:all,:select => "criterion_id",:conditions=>{:company_id => @company}).collect(&:criterion_id)
-		@subids = CompanySubcriterion.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company}).collect(&:subcriterion_id)	
+			
 	end
 
 	def edit_criteria
@@ -51,9 +39,7 @@ class CompanyCriterionsController < ApplicationController
 		@company = params[:id]
 		@co = CompanyCriterion.where(:company_id =>@company)
 		@ids = CompanyCriterion.find(:all,:select => "criterion_id",:conditions=>{:company_id => @company}).collect(&:criterion_id)
-		@subids = CompanySubcriterion.find(:all,:select => "subcriterion_id",:conditions=>{:company_id => @company}).collect(&:subcriterion_id)
 		@criteria = params[:criterions_ids]
-		@sub = params[:subcriterions_ids]
 		@weight = params[:company_criterions]
 		@sum = params[:company_criterions][:sum]
 		@ids.each do|id|
@@ -72,21 +58,7 @@ class CompanyCriterionsController < ApplicationController
 			
 		end
 	end
-	@subids.each do|id|
-			if @sub.include?(id.to_s)
-				@sub.each do |s|
-				@record = CompanySubcriterion.where(:company_id => @company , :subcriterion_id => s)
-				if @record.blank?
-				CompanySubcriterion.create(:company_id => @company , :subcriterion_id => s)
-				else
-				@record.update_all(:company_id => @company , :subcriterion_id => s)
-				end
-			end		
-			else
-				@record = CompanySubcriterion.where(:company_id => @company , :subcriterion_id => id).destroy_all
-			
-		end
-	end
+	
 		redirect_to(:controller => 'company_subcriterions' , :action =>'edit' , :id=> @company)
 	end
 

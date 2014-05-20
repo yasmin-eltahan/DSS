@@ -189,146 +189,157 @@
   <div class="span1">
     <% @edits = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id , :user_id=> current_user.id}) %>
     <% if ( @edits.blank?)  %>
-      <% if( !@systems.blank? ) %>
-      <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
-      <% @user = @user.first %>
-        <% if (( !@user.blank? ) && (@user.role == "consultant")) %>
-        <span style="padding-left:733px;"><a href="#myscoreModal" role="button" class="btnpink" data-toggle="modal"><b>Score</b></a></span>
-        <%end%>
-      <%end%>
-      <div>
-      <div id="myscoreModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">SCORE</h3>
-        </div>
-        <div  class="score-div padding">
-          <%= form_for(:company_criteria, :url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
-          <%= render(:partial=>'score', :locals=>{:f=>f}) %>
-          
-          <% end %>
-        </div>
-      </div>
-      </div> 
+          <% if( !@systems.blank? ) %>
+            <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+            <% @user = @user.first %>
+                <% if (( !@user.blank? ) && (@user.role == "consultant")) %>
+                    <span style="padding-left:733px;"><a href="#myscoreModal" role="button" class="btnpink" data-toggle="modal"><b>Score</b></a></span>
+                <%end%>
+          <%end%>
+          <div>
+          <div id="myscoreModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="myModalLabel">SCORE</h3>
+            </div>
+            <div  class="score-div padding">
+              <%= form_for(:company_criteria, :url=>{:action=>'createScore' , :company_id => @company.id}) do |f| %>
+              <%= render(:partial=>'score', :locals=>{:f=>f}) %>
+              
+              <% end %>
+            </div>
+          </div>
+          </div> 
   <%else%>
-    <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
-    <% @user = @user.first %>
-    <% if (  ( !@user.blank? ) && (@user.role == "consultant")) %>
-    <span style="padding-left:13px;"><a href="#editModal" role="button" class="btnpink  button" data-toggle="modal" style ="color:#ffffff;"><i class="icon-pencil icon-white"></i>Edit</a></span>
-    <%end%>
-    <div>
-    <div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel" style="padding-left:15px;">SCORE</h3>
-      </div>
-      <div  class="score-div padding">
-        <%= form_for(:company_criteria, :url=>{:action=>'updateScore' , :company_id => @company.id}) do |f| %>
-        <%= render(:partial=>'edit', :locals=>{:f=>f}) %>
-        <% end %>
-      </div>
-    </div>
-    </div> 
+          <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%>
+          <% @user = @user.first %>
+          <% if (  ( !@user.blank? ) && (@user.role == "consultant")) %>
+              <span style="padding-left:13px;"><a href="#editModal" role="button" class="btnpink  button" data-toggle="modal" style ="color:#ffffff;"><i class="icon-pencil icon-white"></i>Edit</a></span>
+          <%end%>
+          <div>
+          <div id="editModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="myModalLabel" style="padding-left:15px;">SCORE</h3>
+            </div>
+            <div  class="score-div padding">
+              <%= form_for(:company_criteria, :url=>{:action=>'updateScore' , :company_id => @company.id}) do |f| %>
+              <%= render(:partial=>'edit', :locals=>{:f=>f}) %>
+              <% end %>
+            </div>
+          </div>
+          </div> 
    <%end %>
  </div>
 
- <div class="span3" style="margin-left:-40px;">
+       <div class="span3" style="margin-left:-40px;">
 
-      <% @cons_no = CompanyUser.where(:company_id => @company.id , :role=>"consultant") %>
-      <% @if_allscored = CompanySystem.where(:company_id=> @company.id) %>
-      <% @cons_no.each do |c|%>
-          <% @b = "no" %>
-          <% @if_allscored.each do |a| %>
-              <% if (a.user_id == c.user_id) %>
-                <% @b = "yes" %>
-                <% break %>
-              <%end%>
-          <%end%>
-          <% if (@b == "no") %>
-          <%break%>
-          <%end%>
-      <%end%>
-       <% if (@b == "yes") %>
-       <ul>
-        <li>
-        <b><%= link_to("View Report (PDF)" ,{:controller=>"companies",:action=>'show',:id=>@company.id ,:format=>"pdf" }, :class=>"link-color-purple")%></b>
-        </li>
-        </ul>
-      <%end%>
+            <% @cons_no = CompanyUser.where(:company_id => @company.id , :role=>"consultant") %>
+            <% @if_allscored = CompanySystem.where(:company_id=> @company.id) %>
+            <% @cons_no.each do |c|%>
+                <% @b = "no" %>
+                <% @if_allscored.each do |a| %>
+                    <% if (a.user_id == c.user_id) %>
+                      <% @b = "yes" %>
+                      <% break %>
+                    <%end%>
+                <%end%>
+                <% if (@b == "no") %>
+                <%break%>
+                <%end%>
+            <%end%>
+             <% if (@b == "yes") %>
+             <ul>
+              <li>
+              <b><%= link_to("View Report (PDF)" ,{:controller=>"companies",:action=>'show',:id=>@company.id ,:format=>"pdf" }, :class=>"link-color-purple")%></b>
+              </li>
+              </ul>
+            <%end%>
 
- </div>
+       </div>
  </div>
 
 
      
-      
-       <% @systems.each do |s| %>
-
-        <h4 style="padding-left:23px"><b>
-        <%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%>
+<% @companyscored = CompanyCriterion.find(:all,:conditions => ['user_id is not null and company_id = ?',  @company.id]) %>  
+<% @scored = "no" %>
+<% if !@companyscored.blank? %>
+<% @scored = "yes" %>
+<%end%>   
+<% @systems.each do |s| %>
+      <% @available = CompanyCriterion.find(:all,:conditions => {:system_id => s.system_id}) %>
+       <% if ((@scored == "yes" && !@available.blank? ) || (@scored == "no")) %>
+       <h4 style="padding-left:23px"><b>
+          <%= link_to("#{s.system.name}",{:controller=>"systems",:action=>'show',:id=>s.system.id}, :class=>"link-color-purple")%>
         </b> </h4>
+      <%end%>
       <% @edits = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id , :user_id=> current_user.id}) %>
       <% @user = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :user_id=> current_user.id})%> 
       <% @user = @user.first %>
       <% if (( !@user.blank? ) && ( @user.role == "consultant") )%>
-      <% if ( !@edits.blank?)  %>
-          <div>
-          <div class="row">
-            <div class="span5">   
-                <% @edits.each do |e| %>
-                   <% if (e.system_id == s.system_id)%>
-                   <b style="padding-left:42px"><%= e.criterion.name %></b><br>
-                   <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
-                   <br><br>
-                   <%end%>
-                <% end %>  
-            </div>
-            <div class="span3 offset1 pull-right">
-               <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => current_user.id }) %>
-               <% r = fin.first %>
-                <div frame="box" class="border" style="padding:10px">
-                <div>
-                <span style="font-size:20px;margin:10px;"><b><%= number_with_precision(r.final_score ,:precision => 2) %></b></span>
+          <% if ( !@edits.blank?)  %>   
+              <div class="row">
+              <div class="span5">   
+                  <% @edits.each do |e| %>
+                    <% if (e.system_id == s.system_id)%>
+                      <b style="padding-left:42px"><%= e.criterion.name %></b><br>
+                      <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
+                      <br><br>
+                    <%end%>
+                  <%end %>  
+              </div>  
+              <div class="span3 offset1 pull-right">
+                    <% @available = CompanyCriterion.find(:all,:conditions => {:system_id => s.system_id}) %>
+                    <% if (@scored == "yes" && !@available.blank? ) %>
+                    <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => current_user.id }) %>
+                    <% r = fin.first %>
+                    <div frame="box" class="border" style="padding:10px">
+                      <div>
+                      <span style="font-size:20px;margin:10px;"><b><%= number_with_precision(r.final_score ,:precision => 2) %></b></span>
+                      </div>
+                    </div>
+                    <%end%>
+              </div>
+              </div> 
+          <%end%>
+      <%else%>
+
+        
+          <% @consultants = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
+          <% @consultants.each do |consultant| %>
+          <% if (@scored == "yes" && !@available.blank? ) %>
+          <span style="padding-left:23px;">- Consultant <%= consultant.user.username %>:</span><br>
+          <%end%>
+          <% @consultantscores = CompanyCriterion.find(:all , :conditions=> {:company_id=>@company.id , :user_id=> consultant.user_id}) %>
+             <div class="row">
+                <div class="span5"> 
+                 <% @consultantscores.each do |e| %>
+                     <% if (e.system_id == s.system_id)%>
+                         <b style="padding-left:42px"><%= e.criterion.name %></b><br>
+                         <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
+                         <br><br>
+                      <%end%>
+                 <%end%>
+                </div>
+                <div class="span3 offset1 pull-right">
+                 <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => consultant.user_id }) %>
+                  <% r = fin.first %>
+                  <% if !r.blank? %>
+                    <div frame="box" class="border" style="padding:10px">
+                      <div>
+                      <span style="font-size:20px;margin:10px;"><b><%= number_with_precision(r.final_score ,:precision => 2) %></b></span>
+                      </div>
+                    </div>
+                  <%end%>
                 </div>
               </div>
-            </div>
-          </div>
-          </div>
-       <% end %>
-       <%else%>
+            <%end%>
 
-
-       <% @consultants = CompanyUser.find(:all, :conditions=> {:company_id=> @company.id , :role=>"consultant"}) %>
-
-       <% @consultants.each do |consultant| %>
-       <span style="padding-left:23px;"> Consultant <%= consultant.user.username %>:</span><br>
-       <% @consultantscores = CompanyCriterion.find(:all , :conditions=> {:company_id=>@company.id , :user_id=> consultant.user_id}) %>
-               <div class="row">
-              <div class="span5"> 
-           <% @consultantscores.each do |e| %>
-             <% if (e.system_id == s.system_id)%>
-                 <b style="padding-left:42px"><%= e.criterion.name %></b><br>
-                 <span style="padding-left:42px"> Weight: <%= e.weight %>% <span class="pull-right">Value: <%= e.value %></span></span>
-                 <br><br>
-              <%end%>
-           <%end%>
-            </div>
-            <div class="span3 offset1 pull-right">
-             <% fin = CompanySystem.find(:all, :conditions=> {:company_id=>@company.id , :system_id => s.system_id , :user_id => consultant.user_id }) %>
-             <% r = fin.first %>
-              <% if !r.blank? %>
-              <div frame="box" class="border" style="padding:10px">
-                <div>
-                <span style="font-size:20px;margin:10px;"><b><%= number_with_precision(r.final_score ,:precision => 2) %></b></span>
-                </div>
-              </div>
-              <%end%>
-            </div>
-          </div>
-       <%end%>
-       <%end%>
+      <%end%>
 
       <div style="padding-left:22px">
+        <% @available = CompanyCriterion.find(:all,:conditions => {:system_id => s.system_id}) %>
+        <% if ((@scored == "yes" && !@available.blank? ) || (@scored == "no")) %>
         <b>&#9734; System Requirements</b><br>
         <div style="padding-left:15px;">
         <% @req = SystemRequirement.find(:all,:conditions=>{:system_id => s.system_id}) %>
@@ -352,10 +363,12 @@
         </ul>
         <%end%>
       </div>
+       <hr>
+      <%end%>
       </div>
 
-         <hr>
-       <%end %>
+         
+       <%end%>
       </div>
     </div>
 

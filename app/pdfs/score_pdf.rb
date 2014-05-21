@@ -109,6 +109,8 @@ class ScorePdf < Prawn::Document
         move_down 6
 		systems = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil}) 
     	systems.each do |s|
+    		@av = CompanySystem.find(:all,:conditions => ['user_id is not null and company_id = ? and system_id = ?',  @company.id , s.system_id]) 
+	        if !@av.blank?
 	        text "#{s.system.name}" , style: :bold 
 	        move_down 10
 	        text "System Requirements:" , style: :bold 
@@ -119,34 +121,39 @@ class ScorePdf < Prawn::Document
            		@boolean = "No" 
             	@req.each do |r|
                 	if (r.requirement.type_id == type.id)
-              		if (@boolean == "No") 	
-               		text "- #{type.name}" , style: :bold
-               		move_down 6
-                	@boolean = "Yes" 
-              		end
-              		if (r.requirement.type.string == true)
-             		indent(20) do
-		                text "#{ r.requirement.name }"
-		            end
-              		else
-              		text "#{r.requirement.name} #{r.value}" 
+	              		if (@boolean == "No") 	
+	               		text "- #{type.name}" , style: :bold
+	               		move_down 6
+	                	@boolean = "Yes" 
+	              		end
+	              		if (r.requirement.type.string == true)
+	             		indent(20) do
+			                text "#{ r.requirement.name }"
+			            end
+              			else
+              			text "#{r.requirement.name} #{r.value}" 
               		#if (r.max == true) 
               		#Max.
               		# else
               		# Min.
               		# end
-              		end
-            	end
-          	end
-        end
+              			end
+            		end
+          		end
+        	end
+        	end
+
 
         	indent(290) do
 	        	finalscore = CompanySystem.find(:all,:conditions => ['user_id is not null and company_id = ? and system_id = ?',  @company.id , s.system_id]) 
 		        int = 0 
+		        if ( !finalscore.blank? )
 		        finalscore.each do |f| 
 		            int = int + f.final_score
 		        end
 		        i = int / finalscore.size  
+		        
+
 	 			#text "Score: #{number_with_precision(i ,:precision => 2)}" 
  			
 
@@ -177,17 +184,21 @@ class ScorePdf < Prawn::Document
 					end	
 				end
 				text "Score: #{number_with_precision(i ,:precision => 2)}" 
+				end
 			end
+
 				if !@rank.blank?
 				text "Rank #{@position}: #{@rr} points were added."
 				end
 
+			if !@av.blank?
  			move_down 10
             widths = [150,100,100]
             table([["Criteria", "weight", "Value"]], :column_widths => widths)
 	        criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})    
 	        criteria.map do |c|
 	            getaverage = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id , :system_id => s.system_id , :criterion_id => c.criterion_id}) 
+	            if ( !getaverage.blank?)
 	            average = 0
 	            getaverage.each do |av| 
 	                average = average + av.value 
@@ -196,10 +207,13 @@ class ScorePdf < Prawn::Document
 	            # text "Weight: #{c.weight}" 
 	            # text "Value: #{final }"
 	            table([[make_cell(:content => "#{c.criterion.name}") , make_cell(:content => "#{c.weight}%"), make_cell(:content => "#{number_with_precision(final ,:precision => 2)}")]], :column_widths => widths)
+	        	end
 	        end 
 	        move_down 20  
+	    	end
 	       
         end
+
     end
 
     def reviews_list

@@ -80,8 +80,7 @@ if !@req.blank?
 					end
 				end
 			end
-		else
-			@record = SystemRequirement.where(:system_id=> @system.id , :requirement_id => id).destroy_all
+		
 		end
 	end
 	else

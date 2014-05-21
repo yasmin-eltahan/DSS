@@ -68,7 +68,8 @@ def show
 	end	
 end
 
-		@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil})
+
+		@systems  = CompanySystem.find(:all,:conditions => {:company_id => @company.id , :user_id => nil} , :order=>("final_score DESC"))
 		@criteria = CompanyCriterion.find(:all,:conditions => {:company_id => @company.id, :system_id=>nil})
 		@id = ""
 		@button = "No"
@@ -86,24 +87,7 @@ end
 			     @criteria_score = @criteria_value* ( (@criteria_weight/100.0))
 			     @totalscore = @totalscore + @criteria_score
 				end
-				@rank = Rank.where(:system_id=> s.system_id)
-				if !@rank.blank?
-					@rank.each do |r|
-						if (Time.now.year.to_s == r.updated_at.year.to_s)
-							if (r.rank == 1)
-								@totalscore = @totalscore + 10
-							else
-								if (r.rank == 2)
-									@totalscore = @totalscore + 5
-								else
-									if (r.rank == 3)
-										@totalscore = @totalscore + 3
-									end
-								end
-							end
-						end
-					end	
-				end
+	
 
 
 				record = CompanySystem.where(:company_id => @company.id , :system_id=>systemid , :user_id=> current_user.id)

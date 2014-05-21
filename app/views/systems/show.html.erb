@@ -20,7 +20,7 @@
 <br>
 <div class="row">
     <div class="span7">
-    <div class="header" style="padding-left:15px"><%= @system.name %></div> <br>
+    <div class="header" style="padding-left:15px"><%= @system.name.gsub("-" , " ") %></div> <br>
     </div>
     <% if user_signed_in? %>
      <% if current_user.role == "admin" %>

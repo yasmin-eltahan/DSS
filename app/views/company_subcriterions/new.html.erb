@@ -27,11 +27,11 @@
       
       
        <div class ="list2" style="padding-left:20px;" id=<%="sub#{c.id}"-%>>
-  <br>
+      <br>
 
       <% Subcriterion.where(:criterion_id => c.criterion.id).each do |sub|%>
-
-      <label class = "label1"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub)%><%= sub.name%></label><p style="padding-left:260px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span5 subw", :placeholder =>"weight %" , :id=> c.id) %></p>
+      <br>
+      <label class = "label1"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub), :class => "sub"%><%= sub.name%></label><p style="padding-left:260px; margin-top:-30px; display:none"id=<%="#{sub.id}"-%>><%= f.text_field(sub.id , :class => "span5 subw", :placeholder =>"weight %" , :id=> c.id) %></p>
 
         
       

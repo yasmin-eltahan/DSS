@@ -28,7 +28,7 @@
      <h6 class ="link-color" style= "padding-left:23px;">&#9734; Please Choose and Assign Weight to Sub-Criteria:</h6>
      
       <div class ="list2" style="padding-left:20px;" id=<%="sub#{c.id}"-%>>
-  <br>
+      <br>
 
       <% Subcriterion.where(:criterion_id => c.criterion.id).each do |sub|%>
      
@@ -38,10 +38,8 @@
       <%else%>
       <%@v = ""%>
       <%end%>
-
-      <label class = "label1"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub)%><%= sub.name%></label><p style="padding-left:260px; margin-top:-30px;"><%= f.text_field(sub.id , :class => "span5 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p>
-
-      	
+      <br>
+      <label class = "label1"><%= check_box_tag "subcriterions_ids[]", sub.id , @subids.include?(sub.id) , id: dom_id(sub),:class => "sub"%><%= sub.name%></label><p id=<%="#{sub.id}"-%> class ="subp" <%if @m.blank?%>style="display:none;"<%end%>><%= f.text_field(sub.id , :class => "span5 subw", :placeholder =>"weight %" , :id=> c.id , :value => @v) %></p>	
       
       <%end%>
       </div>

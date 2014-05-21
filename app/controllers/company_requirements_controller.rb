@@ -84,6 +84,8 @@ if !@req.blank?
 			@record = CompanyRequirement.where(:company_id=> @company.id , :requirement_id => id).destroy_all
 		end
 	end
+	else
+		@record = CompanyRequirement.where(:company_id=> @company.id).destroy_all
 end
  redirect_to(:controller => 'companies' , :action=> 'show' , :id => @company.id)
 end

@@ -22,6 +22,7 @@ $(function(){
     });
 });
 
+
 $(function(){
  $("#Budget-serach input").keyup(function (){
     $.get($("#Budget-serach").attr("action"), $("#Budget-serach").serialize(), null, "script");
@@ -97,17 +98,21 @@ $(".cb").click(function(){
 });
 
 $ (function(){
-$(".all").click(function(){
+$(".sub").click(function(){
   if($(this).is(':checked')){
-  var c = $(this).attr('id')
-  $('#'+c).find('input[type=checkbox]').prop("checked", true);
-  
+  var c = $(this).val()
+  $('#'+c).slideDown();
   }
   else{
-    $('#'+c).find('input[type=checkbox]:checked').removeAttr('checked');
+    var v= ""
+    var c = $(this).val()
+    $('#'+c).slideUp();
+    $('#'+c).find('input[type=text]').val(v);
+    $('.save').attr("disabled", true);
   }
 });
 });
+
 
 $ (function(){
 $('.subw').keyup(function(){
@@ -133,6 +138,7 @@ $('.subw').keyup(function(){
 });
 
 
+
 $ (function () {
 var sum= 0; 
 $('.weight').keyup(function(){
@@ -156,7 +162,8 @@ $('.drop').change(function(){
  max = $(this).val()
  var select = $(this).attr('id');
  $('#'+select).find('input[type="hidden"]').val(max);
- 
+ c = $('#'+select).find('input[type="hidden"]').val()
+ alert(c);
 });
 });
 
@@ -166,11 +173,7 @@ $('#myModal').on('shown', function () {
 });
 });
 
-$ (function(){
-$('#myscoreModal').on('shown', function () {
-  $(ClientSideValidations.selectors.forms).validate();
-});
-});
+
 
 
 

@@ -84,7 +84,10 @@ if !@req.blank?
 			@record = SystemRequirement.where(:system_id=> @system.id , :requirement_id => id).destroy_all
 		end
 	end
+	else
+		@record = SystemRequirement.where(:system_id=> @system.id).destroy_all
 end
  redirect_to(:controller => 'systems' , :action=> 'show' , :id => @system.id)
 end
+
 end
